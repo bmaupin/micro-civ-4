@@ -18,8 +18,8 @@
 			<iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>-50</iMaxConscriptModifier>
 			<iWarWearinessModifier>50</iWarWearinessModifier>
-			<iGridWidth>10</iGridWidth>
-			<iGridHeight>6</iGridHeight>
+			<iGridWidth>3</iGridWidth>
+			<iGridHeight>3</iGridHeight>
 			<iTerrainGrainChange>-1</iTerrainGrainChange>
 			<iFeatureGrainChange>-1</iFeatureGrainChange>
 			<iResearchPercent>100</iResearchPercent>
@@ -42,8 +42,8 @@
 			<iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>-25</iMaxConscriptModifier>
 			<iWarWearinessModifier>30</iWarWearinessModifier>
-			<iGridWidth>13</iGridWidth>
-			<iGridHeight>8</iGridHeight>
+			<iGridWidth>4</iGridWidth>
+			<iGridHeight>4</iGridHeight>
 			<iTerrainGrainChange>-1</iTerrainGrainChange>
 			<iFeatureGrainChange>-1</iFeatureGrainChange>
 			<iResearchPercent>110</iResearchPercent>
@@ -66,8 +66,8 @@
 			<iBuildingClassPrereqModifier>25</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>0</iMaxConscriptModifier>
 			<iWarWearinessModifier>10</iWarWearinessModifier>
-			<iGridWidth>16</iGridWidth>
-			<iGridHeight>10</iGridHeight>
+			<iGridWidth>5</iGridWidth>
+			<iGridHeight>5</iGridHeight>
 			<iTerrainGrainChange>0</iTerrainGrainChange>
 			<iFeatureGrainChange>0</iFeatureGrainChange>
 			<iResearchPercent>120</iResearchPercent>
@@ -90,8 +90,8 @@
 			<iBuildingClassPrereqModifier>50</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>25</iMaxConscriptModifier>
 			<iWarWearinessModifier>-10</iWarWearinessModifier>
-			<iGridWidth>21</iGridWidth>
-			<iGridHeight>13</iGridHeight>
+			<iGridWidth>6</iGridWidth>
+			<iGridHeight>6</iGridHeight>
 			<iTerrainGrainChange>0</iTerrainGrainChange>
 			<iFeatureGrainChange>0</iFeatureGrainChange>
 			<iResearchPercent>130</iResearchPercent>
@@ -114,8 +114,8 @@
 			<iBuildingClassPrereqModifier>75</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>50</iMaxConscriptModifier>
 			<iWarWearinessModifier>-30</iWarWearinessModifier>
-			<iGridWidth>26</iGridWidth>
-			<iGridHeight>16</iGridHeight>
+			<iGridWidth>7</iGridWidth>
+			<iGridHeight>7</iGridHeight>
 			<iTerrainGrainChange>1</iTerrainGrainChange>
 			<iFeatureGrainChange>1</iFeatureGrainChange>
 			<iResearchPercent>140</iResearchPercent>
@@ -138,8 +138,8 @@
 			<iBuildingClassPrereqModifier>100</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>75</iMaxConscriptModifier>
 			<iWarWearinessModifier>-50</iWarWearinessModifier>
-			<iGridWidth>32</iGridWidth>
-			<iGridHeight>20</iGridHeight>
+			<iGridWidth>8</iGridWidth>
+			<iGridHeight>8</iGridHeight>
 			<iTerrainGrainChange>1</iTerrainGrainChange>
 			<iFeatureGrainChange>1</iFeatureGrainChange>
 			<iResearchPercent>150</iResearchPercent>
