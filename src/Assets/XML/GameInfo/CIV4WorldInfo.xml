@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Jesse Smith (Firaxis Games) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Alex Mantzaris (Firaxis Games) -->
 <!-- Sid Meier's Civilization 4 -->
 <!-- Copyright Firaxis Games 2005 -->
 <!-- -->
 <!-- World Infos -->
+<!-- NOTE: If you remove any of these you need to update Interface/WorldPickerInfos.xml -->
 <Civ4WorldInfo xmlns="x-schema:CIV4GameInfoSchema.xml">
 	<WorldInfos>
 		<WorldInfo>
@@ -17,15 +18,18 @@
 			<iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>-50</iMaxConscriptModifier>
 			<iWarWearinessModifier>50</iWarWearinessModifier>
-			<iGridWidth>3</iGridWidth>
-			<iGridHeight>3</iGridHeight>
+			<iGridWidth>10</iGridWidth>
+			<iGridHeight>6</iGridHeight>
 			<iTerrainGrainChange>-1</iTerrainGrainChange>
 			<iFeatureGrainChange>-1</iFeatureGrainChange>
 			<iResearchPercent>100</iResearchPercent>
 			<iTradeProfitPercent>80</iTradeProfitPercent>
 			<iDistanceMaintenancePercent>50</iDistanceMaintenancePercent>
 			<iNumCitiesMaintenancePercent>45</iNumCitiesMaintenancePercent>
+			<iColonyMaintenancePercent>67</iColonyMaintenancePercent>
+			<iCorporationMaintenancePercent>400</iCorporationMaintenancePercent>
 			<iNumCitiesAnarchyPercent>11</iNumCitiesAnarchyPercent>
+			<iAdvancedStartPointsMod>80</iAdvancedStartPointsMod>
 		</WorldInfo>
 		<WorldInfo>
 			<Type>WORLDSIZE_TINY</Type>
@@ -38,15 +42,18 @@
 			<iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>-25</iMaxConscriptModifier>
 			<iWarWearinessModifier>30</iWarWearinessModifier>
-			<iGridWidth>4</iGridWidth>
-			<iGridHeight>4</iGridHeight>
+			<iGridWidth>13</iGridWidth>
+			<iGridHeight>8</iGridHeight>
 			<iTerrainGrainChange>-1</iTerrainGrainChange>
 			<iFeatureGrainChange>-1</iFeatureGrainChange>
 			<iResearchPercent>110</iResearchPercent>
 			<iTradeProfitPercent>70</iTradeProfitPercent>
 			<iDistanceMaintenancePercent>60</iDistanceMaintenancePercent>
 			<iNumCitiesMaintenancePercent>40</iNumCitiesMaintenancePercent>
+			<iColonyMaintenancePercent>60</iColonyMaintenancePercent>
+			<iCorporationMaintenancePercent>200</iCorporationMaintenancePercent>
 			<iNumCitiesAnarchyPercent>10</iNumCitiesAnarchyPercent>
+			<iAdvancedStartPointsMod>85</iAdvancedStartPointsMod>
 		</WorldInfo>
 		<WorldInfo>
 			<Type>WORLDSIZE_SMALL</Type>
@@ -59,15 +66,18 @@
 			<iBuildingClassPrereqModifier>25</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>0</iMaxConscriptModifier>
 			<iWarWearinessModifier>10</iWarWearinessModifier>
-			<iGridWidth>5</iGridWidth>
-			<iGridHeight>5</iGridHeight>
+			<iGridWidth>16</iGridWidth>
+			<iGridHeight>10</iGridHeight>
 			<iTerrainGrainChange>0</iTerrainGrainChange>
 			<iFeatureGrainChange>0</iFeatureGrainChange>
 			<iResearchPercent>120</iResearchPercent>
 			<iTradeProfitPercent>60</iTradeProfitPercent>
 			<iDistanceMaintenancePercent>70</iDistanceMaintenancePercent>
 			<iNumCitiesMaintenancePercent>35</iNumCitiesMaintenancePercent>
+			<iColonyMaintenancePercent>52</iColonyMaintenancePercent>
+			<iCorporationMaintenancePercent>150</iCorporationMaintenancePercent>
 			<iNumCitiesAnarchyPercent>9</iNumCitiesAnarchyPercent>
+			<iAdvancedStartPointsMod>90</iAdvancedStartPointsMod>
 		</WorldInfo>
 		<WorldInfo>
 			<Type>WORLDSIZE_STANDARD</Type>
@@ -80,15 +90,18 @@
 			<iBuildingClassPrereqModifier>50</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>25</iMaxConscriptModifier>
 			<iWarWearinessModifier>-10</iWarWearinessModifier>
-			<iGridWidth>6</iGridWidth>
-			<iGridHeight>6</iGridHeight>
+			<iGridWidth>21</iGridWidth>
+			<iGridHeight>13</iGridHeight>
 			<iTerrainGrainChange>0</iTerrainGrainChange>
 			<iFeatureGrainChange>0</iFeatureGrainChange>
 			<iResearchPercent>130</iResearchPercent>
 			<iTradeProfitPercent>50</iTradeProfitPercent>
 			<iDistanceMaintenancePercent>80</iDistanceMaintenancePercent>
 			<iNumCitiesMaintenancePercent>30</iNumCitiesMaintenancePercent>
+			<iColonyMaintenancePercent>45</iColonyMaintenancePercent>
+			<iCorporationMaintenancePercent>100</iCorporationMaintenancePercent>
 			<iNumCitiesAnarchyPercent>8</iNumCitiesAnarchyPercent>
+			<iAdvancedStartPointsMod>100</iAdvancedStartPointsMod>
 		</WorldInfo>
 		<WorldInfo>
 			<Type>WORLDSIZE_LARGE</Type>
@@ -101,15 +114,18 @@
 			<iBuildingClassPrereqModifier>75</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>50</iMaxConscriptModifier>
 			<iWarWearinessModifier>-30</iWarWearinessModifier>
-			<iGridWidth>7</iGridWidth>
-			<iGridHeight>7</iGridHeight>
+			<iGridWidth>26</iGridWidth>
+			<iGridHeight>16</iGridHeight>
 			<iTerrainGrainChange>1</iTerrainGrainChange>
 			<iFeatureGrainChange>1</iFeatureGrainChange>
 			<iResearchPercent>140</iResearchPercent>
 			<iTradeProfitPercent>40</iTradeProfitPercent>
 			<iDistanceMaintenancePercent>90</iDistanceMaintenancePercent>
 			<iNumCitiesMaintenancePercent>25</iNumCitiesMaintenancePercent>
+			<iColonyMaintenancePercent>37</iColonyMaintenancePercent>
+			<iCorporationMaintenancePercent>75</iCorporationMaintenancePercent>
 			<iNumCitiesAnarchyPercent>7</iNumCitiesAnarchyPercent>
+			<iAdvancedStartPointsMod>110</iAdvancedStartPointsMod>
 		</WorldInfo>
 		<WorldInfo>
 			<Type>WORLDSIZE_HUGE</Type>
@@ -122,15 +138,18 @@
 			<iBuildingClassPrereqModifier>100</iBuildingClassPrereqModifier>
 			<iMaxConscriptModifier>75</iMaxConscriptModifier>
 			<iWarWearinessModifier>-50</iWarWearinessModifier>
-			<iGridWidth>8</iGridWidth>
-			<iGridHeight>8</iGridHeight>
+			<iGridWidth>32</iGridWidth>
+			<iGridHeight>20</iGridHeight>
 			<iTerrainGrainChange>1</iTerrainGrainChange>
 			<iFeatureGrainChange>1</iFeatureGrainChange>
 			<iResearchPercent>150</iResearchPercent>
 			<iTradeProfitPercent>30</iTradeProfitPercent>
 			<iDistanceMaintenancePercent>100</iDistanceMaintenancePercent>
 			<iNumCitiesMaintenancePercent>20</iNumCitiesMaintenancePercent>
+			<iColonyMaintenancePercent>30</iColonyMaintenancePercent>
+			<iCorporationMaintenancePercent>50</iCorporationMaintenancePercent>
 			<iNumCitiesAnarchyPercent>6</iNumCitiesAnarchyPercent>
+			<iAdvancedStartPointsMod>120</iAdvancedStartPointsMod>
 		</WorldInfo>
 	</WorldInfos>
 </Civ4WorldInfo>
