@@ -1206,7 +1206,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_BLESSED_SEA</Type>
 			<WorldNewsTexts/>
 			<TriggerTexts>
@@ -1375,7 +1375,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_AIRLINER_CRASH</Type>
 			<WorldNewsTexts>
@@ -1654,7 +1654,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_HOLY_MOUNTAIN</Type>
 			<WorldNewsTexts/>
 			<TriggerTexts>
@@ -1903,7 +1903,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_HORTICULTURE</Type>
 			<WorldNewsTexts>
@@ -16468,7 +16468,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_RABBI</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_RABBI</Text>
@@ -16736,7 +16736,7 @@
 			<PythonCanDoCity>canTriggerPreachingResearcherCity</PythonCanDoCity>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_TOXCATL</Type>
 			<WorldNewsTexts>

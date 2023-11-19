@@ -11,9 +11,26 @@
   - We could potentially re-base the mod on the new expansion packs later, which would be nice for more civilizations since they give more replayability without affecting game speed, but it would be take more work since there would be more to remove/disable
 - Do an MVP first
   - Map size, espionage, religion?
+- After that, port changes to Beyond the Sword (BtS); unfortunately each expansion is installed as a separate game, and almost no one (myself included) plays the vanilla game, especially since BtS is required for almost any mod.
 
 #### To do
 
-- [ ] Reduce map sizes
-- [ ] Remove espionage
-- [ ] Remove religion
+- [x] Rebase current work on BtS?
+  - Basing on vanilla may be impractical and a waste of time
+- [ ] MVP
+  - [x] [Reduce map sizes](map-sizes.md)
+  - [ ] Remove espionage
+  - [x] [Remove religion](religion.md)
+- [ ] Remove Warlords features
+  - [ ] Vassal states
+    - Maybe enough just to change the default game options so this is unchecked?
+  - [ ] New units
+  - [ ] New buildings?
+  - [ ] New wonders?
+- [ ] Remove Beyond the Sword features
+  - [ ] Corporations
+  - [ ] Espionage
+  - [ ] New technologies
+  - [ ] New units
+  - [ ] New buildings?
+  - [ ] New wonders?

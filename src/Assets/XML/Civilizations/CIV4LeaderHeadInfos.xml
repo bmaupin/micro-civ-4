@@ -819,7 +819,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_FREE_RELIGION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_SPIRITUAL</TraitType>
@@ -1918,7 +1919,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_EXPANSIVE</TraitType>
@@ -3571,7 +3573,8 @@
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_CREATIVE</TraitType>
@@ -4113,7 +4116,8 @@
 			<iVassalPowerModifier>10</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_IMPERIALIST</TraitType>
@@ -4659,7 +4663,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_CHARISMATIC</TraitType>
@@ -6326,7 +6331,8 @@
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_INDUSTRIOUS</TraitType>
@@ -6877,7 +6883,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_FREE_RELIGION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_PHILOSOPHICAL</TraitType>
@@ -7432,7 +7439,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_PHILOSOPHICAL</TraitType>
@@ -7981,7 +7989,8 @@
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_HINDUISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_HINDUISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_SPIRITUAL</TraitType>
@@ -11800,7 +11809,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_THEOCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_SPIRITUAL</TraitType>
@@ -12358,7 +12368,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_IMPERIALIST</TraitType>
@@ -13459,7 +13470,8 @@
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_THEOCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_SPIRITUAL</TraitType>
@@ -14005,7 +14017,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_AGGRESSIVE</TraitType>
@@ -14556,7 +14569,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_EMANCIPATION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_PHILOSOPHICAL</TraitType>
@@ -15111,7 +15125,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_INDUSTRIOUS</TraitType>
@@ -15653,7 +15668,8 @@
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_FREE_MARKET</FavoriteCivic>
-			<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_SPIRITUAL</TraitType>
@@ -16759,7 +16775,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_EXPANSIVE</TraitType>
@@ -17865,7 +17882,8 @@
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_ORGANIZED</TraitType>
@@ -19530,7 +19548,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_PHILOSOPHICAL</TraitType>
@@ -20092,7 +20111,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_TAOISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_TAOISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_INDUSTRIOUS</TraitType>
@@ -21732,7 +21752,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_MERCANTILISM</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_INDUSTRIOUS</TraitType>
@@ -22278,7 +22299,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_THEOCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_PROTECTIVE</TraitType>
@@ -24484,7 +24506,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
-			<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_IMPERIALIST</TraitType>
@@ -25057,7 +25080,8 @@
 			<iVassalPowerModifier>-10</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_ORGANIZED_RELIGION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_EXPANSIVE</TraitType>
@@ -25619,7 +25643,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_MERCANTILISM</FavoriteCivic>
-			<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_PROTECTIVE</TraitType>
@@ -26183,7 +26208,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_IMPERIALIST</TraitType>
@@ -26746,7 +26772,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_CASTE_SYSTEM</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CONFUCIANISM</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CONFUCIANISM</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_FINANCIAL</TraitType>
@@ -27315,7 +27342,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_FREE_SPEECH</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_EXPANSIVE</TraitType>
@@ -27893,7 +27921,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_FREE_RELIGION</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_CREATIVE</TraitType>
@@ -28464,7 +28493,8 @@
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
 			<FavoriteCivic>CIVIC_THEOCRACY</FavoriteCivic>
-			<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>
+			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
+			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
 					<TraitType>TRAIT_CREATIVE</TraitType>

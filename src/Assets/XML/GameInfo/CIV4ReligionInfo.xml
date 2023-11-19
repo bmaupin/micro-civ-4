@@ -6,7 +6,7 @@
 <!-- Religion -->
 <Civ4ReligionInfo xmlns="x-schema:CIV4GameInfoSchema.xml">
 	<ReligionInfos>
-		<ReligionInfo>
+		<!-- <ReligionInfo>
 			<Type>RELIGION_JUDAISM</Type>
 			<Description>TXT_KEY_RELIGION_JUDAISM</Description>
 			<Adjective>TXT_KEY_RELIGION_JUDAISM_ADJECTIVE</Adjective>
@@ -222,6 +222,6 @@
 			<MovieFile>Art/Movies/Religion/Taoism/Tao_Found.nif</MovieFile>
 			<MovieSound>AS2D_BUILD_TAOIST_MOVIE</MovieSound>
 			<Sound>AS2D_BUILD_TAOIST</Sound>
-		</ReligionInfo>
+		</ReligionInfo> -->
 	</ReligionInfos>
 </Civ4ReligionInfo>

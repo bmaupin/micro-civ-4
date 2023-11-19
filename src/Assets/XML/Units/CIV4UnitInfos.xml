@@ -3100,7 +3100,7 @@
 			<LeaderPromotion>NONE</LeaderPromotion>
 			<iLeaderExperience>0</iLeaderExperience>
 		</UnitInfo>
-		<UnitInfo>
+		<!-- <UnitInfo>
 			<Class>UNITCLASS_JEWISH_MISSIONARY</Class>
 			<Type>UNIT_JEWISH_MISSIONARY</Type>
 			<UniqueNames/>
@@ -4268,7 +4268,7 @@
 			<FreePromotions/>
 			<LeaderPromotion>NONE</LeaderPromotion>
 			<iLeaderExperience>0</iLeaderExperience>
-		</UnitInfo>
+		</UnitInfo> -->
 		<UnitInfo>
 			<Class>UNITCLASS_WARRIOR</Class>
 			<Type>UNIT_WARRIOR</Type>
@@ -21681,7 +21681,7 @@
 			<LeaderPromotion>NONE</LeaderPromotion>
 			<iLeaderExperience>0</iLeaderExperience>
 		</UnitInfo>
-		<UnitInfo>
+		<!-- <UnitInfo>
 			<Class>UNITCLASS_PROPHET</Class>
 			<Type>UNIT_PROPHET</Type>
 			<UniqueNames>
@@ -21914,7 +21914,7 @@
 			<FreePromotions/>
 			<LeaderPromotion>NONE</LeaderPromotion>
 			<iLeaderExperience>0</iLeaderExperience>
-		</UnitInfo>
+		</UnitInfo> -->
 		<UnitInfo>
 			<Class>UNITCLASS_ARTIST</Class>
 			<Type>UNIT_ARTIST</Type>
