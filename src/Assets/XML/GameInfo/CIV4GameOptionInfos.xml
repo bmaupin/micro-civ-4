@@ -17,7 +17,7 @@
 			<Type>GAMEOPTION_NO_CITY_RAZING</Type>
 			<Description>TXT_KEY_GAME_OPTION_NO_CITY_RAZING</Description>
 			<Help>TXT_KEY_GAME_OPTION_NO_CITY_RAZING_HELP</Help>
-			<bDefault>0</bDefault>
+			<bDefault>1</bDefault>
 			<bVisible>1</bVisible>
 		</GameOptionInfo>
 		<GameOptionInfo>
@@ -74,7 +74,7 @@
 			<Description>TXT_KEY_GAME_OPTION_PICK_RELIGION</Description>
 			<Help>TXT_KEY_GAME_OPTION_PICK_RELIGION_HELP</Help>
 			<bDefault>0</bDefault>
-			<bVisible>1</bVisible>
+			<bVisible>0</bVisible>
 		</GameOptionInfo>
 		<GameOptionInfo>
 			<Type>GAMEOPTION_NO_TECH_TRADING</Type>
@@ -150,7 +150,7 @@
 			<Type>GAMEOPTION_NO_VASSAL_STATES</Type>
 			<Description>TXT_KEY_GAME_OPTION_NO_VASSAL_STATES</Description>
 			<Help>TXT_KEY_GAME_OPTION_NO_VASSAL_STATES_HELP</Help>
-			<bDefault>0</bDefault>
+			<bDefault>1</bDefault>
 			<bVisible>1</bVisible>
 		</GameOptionInfo>
 		<GameOptionInfo>
@@ -171,7 +171,7 @@
 			<Type>GAMEOPTION_NO_ESPIONAGE</Type>
 			<Description>TXT_KEY_GAME_OPTION_NO_ESPIONAGE</Description>
 			<Help>TXT_KEY_GAME_OPTION_NO_ESPIONAGE_HELP</Help>
-			<bDefault>0</bDefault>
+			<bDefault>1</bDefault>
 			<bVisible>1</bVisible>
 		</GameOptionInfo>
 	</GameOptionInfos>

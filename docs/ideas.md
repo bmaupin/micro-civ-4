@@ -17,20 +17,23 @@
 
 - [x] Rebase current work on BtS?
   - Basing on vanilla may be impractical and a waste of time
-- [ ] MVP
+- [x] MVP
   - [x] [Reduce map sizes](map-sizes.md)
-  - [ ] Remove espionage
+  - [x] Remove espionage
   - [x] [Remove religion](religion.md)
 - [ ] Remove Warlords features
-  - [ ] Vassal states
+  - [x] Vassal states
     - Maybe enough just to change the default game options so this is unchecked?
   - [ ] New units
   - [ ] New buildings?
   - [ ] New wonders?
 - [ ] Remove Beyond the Sword features
   - [ ] Corporations
-  - [ ] Espionage
+  - [x] Espionage
   - [ ] New technologies
   - [ ] New units
   - [ ] New buildings?
   - [ ] New wonders?
+- [ ] Other changes?
+  - [ ] Great people?
+  - [ ] Random events?
