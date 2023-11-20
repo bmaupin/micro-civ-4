@@ -1,3 +1,8 @@
 The following files are from or contain content from external sources:
 
+src/Assets/XML/Buildings/CIV4BuildingInfos.xml
+src/Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml
+src/Assets/XML/Events/CIV4EventTriggerInfos.xml
+src/Assets/XML/GameInfo/CIV4ReligionInfo.xml
 src/Assets/XML/GameInfo/CIV4WorldInfo.xml
+src/Assets/XML/Units/CIV4UnitInfos.xml
