@@ -1,19 +1,53 @@
 # Comparison
 
-| Feature/system     | Civ 4               | Civ Rev     | Polytopia           | Thoughts                                                      |
-| ------------------ | ------------------- | ----------- | ------------------- | ------------------------------------------------------------- |
-| Game length        | 7 - 20+ hours       | 2-5 hours   | 0.5 - 1 hours       | This should be the main factor to prioritise                  |
-| Map size           | 40x24 -128x80 tiles | 32x28 tiles | 11x11 - 30x30 tiles | I think this might be the biggest factor affecting game speed |
-| Technologies       | 86 - 92             | 47          | 26                  |                                                               |
-| Unit types         | 73                  | 25          | 42                  |                                                               |
-| Victory conditions | 6                   | 4           | 3                   |                                                               |
-| Diplomacy          |                     |             |                     |                                                               |
-| Espionage          |                     |             |                     |                                                               |
-| Religion           |                     |             |                     |                                                               |
+| Feature/system     | Civ 4                | Civ Rev     | Polytopia           | Thoughts                                                      |
+| ------------------ | -------------------- | ----------- | ------------------- | ------------------------------------------------------------- |
+| Game length        | 7 - 20+ hours        | 2 - 5 hours | 0.5 - 1 hours       | This should be the main factor to prioritise                  |
+| Map size           | 40x24 - 128x80 tiles | 32x29 tiles | 11x11 - 30x30 tiles | I think this might be the biggest factor affecting game speed |
+| Technologies       | 86 - 92              | 47          | 26                  |                                                               |
+| Unit types         | 73                   | 25          | 42                  |                                                               |
+| Victory conditions | 6                    | 4           | 3                   |                                                               |
+| Diplomacy          |                      |             |                     |                                                               |
+| Espionage          |                      |             |                     |                                                               |
+| Religion           |                      |             |                     |                                                               |
+
+## Civilization Revolution DS
+
+Civilization Revolution DS (hereafter referred to as Civ Rev), while drastically different from other entries in the Civilization series, still feels very much like a Civilization game and is much more like Civilization IV than Battle of Polytopia.
+
+#### Similarities
+
+Unlike Battle of Polytopia (hereafter referred to as Polytopia), Civ Rev tends to have more similarities than differences as compared to the core Civilization games. Most of the major systems from Civilization are present; although many of them are simplified or reduced to make the game more easily playable on a console as well as to reduce the length of each game.
+
+#### Map size
+
+As the map size is so closely correlated to the length of the game, the map size has been greatly reduced in Civ Rev. There is only one map size, which is 32 by 29 tiles. This is close to the size of the duel map in Civilization IV in terms of number of tiles, while still being a tad smaller.
+
+#### Victory conditions
+
+Victory conditions in Civ Rev are simplified; _Domination_ requires capturing only the capitals of the other civilisations, _Culture_ requires a total of 20 great persons, wonders, or converted cities; _Economic_ requires 20,000 gold and a wonder, and _Technological_ requires reaching Alpha Centauri.
+
+#### Religion
+
+Religion in Civ Rev is one of the biggest changes from Civilization. There are no religions to speak of, neither are there religious units or wonders. Instead, there are two religious buildings, each which give extra culture. In addition, there is a _Religion_ technology, but this merely serves to unlock one of the religious buildings.
+
+#### Government types
+
+Civilization IV has five groups of civics with five choices each. Civ Rev instead has five government types to choose from.
+
+#### Espionage
+
+Espionage is also greatly simplified as compared to Civilization IV. It essentially consists of one unit (the spy), who can go to another civilisation's city to conduct espionage missions. There are no espionage buildings or points as in Civilization IV.
+
+#### Units, buildings, technologies, wonders, etc.
+
+Many of these are exactly as found in the core Civilization games, however the number of each of these has been reduced.
+
+One notable exception is that Civ Rev does not have worker units. Roads are instead built from the city menu as one would normally build a unit, building, or wonder.
 
 ## The Battle of Polytopia
 
-The Battle of Polytopia is in some ways the 4X genre distilled to the bare essentials. All of the 4X elements are there but the number of systems has been drastically reduced, as well as the number of elements within each system (units, technologies, etc).
+The Battle of Polytopia (hereafter referred to as Polytopia) is in some ways the 4X genre distilled to the bare essentials. All of the 4X elements are there but the number of systems has been drastically reduced, as well as the number of elements within each system (units, technologies, etc).
 
 #### Similarities
 
