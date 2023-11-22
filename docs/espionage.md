@@ -1,11 +1,5 @@
 # Espionage
 
-#### How to remove espionage?
+⚠️ For now espionage is disabled by setting it as disabled by default in the game options as this is low effort with the added advantage that it allows players to enable it if they wish. However, as per the [End of Espionage Mod](https://forums.civfanatics.com/resources/end-of-espionage-mod.13540/), it seems that this effectively converts espionage points to culture points, which can end up making the game unbalanced.
 
-Since the default game options are indeed customisable, disabling espionage by default in the game options seems like the best choice. This is very low effort with the added advantage that it allows players to enable it if they wish.
-
-Likewise, this also seems like the best approach for vassal states.
-
-See also: [End of Espionage Mod](https://forums.civfanatics.com/resources/end-of-espionage-mod.13540/)
-
-- ~~Try just removing buildings, units, triggers?~~
+If this ends up being problematic, a better approach may be to remove espionage altogether; this could potentially be done by removing espionage buildings, units, triggers, events, great people, etc.
