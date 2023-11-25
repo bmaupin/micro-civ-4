@@ -6,25 +6,25 @@
 - Civ: The Civilization series
 - Civ 1/2/3/4: Civilization I/II/III/IV, typically including all expansions for each game
 - Civ Rev: Civilization Revolution, in particular the version for Nintendo DS
-- Polytopia: The Battle of Polytopia
+- Polytopia: The Battle of Polytopia, in particular the base game without any DLC
 - Warlords: Civilization IV: Warlords expansion
 
 #### High-level comparison
 
-| Feature/system     | Civ 3        | Civ 4                | Civ Rev     | Polytopia           |
-| ------------------ | ------------ | -------------------- | ----------- | ------------------- |
-| Game length        |              | 7 - 20+ hours        | 2 - 5 hours | 0.5 - 1 hours       |
-| Map size           |              | 40x24 - 128x80 tiles | 32x29 tiles | 11x11 - 30x30 tiles |
-| Technologies       |              | 86 - 92              | 47          | 26                  |
-| Unit types         |              | 73                   | 25          | 42                  |
-| Victory conditions |              | 6                    | 4           | 3                   |
-| Diplomacy          | Standard Civ | Standard Civ         | Simplified  | Barebones           |
-| Religion           | Buildings    | Separate system      | Buildings   | None                |
-| Espionage          | Spy unit     | Separate system      | Spy unit    | Spy unit (cloak)    |
-| Vassal states      | Not present  | New addition         | Not present | Not present         |
-| Corporations       | Not present  | New addition         | Not present | Not present         |
-| Great people types | 2            | 7                    | 6           | Not present         |
-| Government types   | 6            | 25 civics            | 7           | Not present         |
+| Feature/system     | Civ 3        | Civ 4                      | Civ Rev     | Polytopia           |
+| ------------------ | ------------ | -------------------------- | ----------- | ------------------- |
+| Game length        |              | 7 - 20+ hours              | 2 - 5 hours | 0.5 - 1 hours       |
+| Map size           |              | 40x24 - 128x80 tiles       | 32x29 tiles | 11x11 - 30x30 tiles |
+| Technologies       |              | 86 - 92                    | 47          | 26                  |
+| Unit types         |              | 73                         | 25          | 16                  |
+| Victory conditions |              | 6                          | 4           | 3                   |
+| Diplomacy          | Standard Civ | Standard Civ               | Simplified  | Barebones           |
+| Religion           | Buildings    | Separate system in vanilla | Buildings   | None                |
+| Espionage          | Spy unit     | Separate system in BtS     | Spy unit    | Spy unit (cloak)    |
+| Vassal states      | Not present  | New in Warlords            | Not present | Not present         |
+| Corporations       | Not present  | New in BtS                 | Not present | Not present         |
+| Great people types | 2            | 7                          | 6           | Not present         |
+| Government types   | 6            | 25 civics; new in vanilla  | 7           | Not present         |
 
 ## Prior Civilization games
 
@@ -44,7 +44,7 @@ Corporations are a completely new addition to Civ, introduced in BtS.
 
 #### Great people
 
-Civ 3 introduced military and scientific leaders, which seems to be the precursor to great people, which were introduced in Civ 4.
+Great people are a new addition to Civ 4, but Civ 3 had a sort of precursor to great people in the form of military and scientific "leaders."
 
 #### Governments
 
@@ -92,6 +92,10 @@ Many of these are exactly as found in the core Civilization games, however the n
 
 One notable exception is that Civ Rev does not have worker units. Roads are instead built from the city menu as one would normally build a unit, building, or wonder.
 
+#### Takeaway
+
+Civilization Revolution is an enjoyable game that will likely be immediately familiar to players of other Civilization games. Games of Civ Rev are much shorter while still feeling like Civilization, however games can still easily last several hours which may not always be desirable.
+
 ## The Battle of Polytopia
 
 The Battle of Polytopia is in some ways the 4X genre distilled to the bare essentials. All of the 4X elements are there but the number of systems has been drastically reduced, as well as the number of elements within each system (units, technologies, etc).
@@ -132,11 +136,17 @@ Civilization has a number of resources that must be managed, including productio
 
 Polytopia essentially has one resource: stars. Stars are used to build units and buildings, purchase technologies, and to modify the terrain. Stars are generated from each city based on its population, as well as through other means such as specific buildings or peace treaties with other civilisations.
 
-By having just one resource, the gameplay is vastly simplified. In Civilization, a lot of time is spent managing and balancing resources, whereas in Polytopia, this time can instead be spent interacting with the other systems the game has to offer.
+By having just one resource, the gameplay is vastly simplified. In Civilization, a lot of time is spent managing and balancing resources, whereas in Polytopia, this time is instead spent interacting with other systems.
 
 #### Cities
 
 Unlike Civilization, in Polytopia cities are not built, rather they are discovered and captured. This makes the game much quicker as settler units don't need to be first built and settler units aren't even in the game.
+
+As mentioned above, cities also do not experience automatic or continual population growth. Population growth happens mostly through terrain improvements, and these must be done manually.
+
+#### Technologies
+
+The technology tree is much smaller in Polytopia. In addition, technologies are purchased, and multiple technologies can be purchased per turn. This means that the technology tree may be completely researched in a very short amount of time as compared to Civ.
 
 #### Espionage
 
@@ -167,3 +177,11 @@ Combat in Polytopia is similar to Civilization but simplified. Units have hit po
 #### Religion, corporations, government types, civics, culture, etc.
 
 None of these systems exist in Polytopia. Other minor gameplay systems are also absent (happiness, health, maintenance, etc).
+
+#### Takeaway
+
+Because of the reduced number of systems, the feel of Polytopia ends up being quite different. In particular, cities in Polytopia do not experience automatic, continued growth and there are no workers that can be automated to improve the terrain, so a significant amount of time is spent improving the surrounding terrain in order to grow cities. Exploration is also largely not automated and so some time is spent manually exploring the map.
+
+Beyond this, the tech tree is much smaller and technologies can be purchased, meaning the tech tree is exhausted relatively early in the game as compared to Civ, leaving one less system to interact with.
+
+If the player is expecting Polytopia to be a shorter version of Civilization then Polytopia may feel like a more shallow experience because more time is spent with a fewer number of systems, and much of that time is spent performing manual work that might otherwise be automated in Civ. However, Polytopia can still be an enjoyable experience when considered as an alternative way to experience the 4X genre distinct from Civilization, despite its similarities.

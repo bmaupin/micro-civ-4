@@ -1,5 +1,19 @@
 # Ideas
 
+#### High-level goals
+
+- [x] [Smaller maps](map-sizes.md)
+- Simplify, disable, or remove:
+  - [x] [Religion](religion.md)
+  - [x] [Espionage](espionage.md)
+  - [x] Vassal states
+  - [ ] Corporations
+  - [ ] [Great people](great-people.md)
+  - [ ] [Civics](civics.md)
+- Go back and see if we can simplify:
+  - [ ] Religion
+  - [ ] Espionage
+
 #### Approach
 
 - Start with the simplest approach first
@@ -19,7 +33,7 @@
   - Basing on vanilla may be impractical and a waste of time
 - [x] MVP
   - [x] [Reduce map sizes](map-sizes.md)
-  - [x] Remove espionage
+  - [x] [Remove espionage](espionage.md)
   - [x] [Remove religion](religion.md)
 - [ ] Remove Warlords features
   - [x] Vassal states
@@ -35,5 +49,12 @@
   - [ ] New buildings?
   - [ ] New wonders?
 - [ ] Other changes?
-  - [ ] Great people?
-  - [ ] Random events?
+  - [ ] Remove great people?
+    - This is more-or-less new to Civ 4 (although Civ 3 had military and scientific "leaders")
+  - [ ] Disable random events by default?
+  - [ ] Remove or simplify civics?
+    - Previous Civ games only had governments; could we remove the other civics types?
+
+#### Don't remove or disable
+
+- Wonders

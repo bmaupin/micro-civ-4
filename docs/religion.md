@@ -1,6 +1,8 @@
 # Religion
 
-## Steps to remove a religion
+## For now, remove religion
+
+#### Steps to remove a religion
 
 1. Comment out the religion in CIV4ReligionInfo.xml
 1. Search the Assets/XML directory for any other files containing that religion, e.g. `RELIGION_BUDDHISM`
@@ -10,6 +12,12 @@
 1. Edit Civilopedia entries referencing removed religions, units, buildings, etc
    - The actual entries for the removed items won't be there, but descriptions in other entries may reference them
    - Also the _Religions_ category will be there, but it will be empty
+
+## Later, simplify religion?
+
+As religion existed since the first Civilization games, it could be nice to add back a more simplified form of religion.
+
+For example, in Civ 1 - 3 and Civ Rev, religion consisted mostly of buildings (e.g. temples and cathedrals) which increased happiness. Religion was not a system which would cause other civilisations to go to war.
 
 ## Research
 
@@ -31,14 +39,14 @@
 
 #### To remove
 
-- [ ] Religions
-- [ ] Technologies?
-- [ ] Buildings
-- [ ] Units
-- [ ] Effects?
-- [ ] Triggers?
-- [ ] Random events?
+- [x] Religions
+- [x] Buildings
+- [x] Leader preferred religions
+- [x] Units
+- [x] Random event triggers
 - [ ] Civilopedia entries
+- ~~Technologies?~~
+- ~~Effects?~~
 
 #### Technologies
 
