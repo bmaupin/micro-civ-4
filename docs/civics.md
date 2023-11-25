@@ -12,9 +12,11 @@ This would remove the annoying proclivity to hostility if yours doesn't match.
 
 #### Remove civics
 
-1. Remove or comment out civic from Assets/XML/GameInfo/CIV4CivicInfos.xml
-1. Comment corresponding `CivicType` from Assets/XML/Civilizations/CIV4CivilizationInfos.xml
-1. Replace corresponding `FavoriteCivic` in Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml with `<FavoriteCivic>NONE</FavoriteCivic>`
+💡 Recommendation: First check `InitialCivics` in CIV4CivilizationInfos.xml and don't remove those civics. This removes the need to modify CIV4CivilizationInfos.xml as each civilisation can use its default civic. Otherwise the default government civic gets shown in other categories where all civics are disabled, which could be a bit confusing.
+
+1. Remove or comment out civic from [Assets/XML/GameInfo/CIV4CivicInfos.xml](../src/Assets/XML/GameInfo/CIV4CivicInfos.xml)
+1. Comment corresponding `CivicType` from [Assets/XML/Civilizations/CIV4CivilizationInfos.xml](../src/Assets/XML/Civilizations/CIV4CivilizationInfos.xml)
+1. Replace corresponding `FavoriteCivic` in [Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml](../src/Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml) with `<FavoriteCivic>NONE</FavoriteCivic>`
 
    - Replace
 
@@ -29,5 +31,5 @@ This would remove the annoying proclivity to hostility if yours doesn't match.
      	     <FavoriteCivic>NONE</FavoriteCivic>
      ```
 
-1. Comment out events with matching `Civic` in Assets/XML/Events/CIV4EventTriggerInfos.xml
-1. Comment out matching vote infos with matching `CivicType` from Assets/XML/GameInfo/CIV4VoteInfo.xml
+1. Comment out events with matching `Civic` in [Assets/XML/Events/CIV4EventTriggerInfos.xml](../src/Assets/XML/Events/CIV4EventTriggerInfos.xml)
+1. Comment out vote infos with matching `CivicType` from [Assets/XML/GameInfo/CIV4VoteInfo.xml](../src/Assets/XML/GameInfo/CIV4VoteInfo.xml)
