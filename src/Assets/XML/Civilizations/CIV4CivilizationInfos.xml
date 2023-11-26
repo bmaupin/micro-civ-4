@@ -117,9 +117,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -227,9 +227,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -329,9 +329,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -435,9 +435,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -545,9 +545,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -652,9 +652,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -763,9 +763,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -877,9 +877,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1003,9 +1003,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1111,9 +1111,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1223,9 +1223,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1329,9 +1329,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1456,9 +1456,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1571,9 +1571,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1687,9 +1687,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1787,9 +1787,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -1950,9 +1950,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2055,9 +2055,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2162,9 +2162,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2258,9 +2258,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2354,9 +2354,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2464,9 +2464,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2563,9 +2563,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2683,9 +2683,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2794,9 +2794,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -2896,9 +2896,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3031,9 +3031,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3146,9 +3146,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3267,9 +3267,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3375,9 +3375,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3490,9 +3490,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3593,9 +3593,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3698,9 +3698,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3800,9 +3800,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -3936,9 +3936,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>
@@ -4651,9 +4651,9 @@
 			<DisableTechs />
 			<InitialCivics>
 				<CivicType>CIVIC_DESPOTISM</CivicType>
-				<CivicType>CIVIC_BARBARISM</CivicType>
-				<CivicType>CIVIC_TRIBALISM</CivicType>
-				<CivicType>CIVIC_DECENTRALIZATION</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
+				<CivicType>NONE</CivicType>
 				<CivicType>NONE</CivicType>
 			</InitialCivics>
 			<Leaders>

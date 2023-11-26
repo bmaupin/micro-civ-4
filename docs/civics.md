@@ -30,6 +30,8 @@ This would remove the annoying proclivity to hostility if yours doesn't match.
 
    1. Replace corresponding `FavoriteCivic` in [Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml](../src/Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml) with `<FavoriteCivic>NONE</FavoriteCivic>`
 
+      💡 To prevent other civilisations from being unhappy with your civics, just set all `FavoriteCivic` instances to `NONE`
+
       - Replace
 
         ```

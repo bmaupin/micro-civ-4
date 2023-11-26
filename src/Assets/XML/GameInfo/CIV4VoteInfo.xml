@@ -173,7 +173,7 @@
 				</DiploVote>
 			</DiploVotes>
 		</VoteInfo>
-		<VoteInfo>
+		<!-- <VoteInfo>
 			<Type>VOTE_FREE_SPEECH</Type>
 			<Description>TXT_KEY_VOTE_FREE_SPEECH</Description>
 			<iPopulationThreshold>51</iPopulationThreshold>
@@ -204,8 +204,8 @@
 					<bValid>1</bValid>
 				</DiploVote>
 			</DiploVotes>
-		</VoteInfo>
-		<VoteInfo>
+		</VoteInfo> -->
+		<!-- <VoteInfo>
 			<Type>VOTE_EMANCIPATION</Type>
 			<Description>TXT_KEY_VOTE_EMANCIPATION</Description>
 			<iPopulationThreshold>51</iPopulationThreshold>
@@ -236,8 +236,8 @@
 					<bValid>1</bValid>
 				</DiploVote>
 			</DiploVotes>
-		</VoteInfo>
-		<VoteInfo>
+		</VoteInfo> -->
+		<!-- <VoteInfo>
 			<Type>VOTE_ENVIRONMENTALISM</Type>
 			<Description>TXT_KEY_VOTE_ENVIRONMENTALISM</Description>
 			<iPopulationThreshold>51</iPopulationThreshold>
@@ -268,7 +268,7 @@
 					<bValid>1</bValid>
 				</DiploVote>
 			</DiploVotes>
-		</VoteInfo>
+		</VoteInfo> -->
 		<!-- <VoteInfo>
 			<Type>VOTE_FREE_RELIGION</Type>
 			<Description>TXT_KEY_VOTE_FREE_RELIGION</Description>

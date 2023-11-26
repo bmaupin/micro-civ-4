@@ -11,7 +11,7 @@
 			<Description>TXT_KEY_CIVICOPTION_GOVERNMENT</Description>
 			<TraitNoUpkeeps/>
 		</CivicOptionInfo>
-		<CivicOptionInfo>
+		<!-- <CivicOptionInfo>
 			<Type>CIVICOPTION_LEGAL</Type>
 			<Description>TXT_KEY_CIVICOPTION_LEGAL</Description>
 			<TraitNoUpkeeps/>
@@ -25,7 +25,7 @@
 			<Type>CIVICOPTION_ECONOMY</Type>
 			<Description>TXT_KEY_CIVICOPTION_ECONOMY</Description>
 			<TraitNoUpkeeps/>
-		</CivicOptionInfo>
+		</CivicOptionInfo> -->
 		<!-- <CivicOptionInfo>
 			<Type>CIVICOPTION_RELIGION</Type>
 			<Description>TXT_KEY_CIVICOPTION_RELIGION</Description>

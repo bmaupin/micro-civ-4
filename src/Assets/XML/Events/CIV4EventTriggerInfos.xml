@@ -1023,7 +1023,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_SLAVE_REVOLT</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_SLAVE_REVOLT</Text>
@@ -1117,8 +1117,8 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
-		<EventTriggerInfo>
+		</EventTriggerInfo> -->
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_SLAVE_REVOLT_AGAIN</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_SLAVE_REVOLT_AGAIN</Text>
@@ -1205,7 +1205,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_BLESSED_SEA</Type>
 			<WorldNewsTexts/>
@@ -1289,8 +1289,8 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
-		<EventTriggerInfo>
+		</EventTriggerInfo> -->
+		<!--<EventTriggerInfo>
 			<Type>EVENTTRIGGER_BLESSED_SEA_DONE</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_BLESSED_SEA_DONE</Text>
@@ -6274,7 +6274,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_FEDERAL_RESERVE</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_FEDERAL_RESERVE</Text>
@@ -6356,8 +6356,8 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
-		<EventTriggerInfo>
+		</EventTriggerInfo> -->
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_ELECTRIC_COMPANY</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_ELECTRIC_COMPANY</Text>
@@ -6438,7 +6438,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_HINDENBERG</Type>
 			<WorldNewsTexts>
@@ -7650,7 +7650,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_EARTHDAY</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_EARTHDAY</Text>
@@ -7733,7 +7733,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_FREEDOMCONCERT</Type>
 			<WorldNewsTexts>
@@ -13151,7 +13151,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_LABORATORY</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_LABORATORY</Text>
@@ -13232,7 +13232,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_EXPERIENCED_CAPTAIN</Type>
 			<WorldNewsTexts>
@@ -13415,7 +13415,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo> -->
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_PARTISANS</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_PARTISANS</Text>
@@ -13495,7 +13495,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_NEW_DYNASTY</Type>
 			<WorldNewsTexts>
@@ -15544,7 +15544,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_SLAVE_REVOLT_WARNING</Type>
 			<WorldNewsTexts/>
 			<TriggerTexts>
@@ -15621,7 +15621,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_IMMIGRANTS</Type>
 			<WorldNewsTexts>
@@ -16217,7 +16217,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_NUCLEAR_PROTEST</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_NUCLEAR_PROTEST</Text>
@@ -16298,7 +16298,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_BETTER_COAL</Type>
 			<WorldNewsTexts>
@@ -16999,7 +16999,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_ROGUE_STATION</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_ROGUE_STATION</Text>
@@ -17084,7 +17084,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_ANTIMONARCHISTS</Type>
 			<WorldNewsTexts>

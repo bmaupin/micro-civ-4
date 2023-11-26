@@ -349,7 +349,7 @@
 			</ImprovementYieldChanges>
 			<WeLoveTheKing>TXT_KEY_CIVIC_WE_LOVE_PRESIDENT</WeLoveTheKing>
 		</CivicInfo>
-		<CivicInfo>
+		<!-- <CivicInfo>
 			<CivicOptionType>CIVICOPTION_LEGAL</CivicOptionType>
 			<Type>CIVIC_BARBARISM</Type>
 			<Description>TXT_KEY_CIVIC_BARBARISM</Description>
@@ -1420,7 +1420,7 @@
 				</ImprovementYieldChange>
 			</ImprovementYieldChanges>
 			<WeLoveTheKing/>
-		</CivicInfo>
+		</CivicInfo> -->
 		<!--<CivicInfo>
 			<CivicOptionType>CIVICOPTION_RELIGION</CivicOptionType>
 			<Type>CIVIC_PAGANISM</Type>

@@ -8,8 +8,8 @@
   - [x] [Espionage](espionage.md)
   - [x] Vassal states
   - [ ] Corporations
+  - [x] [Civics](civics.md)
   - [ ] [Great people](great-people.md)
-  - [ ] [Civics](civics.md)
 - Go back and see if we can simplify:
   - [ ] Religion
   - [ ] Espionage

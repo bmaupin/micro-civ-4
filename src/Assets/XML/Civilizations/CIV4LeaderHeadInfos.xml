@@ -276,7 +276,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -1373,7 +1374,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -1919,7 +1921,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -2467,7 +2470,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>10</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -3574,7 +3578,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_ANNOYED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -4117,7 +4122,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>10</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -4664,7 +4670,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -5220,7 +5227,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -6333,7 +6341,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_NATIONHOOD</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -7442,7 +7451,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_ANNOYED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -7992,7 +8002,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_ANNOYED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_UNIVERSAL_SUFFRAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_HINDUISM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -8510,7 +8521,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>50</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_POLICE_STATE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_POLICE_STATE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -9057,7 +9069,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -9603,7 +9616,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -10154,7 +10168,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_FREE_MARKET</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_FREE_MARKET</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -11260,7 +11275,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -12373,7 +12389,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -12929,7 +12946,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -14023,7 +14041,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -14575,7 +14594,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_EMANCIPATION</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_EMANCIPATION</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -15131,7 +15151,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_ANNOYED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -15674,7 +15695,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_ANNOYED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>-20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_FREE_MARKET</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_FREE_MARKET</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -16230,7 +16252,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_STATE_PROPERTY</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_STATE_PROPERTY</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -16781,7 +16804,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_VASSALAGE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -17339,7 +17363,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_POLICE_STATE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_POLICE_STATE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -17888,7 +17913,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -18444,7 +18470,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -18999,7 +19026,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -19554,7 +19582,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -20117,7 +20146,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_BUREAUCRACY</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_TAOISM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -21214,7 +21244,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -21759,7 +21790,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_MERCANTILISM</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_MERCANTILISM</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -22861,7 +22893,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>20</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_POLICE_STATE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_POLICE_STATE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -23406,7 +23439,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>50</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_ENVIRONMENTALISM</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_ENVIRONMENTALISM</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -23952,7 +23986,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_STATE_PROPERTY</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_STATE_PROPERTY</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
 				<Trait>
@@ -24514,7 +24549,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_HEREDITARY_RULE</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_ISLAM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -25652,7 +25688,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_MERCANTILISM</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_MERCANTILISM</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_BUDDHISM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -26217,7 +26254,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_REPRESENTATION</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -26781,7 +26819,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_CAUTIOUS</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_CASTE_SYSTEM</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_CASTE_SYSTEM</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CONFUCIANISM</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
@@ -27351,7 +27390,8 @@
 			<VassalRefuseAttitudeThreshold>ATTITUDE_PLEASED</VassalRefuseAttitudeThreshold>
 			<iVassalPowerModifier>0</iVassalPowerModifier>
 			<iFreedomAppreciation>10</iFreedomAppreciation>
-			<FavoriteCivic>CIVIC_FREE_SPEECH</FavoriteCivic>
+			<!--<FavoriteCivic>CIVIC_FREE_SPEECH</FavoriteCivic>-->
+			<FavoriteCivic>NONE</FavoriteCivic>
 			<!--<FavoriteReligion>RELIGION_CHRISTIANITY</FavoriteReligion>-->
 			<FavoriteReligion>NONE</FavoriteReligion>
 			<Traits>
