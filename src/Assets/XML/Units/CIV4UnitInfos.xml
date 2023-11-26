@@ -1924,7 +1924,7 @@
 			<LeaderPromotion>NONE</LeaderPromotion>
 			<iLeaderExperience>0</iLeaderExperience>
 		</UnitInfo>
-		<UnitInfo>
+		<!-- <UnitInfo>
 			<Class>UNITCLASS_EXECUTIVE_1</Class>
 			<Type>UNIT_EXECUTIVE_1</Type>
 			<UniqueNames/>
@@ -3099,7 +3099,7 @@
 			<FreePromotions/>
 			<LeaderPromotion>NONE</LeaderPromotion>
 			<iLeaderExperience>0</iLeaderExperience>
-		</UnitInfo>
+		</UnitInfo> -->
 		<!-- <UnitInfo>
 			<Class>UNITCLASS_JEWISH_MISSIONARY</Class>
 			<Type>UNIT_JEWISH_MISSIONARY</Type>
@@ -22024,10 +22024,10 @@
 				</GreatPeople>
 			</GreatPeoples>
 			<Buildings>
-				<Building>
+				<!-- <Building>
 					<BuildingType>BUILDING_CORPORATION_7</BuildingType>
 					<bBuilding>1</bBuilding>
-				</Building>
+				</Building> -->
 			</Buildings>
 			<ForceBuildings/>
 			<HolyCity>NONE</HolyCity>
@@ -22248,14 +22248,14 @@
 				</GreatPeople>
 			</GreatPeoples>
 			<Buildings>
-				<Building>
+				<!-- <Building>
 					<BuildingType>BUILDING_CORPORATION_3</BuildingType>
 					<bBuilding>1</bBuilding>
 				</Building>
 				<Building>
 					<BuildingType>BUILDING_CORPORATION_6</BuildingType>
 					<bBuilding>1</bBuilding>
-				</Building>
+				</Building> -->
 				<Building>
 					<BuildingType>BUILDING_ACADEMY</BuildingType>
 					<bBuilding>1</bBuilding>
@@ -22470,14 +22470,14 @@
 				</GreatPeople>
 			</GreatPeoples>
 			<Buildings>
-				<Building>
+				<!-- <Building>
 					<BuildingType>BUILDING_CORPORATION_1</BuildingType>
 					<bBuilding>1</bBuilding>
 				</Building>
 				<Building>
 					<BuildingType>BUILDING_CORPORATION_2</BuildingType>
 					<bBuilding>1</bBuilding>
-				</Building>
+				</Building> -->
 			</Buildings>
 			<ForceBuildings/>
 			<HolyCity>NONE</HolyCity>
@@ -22690,14 +22690,14 @@
 				</GreatPeople>
 			</GreatPeoples>
 			<Buildings>
-				<Building>
+				<!-- <Building>
 					<BuildingType>BUILDING_CORPORATION_4</BuildingType>
 					<bBuilding>1</bBuilding>
 				</Building>
 				<Building>
 					<BuildingType>BUILDING_CORPORATION_5</BuildingType>
 					<bBuilding>1</bBuilding>
-				</Building>
+				</Building> -->
 			</Buildings>
 			<ForceBuildings/>
 			<HolyCity>NONE</HolyCity>

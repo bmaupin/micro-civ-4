@@ -7,7 +7,7 @@
   - [x] [Religion](religion.md)
   - [x] [Espionage](espionage.md)
   - [x] Vassal states
-  - [ ] Corporations
+  - [x] Corporations
   - [x] [Civics](civics.md)
   - [ ] [Great people](great-people.md)
 - Go back and see if we can simplify:

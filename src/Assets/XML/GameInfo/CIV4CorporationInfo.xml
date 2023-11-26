@@ -6,7 +6,7 @@
 <!-- Religion -->
 <Civ4CorporationInfo xmlns="x-schema:CIV4GameInfoSchema.xml">
 	<CorporationInfos>
-		<CorporationInfo>
+		<!-- <CorporationInfo>
 			<Type>CORPORATION_1</Type>
 			<Description>TXT_KEY_CORPORATION_1</Description>
 			<Civilopedia>TXT_KEY_CORPORATION_1_PEDIA</Civilopedia>
@@ -243,6 +243,6 @@
 			<MovieFile>NONE</MovieFile>
 			<MovieSound>NONE</MovieSound>
 			<Sound>AS2D_BUILD_BANK</Sound>
-		</CorporationInfo>
+		</CorporationInfo> -->
 	</CorporationInfos>
 </Civ4CorporationInfo>
