@@ -269,7 +269,7 @@
 				</DiploVote>
 			</DiploVotes>
 		</VoteInfo>
-		<VoteInfo>
+		<!-- <VoteInfo>
 			<Type>VOTE_FREE_RELIGION</Type>
 			<Description>TXT_KEY_VOTE_FREE_RELIGION</Description>
 			<iPopulationThreshold>51</iPopulationThreshold>
@@ -300,7 +300,7 @@
 					<bValid>1</bValid>
 				</DiploVote>
 			</DiploVotes>
-		</VoteInfo>
+		</VoteInfo> -->
 		<VoteInfo>
 			<Type>VOTE_UN_FORCE_PEACE</Type>
 			<Description>TXT_KEY_VOTE_UN_FORCE_PEACE</Description>

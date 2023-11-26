@@ -1421,7 +1421,7 @@
 			</ImprovementYieldChanges>
 			<WeLoveTheKing/>
 		</CivicInfo>
-		<CivicInfo>
+		<!--<CivicInfo>
 			<CivicOptionType>CIVICOPTION_RELIGION</CivicOptionType>
 			<Type>CIVIC_PAGANISM</Type>
 			<Description>TXT_KEY_CIVIC_PAGANISM</Description>
@@ -1754,6 +1754,6 @@
 			<FeatureHappinessChanges/>
 			<ImprovementYieldChanges/>
 			<WeLoveTheKing/>
-		</CivicInfo>
+		</CivicInfo> -->
 	</CivicInfos>
 </Civ4CivicInfos>

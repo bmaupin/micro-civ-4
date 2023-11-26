@@ -7734,7 +7734,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_FREEDOMCONCERT</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_FREEDOMCONCERT</Text>
@@ -7817,7 +7817,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_AXE_HAFT</Type>
 			<WorldNewsTexts>
@@ -8937,7 +8937,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_FORTY_THIEVES</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_FORTY_THIEVES_1</Text>
@@ -9030,7 +9030,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_ANCIENT_TEXTS</Type>
 			<WorldNewsTexts>
@@ -13333,7 +13333,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_HERESY</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_HERESY</Text>
@@ -13414,7 +13414,7 @@
 			<PythonCanDoCity/>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_PARTISANS</Type>
 			<WorldNewsTexts>
@@ -15879,7 +15879,7 @@
 			<PythonCanDoUnit/>
 			<PythonCallback/>
 		</EventTriggerInfo>
-		<EventTriggerInfo>
+		<!-- <EventTriggerInfo>
 			<Type>EVENTTRIGGER_CONTROVERSIAL_PHILOSOPHER</Type>
 			<WorldNewsTexts>
 				<Text>TXT_KEY_EVENTTRIGGER_CONTROVERSIAL_PHILOSOPHER</Text>
@@ -15964,7 +15964,7 @@
 			<PythonCanDoCity>canTriggerControversialPhilosopherCity</PythonCanDoCity>
 			<PythonCanDoUnit/>
 			<PythonCallback/>
-		</EventTriggerInfo>
+		</EventTriggerInfo> -->
 		<EventTriggerInfo>
 			<Type>EVENTTRIGGER_DEFECTING_AGENT</Type>
 			<WorldNewsTexts>

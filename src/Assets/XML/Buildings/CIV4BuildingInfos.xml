@@ -26544,7 +26544,7 @@
 			<bCtrlDown>0</bCtrlDown>
 			<iHotKeyPriority>0</iHotKeyPriority>
 		</BuildingInfo>
-		<BuildingInfo>
+		<!-- <BuildingInfo>
 			<BuildingClass>BUILDINGCLASS_SHWEDAGON_PAYA</BuildingClass>
 			<Type>BUILDING_SHWEDAGON_PAYA</Type>
 			<SpecialBuildingType>NONE</SpecialBuildingType>
@@ -26726,7 +26726,7 @@
 			<bShiftDown>0</bShiftDown>
 			<bCtrlDown>0</bCtrlDown>
 			<iHotKeyPriority>0</iHotKeyPriority>
-		</BuildingInfo>
+		</BuildingInfo> -->
 		<BuildingInfo>
 			<BuildingClass>BUILDINGCLASS_MOAI_STATUES</BuildingClass>
 			<Type>BUILDING_MOAI_STATUES</Type>
