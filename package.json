@@ -1,0 +1,25 @@
+{
+  "name": "micro-civ-4",
+  "version": "1.0.0",
+  "description": "A mod to make Civilization IV games drastically shorter.",
+  "main": "src/install.ts",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmaupin/micro-civ-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bmaupin/micro-civ-4/issues"
+  },
+  "homepage": "https://github.com/bmaupin/micro-civ-4#readme",
+  "devDependencies": {
+    "@types/node": "^20.10.0"
+  }
+}
