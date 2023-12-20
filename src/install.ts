@@ -3,6 +3,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import { DOMParser } from '@xmldom/xmldom';
+
 // Change this as needed
 const gamePath = path.join(
   process.env.HOME ?? '',
@@ -37,7 +39,32 @@ const modMapSizes = async () => {
   const worldInfoFile = 'Assets/XML/GameInfo/CIV4WorldInfo.xml';
   const modFilePath = await prepModFile(worldInfoFile);
 
-  // TODO
+  const doc = new DOMParser().parseFromString(
+    (await fs.readFile(modFilePath)).toString(),
+    'text/xml'
+  );
+
+  let newGridHeight = 3;
+  let newGridWidth = 3;
+
+  const worldInfos = doc.getElementsByTagName('WorldInfo');
+  // This seems to be necessary since the return value of getElementsByTagName() isn't an
+  // iterator
+  for (let i = 0; i < worldInfos.length; i++) {
+    const worldInfo = worldInfos[i];
+
+    const iGridHeight = worldInfo.getElementsByTagName('iGridHeight')[0];
+    iGridHeight.childNodes[0].textContent = String(newGridHeight);
+    newGridHeight++;
+
+    const iGridWidth = worldInfo.getElementsByTagName('iGridWidth')[0];
+    iGridWidth.childNodes[0].textContent = String(newGridWidth);
+    newGridWidth++;
+  }
+
+  // Replace normal newlines with Windows newlines; this probably isn't necessary but
+  // makes diffing easier since the original files have Windows newlines
+  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
 };
 
 /**

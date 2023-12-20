@@ -21,5 +21,8 @@
   "homepage": "https://github.com/bmaupin/micro-civ-4#readme",
   "devDependencies": {
     "@types/node": "^20.10.0"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.10"
   }
 }
