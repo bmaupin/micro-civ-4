@@ -35,45 +35,40 @@ const uninstallMod = async () => {
 
 const modMapSizes = async () => {
   const worldInfoFile = 'Assets/XML/GameInfo/CIV4WorldInfo.xml';
-
-  await prepGameFile(worldInfoFile);
+  const modFilePath = await prepModFile(worldInfoFile);
 
   // TODO
 };
 
 /**
  * Make sure the asset file at the given path exists in the mod, otherwise copy it from
- * the game files.
+ * the game files. Then return the full path to the file in the mod.
  *
- * @param assetPath The path of the file to check, starting with "Assets/"
- * @returns
+ * @param assetPath The partial path of the file to check, starting with "Assets/"
+ * @returns The full path of the file in the mod
  */
-const prepGameFile = async (assetPath: string): Promise<void> => {
+const prepModFile = async (assetPath: string): Promise<string> => {
   if (!assetPath.startsWith('Assets/')) {
     throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
   }
 
+  const modFilePath = path.join(modPath, assetPath);
+
   // First, see if the file already exists
-  if (await doesFileExist(path.join(modPath, assetPath))) {
-    return;
+  if (await doesFileExist(modFilePath)) {
+    return modFilePath;
   }
 
   // If not, and the file exists in BtS, copy it to the mod
   if (await doesFileExist(path.join(btsPath, assetPath))) {
-    await copyFile(
-      path.join(btsPath, assetPath),
-      path.join(modPath, assetPath)
-    );
-    return;
+    await copyFile(path.join(btsPath, assetPath), modFilePath);
+    return modFilePath;
   }
 
   // If not, and the file exists in the base game directory, copy it to the mod
   if (await doesFileExist(path.join(gamePath, assetPath))) {
-    await copyFile(
-      path.join(gamePath, assetPath),
-      path.join(modPath, assetPath)
-    );
-    return;
+    await copyFile(path.join(gamePath, assetPath), modFilePath);
+    return modFilePath;
   }
 
   throw new Error(`File to mod not found in game directory:  ${assetPath}`);
