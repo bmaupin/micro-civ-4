@@ -23,6 +23,7 @@ const main = async () => {
   await uninstallMod();
   await modMapSizes();
   await modGameOptions();
+  await modCivics();
   // await removeReligion();
   // await removeEspionage();
   // await removeCorporations();
@@ -106,6 +107,91 @@ const modGameOptions = async () => {
   }
 
   await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+};
+
+const modCivics = async () => {
+  const removedCivicOptions = await removeCivicOptions();
+
+  // const civicsFile = 'Assets/XML/GameInfo/CIV4CivicInfos.xml';
+  // const civicsFilePath = await prepModFile(civicsFile);
+
+  // const civicsXmlDoc = new DOMParser().parseFromString(
+  //   (await fs.readFile(civicsFilePath)).toString(),
+  //   'text/xml'
+  // );
+
+  // const civicInfos = civicsXmlDoc.getElementsByTagName('CivicInfo');
+  // for (let i = 0; i < civicInfos.length; i++) {
+  //   const civicInfo = civicInfos[i];
+
+  //   const typeElement = civicInfo.getElementsByTagName('Type')[0];
+  //   if (
+  //     typeElement.childNodes[0].textContent &&
+  //     [
+  //       'GAMEOPTION_NO_CITY_RAZING',
+  //       'GAMEOPTION_NO_VASSAL_STATES',
+  //       'GAMEOPTION_NO_ESPIONAGE',
+  //     ].includes(typeElement.childNodes[0].textContent)
+  //   ) {
+  //     const bDefault = civicInfo.getElementsByTagName('bDefault')[0];
+  //     bDefault.childNodes[0].textContent = '1';
+  //   }
+
+  //   if (
+  //     typeElement.childNodes[0].textContent &&
+  //     [
+  //       // Hide pick religion from options since we'll be removing religion
+  //       'GAMEOPTION_PICK_RELIGION',
+  //     ].includes(typeElement.childNodes[0].textContent)
+  //   ) {
+  //     const bVisible = civicInfo.getElementsByTagName('bVisible')[0];
+  //     bVisible.childNodes[0].textContent = '0';
+  //   }
+  // }
+
+  // await fs.writeFile(
+  //   civicOptionsFilePath,
+  //   civicsXmlDoc.toString().replaceAll('\n', '\r\n')
+  // );
+};
+
+const removeCivicOptions = async () => {
+  const civicOptionsFile = 'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml';
+  const civicOptionsFilePath = await prepModFile(civicOptionsFile);
+
+  const civicOptionsXmlDoc = new DOMParser().parseFromString(
+    (await fs.readFile(civicOptionsFilePath)).toString(),
+    'text/xml'
+  );
+
+  const civicOptionInfos =
+    civicOptionsXmlDoc.getElementsByTagName('CivicOptionInfos')[0];
+  const civicOptionInfosChildren =
+    civicOptionInfos.getElementsByTagName('CivicOptionInfo');
+  for (let i = 0; i < civicOptionInfosChildren.length; i++) {
+    const civicOptionInfo = civicOptionInfosChildren[i];
+
+    const typeElement = civicOptionInfo.getElementsByTagName('Type')[0];
+    if (
+      typeElement.childNodes[0].textContent &&
+      ![
+        'CIVICOPTION_GOVERNMENT',
+        // Planetfall
+        'CIVICOPTION_POLITICS',
+      ].includes(typeElement.childNodes[0].textContent)
+    ) {
+      console.log('here');
+      civicOptionInfos.removeChild(civicOptionInfo);
+    }
+  }
+
+  // console.log(civicOptionInfos.toString());
+  console.log(civicOptionsXmlDoc.toString());
+
+  // await fs.writeFile(
+  //   civicOptionsFilePath,
+  //   civicsXmlDoc.toString().replaceAll('\n', '\r\n')
+  // );
 };
 
 /**
