@@ -22,7 +22,7 @@ const main = async () => {
   // Start with a clean slate every time
   await uninstallMod();
   await modMapSizes();
-  // await modGameOptions();
+  await modGameOptions();
   // await removeReligion();
   // await removeEspionage();
   // await removeCorporations();
@@ -64,6 +64,47 @@ const modMapSizes = async () => {
 
   // Replace normal newlines with Windows newlines; this probably isn't necessary but
   // makes diffing easier since the original files have Windows newlines
+  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+};
+
+const modGameOptions = async () => {
+  const gameOptionsFile = 'Assets/XML/GameInfo/CIV4GameOptionInfos.xml';
+  const modFilePath = await prepModFile(gameOptionsFile);
+
+  const doc = new DOMParser().parseFromString(
+    (await fs.readFile(modFilePath)).toString(),
+    'text/xml'
+  );
+
+  const gameOptionInfos = doc.getElementsByTagName('GameOptionInfo');
+  for (let i = 0; i < gameOptionInfos.length; i++) {
+    const gameOptionInfo = gameOptionInfos[i];
+
+    const typeElement = gameOptionInfo.getElementsByTagName('Type')[0];
+    if (
+      typeElement.childNodes[0].textContent &&
+      [
+        'GAMEOPTION_NO_CITY_RAZING',
+        'GAMEOPTION_NO_VASSAL_STATES',
+        'GAMEOPTION_NO_ESPIONAGE',
+      ].includes(typeElement.childNodes[0].textContent)
+    ) {
+      const bDefault = gameOptionInfo.getElementsByTagName('bDefault')[0];
+      bDefault.childNodes[0].textContent = '1';
+    }
+
+    if (
+      typeElement.childNodes[0].textContent &&
+      [
+        // Hide pick religion from options since we'll be removing religion
+        'GAMEOPTION_PICK_RELIGION',
+      ].includes(typeElement.childNodes[0].textContent)
+    ) {
+      const bVisible = gameOptionInfo.getElementsByTagName('bVisible')[0];
+      bVisible.childNodes[0].textContent = '0';
+    }
+  }
+
   await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
 };
 
