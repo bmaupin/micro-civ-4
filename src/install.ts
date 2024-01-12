@@ -111,6 +111,13 @@ const modGameOptions = async () => {
 
 const modCivics = async () => {
   const removedCivicOptions = await removeCivicOptions();
+  const removedBuildings = await removeBuildings(
+    'CivicOption',
+    removedCivicOptions
+  );
+
+  console.log('removedCivicOptions=', removedCivicOptions);
+  console.log('removedBuildings=', removedBuildings);
 
   // const civicsFile = 'Assets/XML/GameInfo/CIV4CivicInfos.xml';
   // const civicsFilePath = await prepModFile(civicsFile);
@@ -155,43 +162,92 @@ const modCivics = async () => {
   // );
 };
 
-const removeCivicOptions = async () => {
-  const civicOptionsFile = 'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml';
-  const civicOptionsFilePath = await prepModFile(civicOptionsFile);
+/**
+ * Remove non-governmental civic options
+ *
+ * @returns The list of removed civic options
+ */
+const removeCivicOptions = async (): Promise<string[]> => {
+  const removedCivicOptions = [] as string[];
 
-  const civicOptionsXmlDoc = new DOMParser().parseFromString(
-    (await fs.readFile(civicOptionsFilePath)).toString(),
+  const configurationFile = 'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml';
+  const modFilePath = await prepModFile(configurationFile);
+
+  const doc = new DOMParser().parseFromString(
+    (await fs.readFile(modFilePath)).toString(),
     'text/xml'
   );
 
-  const civicOptionInfos =
-    civicOptionsXmlDoc.getElementsByTagName('CivicOptionInfos')[0];
-  const civicOptionInfosChildren =
-    civicOptionInfos.getElementsByTagName('CivicOptionInfo');
-  for (let i = 0; i < civicOptionInfosChildren.length; i++) {
-    const civicOptionInfo = civicOptionInfosChildren[i];
-
-    const typeElement = civicOptionInfo.getElementsByTagName('Type')[0];
-    if (
-      typeElement.childNodes[0].textContent &&
-      ![
-        'CIVICOPTION_GOVERNMENT',
-        // Planetfall
-        'CIVICOPTION_POLITICS',
-      ].includes(typeElement.childNodes[0].textContent)
-    ) {
-      console.log('here');
-      civicOptionInfos.removeChild(civicOptionInfo);
+  const civicOptionInfos = doc.getElementsByTagName('CivicOptionInfos')[0];
+  Array.prototype.forEach.call(
+    civicOptionInfos.getElementsByTagName('CivicOptionInfo'),
+    (civicOptionInfo: Element) => {
+      const typeElement = civicOptionInfo.getElementsByTagName('Type')[0];
+      if (
+        typeElement.childNodes[0].textContent &&
+        ![
+          'CIVICOPTION_GOVERNMENT',
+          // Planetfall
+          'CIVICOPTION_POLITICS',
+        ].includes(typeElement.childNodes[0].textContent)
+      ) {
+        removedCivicOptions.push(typeElement.childNodes[0].textContent);
+        civicOptionInfos.removeChild(civicOptionInfo);
+      }
     }
-  }
+  );
 
-  // console.log(civicOptionInfos.toString());
-  console.log(civicOptionsXmlDoc.toString());
+  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
 
-  // await fs.writeFile(
-  //   civicOptionsFilePath,
-  //   civicsXmlDoc.toString().replaceAll('\n', '\r\n')
-  // );
+  return removedCivicOptions;
+};
+
+/**
+ * Removes any building matching a given tag with the given values
+ *
+ * @param tag XML tag to match on
+ * @param values Values of the tag to match on
+ * @returns List of removed buildings
+ */
+const removeBuildings = async (
+  tag: string,
+  values: string[]
+): Promise<string[]> => {
+  const removedBuildings = [] as string[];
+
+  const configurationFile = 'Assets/XML/Buildings/CIV4BuildingInfos.xml';
+  const modFilePath = await prepModFile(configurationFile);
+
+  const doc = new DOMParser().parseFromString(
+    (await fs.readFile(modFilePath)).toString(),
+    'text/xml'
+  );
+
+  const buildingInfos = doc.getElementsByTagName('BuildingInfos')[0];
+  Array.prototype.forEach.call(
+    buildingInfos.getElementsByTagName('BuildingInfo'),
+    (buildingInfo: Element) => {
+      const elementToMatch = buildingInfo.getElementsByTagName(tag)[0];
+      if (
+        elementToMatch.childNodes[0].textContent &&
+        values.includes(elementToMatch.childNodes[0].textContent)
+      ) {
+        const elementType =
+          buildingInfo.getElementsByTagName('Type')[0].childNodes[0]
+            .textContent;
+        if (elementType) {
+          removedBuildings.push(elementType);
+        } else {
+          throw new Error(`Building has no 'Type': ${buildingInfo.toString()}`);
+        }
+        buildingInfos.removeChild(buildingInfo);
+      }
+    }
+  );
+
+  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+
+  return removedBuildings;
 };
 
 /**
