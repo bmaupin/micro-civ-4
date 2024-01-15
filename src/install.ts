@@ -3,8 +3,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import querySelector from 'query-selector';
-import { DOMParser as UpstreamDOMParser, XMLSerializer } from '@xmldom/xmldom';
+import jsdom from 'jsdom';
+const { JSDOM } = jsdom;
+const dom = new JSDOM('');
+const DOMParser = dom.window.DOMParser;
+
+// import { DOMParser as UpstreamDOMParser, XMLSerializer } from '@xmldom/xmldom';
 
 // Change this as needed
 const gamePath = path.join(
@@ -18,22 +22,6 @@ const modsDirectory = 'Mods';
 
 const btsPath = path.join(gamePath, btsDirectory);
 const modPath = path.join(btsPath, modsDirectory, modName);
-
-// Override DOMParser so the returned document will have the querySelectorAll method
-class DOMParser {
-  parseFromString(source: string, mimeType?: string) {
-    const doc = new UpstreamDOMParser().parseFromString(source, mimeType);
-    const documentPrototype = Object.getPrototypeOf(doc);
-
-    documentPrototype.querySelectorAll = function querySelectorAll(
-      selector: string
-    ) {
-      return querySelector(selector, this);
-    };
-
-    return doc;
-  }
-}
 
 const main = async () => {
   // Start with a clean slate every time
@@ -82,9 +70,13 @@ const modMapSizes = async () => {
     newGridWidth++;
   }
 
+  // TODO: we'll need to add back the XML tag since jsdom doesn't add it
   // Replace normal newlines with Windows newlines; this probably isn't necessary but
   // makes diffing easier since the original files have Windows newlines
-  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(
+    modFilePath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
   console.log();
 };
@@ -129,7 +121,10 @@ const modGameOptions = async () => {
     }
   }
 
-  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(
+    modFilePath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
   console.log();
 };
@@ -181,48 +176,6 @@ const modCivics = async () => {
   );
 
   console.log();
-
-  // const civicsFile = 'Assets/XML/GameInfo/CIV4CivicInfos.xml';
-  // const civicsFilePath = await prepModFile(civicsFile);
-
-  // const civicsXmlDoc = new DOMParser().parseFromString(
-  //   (await fs.readFile(civicsFilePath)).toString(),
-  //   'text/xml'
-  // );
-
-  // const civicInfos = civicsXmlDoc.getElementsByTagName('CivicInfo');
-  // for (let i = 0; i < civicInfos.length; i++) {
-  //   const civicInfo = civicInfos[i];
-
-  //   const typeElement = civicInfo.getElementsByTagName('Type')[0];
-  //   if (
-  //     typeElement.childNodes[0].textContent &&
-  //     [
-  //       'GAMEOPTION_NO_CITY_RAZING',
-  //       'GAMEOPTION_NO_VASSAL_STATES',
-  //       'GAMEOPTION_NO_ESPIONAGE',
-  //     ].includes(typeElement.childNodes[0].textContent)
-  //   ) {
-  //     const bDefault = civicInfo.getElementsByTagName('bDefault')[0];
-  //     bDefault.childNodes[0].textContent = '1';
-  //   }
-
-  //   if (
-  //     typeElement.childNodes[0].textContent &&
-  //     [
-  //       // Hide pick religion from options since we'll be removing religion
-  //       'GAMEOPTION_PICK_RELIGION',
-  //     ].includes(typeElement.childNodes[0].textContent)
-  //   ) {
-  //     const bVisible = civicInfo.getElementsByTagName('bVisible')[0];
-  //     bVisible.childNodes[0].textContent = '0';
-  //   }
-  // }
-
-  // await fs.writeFile(
-  //   civicOptionsFilePath,
-  //   civicsXmlDoc.toString().replaceAll('\n', '\r\n')
-  // );
 };
 
 /**
@@ -260,7 +213,10 @@ const removeCivicOptions = async (): Promise<string[]> => {
     }
   );
 
-  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(
+    modFilePath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
   return removedCivicOptions;
 };
@@ -365,7 +321,10 @@ const removeInfoItem = async (
     }
   );
 
-  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(
+    modFileFullPath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
   return removedInfoItems;
 };
@@ -375,7 +334,9 @@ const removeInfoItem = async (
  * configuration file
  *
  * @param assetPath The partial path of the file to modify, starting with "Assets/"
- * @param selectors CSS selectors to the XML element to match on
+ * @param selectors CSS selectors to the XML element to match on. **NOTE** that the first
+ *                  part of the selectors should contain the info element tag (e.g.
+ *                  "CivilizationInfo").
  * @param valuesToMatch Values of the element to match on
  * @returns List of the Type values of the removed items
  */
@@ -388,73 +349,53 @@ const removeInfoItemWithSelector = async (
     throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
   }
 
-  const removedInfoItems = [] as string[];
+  // Get the tag of the info items to go through from the selectors
+  const infoItemTag = selectors.split(' ')[0];
+  if (!infoItemTag.endsWith('Info')) {
+    throw new Error(
+      `Selectors does not start with a tag that ends with "Info": ${selectors}`
+    );
+  }
 
   const modFileFullPath = await prepModFile(assetPath);
-  // const doc = new DOMParser().parseFromString(
-  const doc = new UpstreamDOMParser().parseFromString(
+  const doc = new DOMParser().parseFromString(
     (await fs.readFile(modFileFullPath)).toString(),
     'text/xml'
   );
 
-  // for (const element of doc.querySelectorAll(selectors)) {
-  for (const element of querySelector(selectors, doc)) {
-    // console.log(element.parentElement?.parentElement?.toString());
-    // console.log(
-    //   element.parentNode?.parentNode?.parentNode?.parentNode?.removeChild(
-    //     element.parentNode?.parentNode?.parentNode
-    //   )
-    // );
-    break;
+  const removedInfoItems = [] as string[];
+
+  console.log('valuesToMatch=', valuesToMatch);
+
+  // Go through all the info elements
+  for (const infoElement of doc.querySelectorAll(infoItemTag)) {
+    // Within those, apply the query selector to match an element inside
+    for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
+      const infoItemType =
+        infoElement.getElementsByTagName('Type')[0].textContent;
+      if (
+        infoItemType &&
+        valuesToMatch.includes(elementToMatch.textContent || '')
+      ) {
+        removedInfoItems.push(infoItemType);
+        // Remove the matching info element
+        infoElement.parentElement?.removeChild(infoElement);
+      }
+    }
   }
 
-  // const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
-  // Array.prototype.forEach.call(
-  //   infosElement.getElementsByTagName(infoTag),
-  //   (infoElement: Element) => {
-  //     const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
+  await fs.writeFile(
+    modFileFullPath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
-  //     if (tagToMatch === 'CivicType') {
-  //       console.log('elementToMatch=', elementToMatch);
+  // console.log(doc.documentElement.outerHTML);
+  console.log('removedInfoItems=', removedInfoItems);
 
-  //       console.log(
-  //         '\n\n********************** HERE *********************',
-  //         doc.querySelectorAll('ForceCivics ForceCivic CivicType')
-  //       );
-  //     }
-
-  //     if (
-  //       elementToMatch.childNodes[0].textContent &&
-  //       valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
-  //     ) {
-  //       const elementType =
-  //         infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
-  //       if (elementType) {
-  //         console.log(
-  //           `Removed ${formatInfoTag(infoTag)} ${formatElementType(
-  //             elementType
-  //           )}`
-  //         );
-  //         removedInfoItems.push(elementType);
-  //       } else {
-  //         throw new Error(
-  //           `Element ${formatInfoTag(
-  //             infoTag
-  //           )} has no 'Type': ${infoElement.toString()}`
-  //         );
-  //       }
-  //       infosElement.removeChild(infoElement);
-  //     }
-  //   }
-  // );
-
-  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
-
-  console.log(new XMLSerializer().serializeToString(doc));
+  console.log('modFileFullPath=', modFileFullPath);
 
   return removedInfoItems;
 };
-
 const updateCivilizations = async (
   parentTag: string,
   tagTomatch: string,
@@ -520,7 +461,10 @@ const updateInfoItem = async (
     }
   );
 
-  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(
+    modFileFullPath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
   return updatedInfoItems;
 };
@@ -586,7 +530,10 @@ const updateNestedInfoItem = async (
     }
   );
 
-  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(
+    modFileFullPath,
+    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  );
 
   return updatedInfoItems;
 };
