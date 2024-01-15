@@ -23,6 +23,7 @@
     "@types/node": "^20.10.0"
   },
   "dependencies": {
-    "@xmldom/xmldom": "^0.8.10"
+    "@xmldom/xmldom": "^0.8.10",
+    "query-selector": "^2.0.0"
   }
 }

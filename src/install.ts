@@ -3,7 +3,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { DOMParser } from '@xmldom/xmldom';
+import querySelector from 'query-selector';
+import { DOMParser as UpstreamDOMParser, XMLSerializer } from '@xmldom/xmldom';
 
 // Change this as needed
 const gamePath = path.join(
@@ -18,11 +19,27 @@ const modsDirectory = 'Mods';
 const btsPath = path.join(gamePath, btsDirectory);
 const modPath = path.join(btsPath, modsDirectory, modName);
 
+// Override DOMParser so the returned document will have the querySelectorAll method
+class DOMParser {
+  parseFromString(source: string, mimeType?: string) {
+    const doc = new UpstreamDOMParser().parseFromString(source, mimeType);
+    const documentPrototype = Object.getPrototypeOf(doc);
+
+    documentPrototype.querySelectorAll = function querySelectorAll(
+      selector: string
+    ) {
+      return querySelector(selector, this);
+    };
+
+    return doc;
+  }
+}
+
 const main = async () => {
   // Start with a clean slate every time
   await uninstallMod();
-  await modMapSizes();
-  await modGameOptions();
+  // await modMapSizes();
+  // await modGameOptions();
   await modCivics();
   // await removeReligion();
   // await removeEspionage();
@@ -68,6 +85,8 @@ const modMapSizes = async () => {
   // Replace normal newlines with Windows newlines; this probably isn't necessary but
   // makes diffing easier since the original files have Windows newlines
   await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+
+  console.log();
 };
 
 const modGameOptions = async () => {
@@ -111,6 +130,8 @@ const modGameOptions = async () => {
   }
 
   await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+
+  console.log();
 };
 
 const modCivics = async () => {
@@ -152,6 +173,14 @@ const modCivics = async () => {
     'Civic',
     removedCivics
   );
+
+  await removeInfoItemWithSelector(
+    'Assets/XML/GameInfo/CIV4VoteInfo.xml',
+    'VoteInfo ForceCivics ForceCivic CivicType',
+    removedCivics
+  );
+
+  console.log();
 
   // const civicsFile = 'Assets/XML/GameInfo/CIV4CivicInfos.xml';
   // const civicsFilePath = await prepModFile(civicsFile);
@@ -302,6 +331,15 @@ const removeInfoItem = async (
     (infoElement: Element) => {
       const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
 
+      if (tagToMatch === 'CivicType') {
+        console.log('elementToMatch=', elementToMatch);
+
+        console.log(
+          '\n\n********************** HERE *********************',
+          doc.querySelectorAll('ForceCivics ForceCivic CivicType')
+        );
+      }
+
       if (
         elementToMatch.childNodes[0].textContent &&
         valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
@@ -328,6 +366,91 @@ const removeInfoItem = async (
   );
 
   await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+
+  return removedInfoItems;
+};
+
+/**
+ * Remove a matching element with the given values from a Civ 4 Info XML
+ * configuration file
+ *
+ * @param assetPath The partial path of the file to modify, starting with "Assets/"
+ * @param selectors CSS selectors to the XML element to match on
+ * @param valuesToMatch Values of the element to match on
+ * @returns List of the Type values of the removed items
+ */
+const removeInfoItemWithSelector = async (
+  assetPath: string,
+  selectors: string,
+  valuesToMatch: string[]
+): Promise<string[]> => {
+  if (!assetPath.startsWith('Assets/')) {
+    throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+  }
+
+  const removedInfoItems = [] as string[];
+
+  const modFileFullPath = await prepModFile(assetPath);
+  // const doc = new DOMParser().parseFromString(
+  const doc = new UpstreamDOMParser().parseFromString(
+    (await fs.readFile(modFileFullPath)).toString(),
+    'text/xml'
+  );
+
+  // for (const element of doc.querySelectorAll(selectors)) {
+  for (const element of querySelector(selectors, doc)) {
+    // console.log(element.parentElement?.parentElement?.toString());
+    // console.log(
+    //   element.parentNode?.parentNode?.parentNode?.parentNode?.removeChild(
+    //     element.parentNode?.parentNode?.parentNode
+    //   )
+    // );
+    break;
+  }
+
+  // const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
+  // Array.prototype.forEach.call(
+  //   infosElement.getElementsByTagName(infoTag),
+  //   (infoElement: Element) => {
+  //     const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
+
+  //     if (tagToMatch === 'CivicType') {
+  //       console.log('elementToMatch=', elementToMatch);
+
+  //       console.log(
+  //         '\n\n********************** HERE *********************',
+  //         doc.querySelectorAll('ForceCivics ForceCivic CivicType')
+  //       );
+  //     }
+
+  //     if (
+  //       elementToMatch.childNodes[0].textContent &&
+  //       valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
+  //     ) {
+  //       const elementType =
+  //         infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
+  //       if (elementType) {
+  //         console.log(
+  //           `Removed ${formatInfoTag(infoTag)} ${formatElementType(
+  //             elementType
+  //           )}`
+  //         );
+  //         removedInfoItems.push(elementType);
+  //       } else {
+  //         throw new Error(
+  //           `Element ${formatInfoTag(
+  //             infoTag
+  //           )} has no 'Type': ${infoElement.toString()}`
+  //         );
+  //       }
+  //       infosElement.removeChild(infoElement);
+  //     }
+  //   }
+  // );
+
+  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+
+  console.log(new XMLSerializer().serializeToString(doc));
 
   return removedInfoItems;
 };
