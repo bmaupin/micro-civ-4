@@ -37,6 +37,8 @@ const uninstallMod = async () => {
 };
 
 const modMapSizes = async () => {
+  console.log('Modding map sizes ...');
+
   const worldInfoFile = 'Assets/XML/GameInfo/CIV4WorldInfo.xml';
   const modFilePath = await prepModFile(worldInfoFile);
 
@@ -69,6 +71,8 @@ const modMapSizes = async () => {
 };
 
 const modGameOptions = async () => {
+  console.log('Modding game options ...');
+
   const gameOptionsFile = 'Assets/XML/GameInfo/CIV4GameOptionInfos.xml';
   const modFilePath = await prepModFile(gameOptionsFile);
 
@@ -110,14 +114,44 @@ const modGameOptions = async () => {
 };
 
 const modCivics = async () => {
+  console.log('Removing non-governmental civics ...');
+
   const removedCivicOptions = await removeCivicOptions();
+  console.log('Removed civic options:', removedCivicOptions);
+
   const removedBuildings = await removeBuildings(
     'CivicOption',
     removedCivicOptions
   );
+  // console.log('Removed buildings:', removedBuildings);
 
-  console.log('removedCivicOptions=', removedCivicOptions);
-  console.log('removedBuildings=', removedBuildings);
+  const removedCivics = await removeCivics(
+    'CivicOptionType',
+    removedCivicOptions
+  );
+  // console.log('Removed civics:', removedCivics);
+
+  const updatedCivilizations = await updateCivilizations(
+    'InitialCivics',
+    'CivicType',
+    removedCivics,
+    'NONE'
+  );
+
+  await updateInfoItem(
+    'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
+    'LeaderHeadInfo',
+    'FavoriteCivic',
+    removedCivics,
+    'NONE'
+  );
+
+  await removeInfoItem(
+    'Assets/XML/Events/CIV4EventTriggerInfos.xml',
+    'EventTriggerInfo',
+    'Civic',
+    removedCivics
+  );
 
   // const civicsFile = 'Assets/XML/GameInfo/CIV4CivicInfos.xml';
   // const civicsFilePath = await prepModFile(civicsFile);
@@ -205,49 +239,252 @@ const removeCivicOptions = async (): Promise<string[]> => {
 /**
  * Removes any building matching a given tag with the given values
  *
- * @param tag XML tag to match on
- * @param values Values of the tag to match on
- * @returns List of removed buildings
+ * @param tagTomatch XML tag to match on
+ * @param valuesTomatch Values of the tag to match on
+ * @returns List of the Type values of the removed items
  */
 const removeBuildings = async (
-  tag: string,
-  values: string[]
+  tagTomatch: string,
+  valuesTomatch: string[]
 ): Promise<string[]> => {
-  const removedBuildings = [] as string[];
+  return await removeInfoItem(
+    'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+    'BuildingInfo',
+    tagTomatch,
+    valuesTomatch
+  );
+};
 
-  const configurationFile = 'Assets/XML/Buildings/CIV4BuildingInfos.xml';
-  const modFilePath = await prepModFile(configurationFile);
+const removeCivics = async (
+  tagTomatch: string,
+  valuesTomatch: string[]
+): Promise<string[]> => {
+  return await removeInfoItem(
+    'Assets/XML/GameInfo/CIV4CivicInfos.xml',
+    'CivicInfo',
+    tagTomatch,
+    valuesTomatch
+  );
+};
 
+/**
+ * Remove an info item matching a given tag with the given values from a Civ 4 Info XML
+ * configuration file
+ *
+ * @param assetPath The partial path of the file to modify, starting with "Assets/"
+ * @param infosTag The parent tag of the info elements, normally ending with "Infos"
+ * @param infoTag The tag of the info elements, normally ending with "Info"
+ * @param tagToMatch XML tag to match on
+ * @param valuesToMatch Values of the tag to match on
+ * @returns List of the Type values of the removed items
+ */
+const removeInfoItem = async (
+  assetPath: string,
+  infoTag: string,
+  tagToMatch: string,
+  valuesToMatch: string[]
+): Promise<string[]> => {
+  if (!assetPath.startsWith('Assets/')) {
+    throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+  }
+
+  const removedInfoItems = [] as string[];
+
+  const modFileFullPath = await prepModFile(assetPath);
   const doc = new DOMParser().parseFromString(
-    (await fs.readFile(modFilePath)).toString(),
+    (await fs.readFile(modFileFullPath)).toString(),
     'text/xml'
   );
 
-  const buildingInfos = doc.getElementsByTagName('BuildingInfos')[0];
+  const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
   Array.prototype.forEach.call(
-    buildingInfos.getElementsByTagName('BuildingInfo'),
-    (buildingInfo: Element) => {
-      const elementToMatch = buildingInfo.getElementsByTagName(tag)[0];
+    infosElement.getElementsByTagName(infoTag),
+    (infoElement: Element) => {
+      const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
+
       if (
         elementToMatch.childNodes[0].textContent &&
-        values.includes(elementToMatch.childNodes[0].textContent)
+        valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
       ) {
         const elementType =
-          buildingInfo.getElementsByTagName('Type')[0].childNodes[0]
-            .textContent;
+          infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
         if (elementType) {
-          removedBuildings.push(elementType);
+          console.log(
+            `Removed ${formatInfoTag(infoTag)} ${formatElementType(
+              elementType
+            )}`
+          );
+          removedInfoItems.push(elementType);
         } else {
-          throw new Error(`Building has no 'Type': ${buildingInfo.toString()}`);
+          throw new Error(
+            `Element ${formatInfoTag(
+              infoTag
+            )} has no 'Type': ${infoElement.toString()}`
+          );
         }
-        buildingInfos.removeChild(buildingInfo);
+        infosElement.removeChild(infoElement);
       }
     }
   );
 
-  await fs.writeFile(modFilePath, doc.toString().replaceAll('\n', '\r\n'));
+  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
 
-  return removedBuildings;
+  return removedInfoItems;
+};
+
+const updateCivilizations = async (
+  parentTag: string,
+  tagTomatch: string,
+  valuesTomatch: string[],
+  newValue: string
+): Promise<string[]> => {
+  return await updateNestedInfoItem(
+    'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
+    'CivilizationInfo',
+    parentTag,
+    tagTomatch,
+    valuesTomatch,
+    newValue
+  );
+};
+
+const updateInfoItem = async (
+  assetPath: string,
+  infoTag: string,
+  tagToMatch: string,
+  valuesToMatch: string[],
+  newValue: string
+): Promise<string[]> => {
+  if (!assetPath.startsWith('Assets/')) {
+    throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+  }
+
+  const updatedInfoItems = [] as string[];
+
+  const modFileFullPath = await prepModFile(assetPath);
+  const doc = new DOMParser().parseFromString(
+    (await fs.readFile(modFileFullPath)).toString(),
+    'text/xml'
+  );
+
+  const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
+  Array.prototype.forEach.call(
+    infosElement.getElementsByTagName(infoTag),
+    (infoElement: Element) => {
+      const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
+      if (
+        elementToMatch.childNodes[0].textContent &&
+        valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
+      ) {
+        const elementType =
+          infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
+        if (elementType) {
+          updatedInfoItems.push(elementType);
+          console.log(
+            `Updated ${formatInfoTag(infoTag)} ${formatElementType(
+              elementType
+            )}`
+          );
+        } else {
+          throw new Error(
+            `Element ${formatInfoTag(
+              infoTag
+            )} has no 'Type': ${infoElement.toString()}`
+          );
+        }
+        elementToMatch.childNodes[0].textContent = newValue;
+      }
+    }
+  );
+
+  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+
+  return updatedInfoItems;
+};
+
+const updateNestedInfoItem = async (
+  assetPath: string,
+  infoTag: string,
+  parentTag: string,
+  tagToMatch: string,
+  valuesToMatch: string[],
+  newValue: string
+): Promise<string[]> => {
+  if (!assetPath.startsWith('Assets/')) {
+    throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+  }
+
+  const updatedInfoItems = [] as string[];
+
+  const modFileFullPath = await prepModFile(assetPath);
+  const doc = new DOMParser().parseFromString(
+    (await fs.readFile(modFileFullPath)).toString(),
+    'text/xml'
+  );
+
+  const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
+  Array.prototype.forEach.call(
+    infosElement.getElementsByTagName(infoTag),
+    (infoElement: Element) => {
+      let updated = false;
+      const childElement = infoElement.getElementsByTagName(parentTag)[0];
+
+      Array.prototype.forEach.call(
+        childElement.getElementsByTagName(tagToMatch),
+        (elementToMatch: Element) => {
+          if (
+            elementToMatch.childNodes[0].textContent &&
+            valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
+          ) {
+            updated = true;
+            elementToMatch.childNodes[0].textContent = newValue;
+          }
+        }
+      );
+
+      if (updated) {
+        const elementType =
+          infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
+        if (elementType) {
+          updatedInfoItems.push(elementType);
+          console.log(
+            `Updated ${formatInfoTag(infoTag)} ${formatElementType(
+              elementType
+            )}`
+          );
+        } else {
+          throw new Error(
+            `Element ${formatInfoTag(
+              infoTag
+            )} has no 'Type': ${infoElement.toString()}`
+          );
+        }
+      }
+    }
+  );
+
+  await fs.writeFile(modFileFullPath, doc.toString().replaceAll('\n', '\r\n'));
+
+  return updatedInfoItems;
+};
+
+const formatInfoTag = (infoTag: string) => {
+  return infoTag.slice(0, -4);
+};
+
+const formatElementType = (elementType: string) => {
+  return (
+    elementType
+      .split('_')
+      // Drop the first word
+      .slice(1)
+      // Lower-case everything
+      .map((word) => word.toLowerCase())
+      // Upper-case the first word of each segment
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      // Put it all back together
+      .join(' ')
+  );
 };
 
 /**
