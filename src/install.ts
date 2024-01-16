@@ -26,8 +26,8 @@ const modPath = path.join(btsPath, modsDirectory, modName);
 const main = async () => {
   // Start with a clean slate every time
   await uninstallMod();
-  // await modMapSizes();
-  // await modGameOptions();
+  await modMapSizes();
+  await modGameOptions();
   await modCivics();
   // await removeReligion();
   // await removeEspionage();
@@ -133,7 +133,6 @@ const modCivics = async () => {
   console.log('Removing non-governmental civics ...');
 
   const removedCivicOptions = await removeCivicOptions();
-  console.log('Removed civic options:', removedCivicOptions);
 
   const removedBuildings = await removeInfoItems(
     'Assets/XML/Buildings/CIV4BuildingInfos.xml',
@@ -183,8 +182,6 @@ const modCivics = async () => {
  * @returns The list of removed civic options
  */
 const removeCivicOptions = async (): Promise<string[]> => {
-  const removedCivicOptions = [] as string[];
-
   const configurationFile = 'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml';
   const modFilePath = await prepModFile(configurationFile);
 
@@ -193,31 +190,32 @@ const removeCivicOptions = async (): Promise<string[]> => {
     'text/xml'
   );
 
-  const civicOptionInfos = doc.getElementsByTagName('CivicOptionInfos')[0];
-  Array.prototype.forEach.call(
-    civicOptionInfos.getElementsByTagName('CivicOptionInfo'),
-    (civicOptionInfo: Element) => {
-      const typeElement = civicOptionInfo.getElementsByTagName('Type')[0];
-      if (
-        typeElement.childNodes[0].textContent &&
+  // TODO: In order to use removeInfoItems, we're getting all civic options and removing
+  //       the ones we want to keep. If we end up needing to reuse this pattern elsewhere,
+  //       it might be better to modify removeInfoItems so that instead of a list of
+  //       values to match it takes a matcher function. This would allow us to remove this
+  //       extra step and do everything in removeInfoItems.
+  const civicOptionsToRemove = Array.from(
+    doc.querySelectorAll('CivicOptionInfo')
+  )
+    .map(
+      (civicOption) =>
+        civicOption.getElementsByTagName('Type')[0].textContent ?? ''
+    )
+    .filter(
+      (civicOption) =>
         ![
           'CIVICOPTION_GOVERNMENT',
           // Planetfall
           'CIVICOPTION_POLITICS',
-        ].includes(typeElement.childNodes[0].textContent)
-      ) {
-        removedCivicOptions.push(typeElement.childNodes[0].textContent);
-        civicOptionInfos.removeChild(civicOptionInfo);
-      }
-    }
-  );
+        ].includes(civicOption)
+    );
 
-  await fs.writeFile(
-    modFilePath,
-    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+  return await removeInfoItems(
+    configurationFile,
+    'CivicOptionInfo Type',
+    civicOptionsToRemove
   );
-
-  return removedCivicOptions;
 };
 
 /**
