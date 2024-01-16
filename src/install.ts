@@ -135,17 +135,17 @@ const modCivics = async () => {
   const removedCivicOptions = await removeCivicOptions();
   console.log('Removed civic options:', removedCivicOptions);
 
-  const removedBuildings = await removeBuildings(
-    'CivicOption',
+  const removedBuildings = await removeInfoItems(
+    'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+    'BuildingInfo CivicOption',
     removedCivicOptions
   );
-  // console.log('Removed buildings:', removedBuildings);
 
-  const removedCivics = await removeCivics(
-    'CivicOptionType',
+  const removedCivics = await removeInfoItems(
+    'Assets/XML/GameInfo/CIV4CivicInfos.xml',
+    'CivicInfo CivicOptionType',
     removedCivicOptions
   );
-  // console.log('Removed civics:', removedCivics);
 
   const updatedCivilizations = await updateCivilizations(
     'InitialCivics',
@@ -162,14 +162,13 @@ const modCivics = async () => {
     'NONE'
   );
 
-  await removeInfoItem(
+  await removeInfoItems(
     'Assets/XML/Events/CIV4EventTriggerInfos.xml',
-    'EventTriggerInfo',
-    'Civic',
+    'EventTriggerInfo Civic',
     removedCivics
   );
 
-  await removeInfoItemWithSelector(
+  await removeInfoItems(
     'Assets/XML/GameInfo/CIV4VoteInfo.xml',
     'VoteInfo ForceCivics ForceCivic CivicType',
     removedCivics
@@ -222,125 +221,17 @@ const removeCivicOptions = async (): Promise<string[]> => {
 };
 
 /**
- * Removes any building matching a given tag with the given values
- *
- * @param tagTomatch XML tag to match on
- * @param valuesTomatch Values of the tag to match on
- * @returns List of the Type values of the removed items
- */
-const removeBuildings = async (
-  tagTomatch: string,
-  valuesTomatch: string[]
-): Promise<string[]> => {
-  return await removeInfoItem(
-    'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-    'BuildingInfo',
-    tagTomatch,
-    valuesTomatch
-  );
-};
-
-const removeCivics = async (
-  tagTomatch: string,
-  valuesTomatch: string[]
-): Promise<string[]> => {
-  return await removeInfoItem(
-    'Assets/XML/GameInfo/CIV4CivicInfos.xml',
-    'CivicInfo',
-    tagTomatch,
-    valuesTomatch
-  );
-};
-
-/**
- * Remove an info item matching a given tag with the given values from a Civ 4 Info XML
- * configuration file
+ * Remove matching Info elements with the given values from a Civ 4 Info XML configuration
+ * file
  *
  * @param assetPath The partial path of the file to modify, starting with "Assets/"
- * @param infosTag The parent tag of the info elements, normally ending with "Infos"
- * @param infoTag The tag of the info elements, normally ending with "Info"
- * @param tagToMatch XML tag to match on
- * @param valuesToMatch Values of the tag to match on
- * @returns List of the Type values of the removed items
- */
-const removeInfoItem = async (
-  assetPath: string,
-  infoTag: string,
-  tagToMatch: string,
-  valuesToMatch: string[]
-): Promise<string[]> => {
-  if (!assetPath.startsWith('Assets/')) {
-    throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
-  }
-
-  const removedInfoItems = [] as string[];
-
-  const modFileFullPath = await prepModFile(assetPath);
-  const doc = new DOMParser().parseFromString(
-    (await fs.readFile(modFileFullPath)).toString(),
-    'text/xml'
-  );
-
-  const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
-  Array.prototype.forEach.call(
-    infosElement.getElementsByTagName(infoTag),
-    (infoElement: Element) => {
-      const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
-
-      if (tagToMatch === 'CivicType') {
-        console.log('elementToMatch=', elementToMatch);
-
-        console.log(
-          '\n\n********************** HERE *********************',
-          doc.querySelectorAll('ForceCivics ForceCivic CivicType')
-        );
-      }
-
-      if (
-        elementToMatch.childNodes[0].textContent &&
-        valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
-      ) {
-        const elementType =
-          infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
-        if (elementType) {
-          console.log(
-            `Removed ${formatInfoTag(infoTag)} ${formatElementType(
-              elementType
-            )}`
-          );
-          removedInfoItems.push(elementType);
-        } else {
-          throw new Error(
-            `Element ${formatInfoTag(
-              infoTag
-            )} has no 'Type': ${infoElement.toString()}`
-          );
-        }
-        infosElement.removeChild(infoElement);
-      }
-    }
-  );
-
-  await fs.writeFile(
-    modFileFullPath,
-    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
-  );
-
-  return removedInfoItems;
-};
-
-/**
- * Remove a matching element with the given values from a Civ 4 Info XML
- * configuration file
- *
- * @param assetPath The partial path of the file to modify, starting with "Assets/"
- * @param selectors CSS selectors to the XML element to match on. **NOTE** that the first
+ * @param selectors CSS selectors to the XML elements to match on. **NOTE** that the first
  *                  part of the selectors should contain the info element tag (e.g.
  *                  "CivilizationInfo").
  * @param valuesToMatch Values of the element to match on
  * @returns List of the Type values of the removed items
  */
-const removeInfoItemWithSelector = async (
+const removeInfoItems = async (
   assetPath: string,
   selectors: string,
   valuesToMatch: string[]
@@ -365,21 +256,29 @@ const removeInfoItemWithSelector = async (
 
   const removedInfoItems = [] as string[];
 
-  console.log('valuesToMatch=', valuesToMatch);
-
   // Go through all the info elements
   for (const infoElement of doc.querySelectorAll(infoItemTag)) {
     // Within those, apply the query selector to match an element inside
     for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
       const infoItemType =
         infoElement.getElementsByTagName('Type')[0].textContent;
-      if (
-        infoItemType &&
-        valuesToMatch.includes(elementToMatch.textContent || '')
-      ) {
-        removedInfoItems.push(infoItemType);
-        // Remove the matching info element
-        infoElement.parentElement?.removeChild(infoElement);
+      if (infoItemType) {
+        if (valuesToMatch.includes(elementToMatch.textContent || '')) {
+          console.log(
+            `Removed ${formatInfoTag(infoItemTag)} ${formatElementType(
+              infoItemType
+            )}`
+          );
+          removedInfoItems.push(infoItemType);
+          // Remove the matching info element
+          infoElement.parentElement?.removeChild(infoElement);
+        }
+      } else {
+        throw new Error(
+          `Element ${formatInfoTag(infoItemTag)} has no 'Type': ${
+            infoElement.outerHTML
+          }`
+        );
       }
     }
   }
@@ -389,13 +288,9 @@ const removeInfoItemWithSelector = async (
     doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
   );
 
-  // console.log(doc.documentElement.outerHTML);
-  console.log('removedInfoItems=', removedInfoItems);
-
-  console.log('modFileFullPath=', modFileFullPath);
-
   return removedInfoItems;
 };
+
 const updateCivilizations = async (
   parentTag: string,
   tagTomatch: string,
