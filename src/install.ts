@@ -26,8 +26,8 @@ const modPath = path.join(btsPath, modsDirectory, modName);
 const main = async () => {
   // Start with a clean slate every time
   await uninstallMod();
-  await modMapSizes();
-  await modGameOptions();
+  // await modMapSizes();
+  // await modGameOptions();
   await modCivics();
   // await removeReligion();
   // await removeEspionage();
@@ -134,7 +134,7 @@ const modCivics = async () => {
 
   const removedCivicOptions = await removeCivicOptions();
 
-  const removedBuildings = await removeInfoItems(
+  await removeInfoItems(
     'Assets/XML/Buildings/CIV4BuildingInfos.xml',
     'BuildingInfo CivicOption',
     removedCivicOptions
@@ -146,17 +146,16 @@ const modCivics = async () => {
     removedCivicOptions
   );
 
-  const updatedCivilizations = await updateCivilizations(
-    'InitialCivics',
-    'CivicType',
+  await updateInfoItems(
+    'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
+    'CivilizationInfo InitialCivics CivicType',
     removedCivics,
     'NONE'
   );
 
-  await updateInfoItem(
+  await updateInfoItems(
     'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
-    'LeaderHeadInfo',
-    'FavoriteCivic',
+    'LeaderHeadInfo FavoriteCivic',
     removedCivics,
     'NONE'
   );
@@ -262,14 +261,14 @@ const removeInfoItems = async (
         infoElement.getElementsByTagName('Type')[0].textContent;
       if (infoItemType) {
         if (valuesToMatch.includes(elementToMatch.textContent || '')) {
+          removedInfoItems.push(infoItemType);
+          // Remove the matching info element
+          infoElement.parentElement?.removeChild(infoElement);
           console.log(
             `Removed ${formatInfoTag(infoItemTag)} ${formatElementType(
               infoItemType
             )}`
           );
-          removedInfoItems.push(infoItemType);
-          // Remove the matching info element
-          infoElement.parentElement?.removeChild(infoElement);
         }
       } else {
         throw new Error(
@@ -289,26 +288,21 @@ const removeInfoItems = async (
   return removedInfoItems;
 };
 
-const updateCivilizations = async (
-  parentTag: string,
-  tagTomatch: string,
-  valuesTomatch: string[],
-  newValue: string
-): Promise<string[]> => {
-  return await updateNestedInfoItem(
-    'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
-    'CivilizationInfo',
-    parentTag,
-    tagTomatch,
-    valuesTomatch,
-    newValue
-  );
-};
-
-const updateInfoItem = async (
+/**
+ * Update matching Info elements with the given values from a Civ 4 Info XML configuration
+ * file to a new value
+ *
+ * @param assetPath The partial path of the file to modify, starting with "Assets/"
+ * @param selectors CSS selectors to the XML elements to match on. **NOTE** that the first
+ *                  part of the selectors should contain the info element tag (e.g.
+ *                  "CivilizationInfo").
+ * @param valuesToMatch Values of the element to match on
+ * @param newValue New value
+ * @returns List of the Type values of the removed items
+ */
+const updateInfoItems = async (
   assetPath: string,
-  infoTag: string,
-  tagToMatch: string,
+  selectors: string,
   valuesToMatch: string[],
   newValue: string
 ): Promise<string[]> => {
@@ -316,112 +310,55 @@ const updateInfoItem = async (
     throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
   }
 
-  const updatedInfoItems = [] as string[];
-
-  const modFileFullPath = await prepModFile(assetPath);
-  const doc = new DOMParser().parseFromString(
-    (await fs.readFile(modFileFullPath)).toString(),
-    'text/xml'
-  );
-
-  const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
-  Array.prototype.forEach.call(
-    infosElement.getElementsByTagName(infoTag),
-    (infoElement: Element) => {
-      const elementToMatch = infoElement.getElementsByTagName(tagToMatch)[0];
-      if (
-        elementToMatch.childNodes[0].textContent &&
-        valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
-      ) {
-        const elementType =
-          infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
-        if (elementType) {
-          updatedInfoItems.push(elementType);
-          console.log(
-            `Updated ${formatInfoTag(infoTag)} ${formatElementType(
-              elementType
-            )}`
-          );
-        } else {
-          throw new Error(
-            `Element ${formatInfoTag(
-              infoTag
-            )} has no 'Type': ${infoElement.toString()}`
-          );
-        }
-        elementToMatch.childNodes[0].textContent = newValue;
-      }
-    }
-  );
-
-  await fs.writeFile(
-    modFileFullPath,
-    doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
-  );
-
-  return updatedInfoItems;
-};
-
-const updateNestedInfoItem = async (
-  assetPath: string,
-  infoTag: string,
-  parentTag: string,
-  tagToMatch: string,
-  valuesToMatch: string[],
-  newValue: string
-): Promise<string[]> => {
-  if (!assetPath.startsWith('Assets/')) {
-    throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+  // Get the tag of the info items to go through from the selectors
+  const infoItemTag = selectors.split(' ')[0];
+  if (!infoItemTag.endsWith('Info')) {
+    throw new Error(
+      `Selectors does not start with a tag that ends with "Info": ${selectors}`
+    );
   }
 
-  const updatedInfoItems = [] as string[];
-
   const modFileFullPath = await prepModFile(assetPath);
   const doc = new DOMParser().parseFromString(
     (await fs.readFile(modFileFullPath)).toString(),
     'text/xml'
   );
 
-  const infosElement = doc.getElementsByTagName(`${infoTag}s`)[0];
-  Array.prototype.forEach.call(
-    infosElement.getElementsByTagName(infoTag),
-    (infoElement: Element) => {
-      let updated = false;
-      const childElement = infoElement.getElementsByTagName(parentTag)[0];
+  const updatedInfoItems = [] as string[];
 
-      Array.prototype.forEach.call(
-        childElement.getElementsByTagName(tagToMatch),
-        (elementToMatch: Element) => {
-          if (
-            elementToMatch.childNodes[0].textContent &&
-            valuesToMatch.includes(elementToMatch.childNodes[0].textContent)
-          ) {
-            updated = true;
-            elementToMatch.childNodes[0].textContent = newValue;
-          }
-        }
-      );
+  // Go through all the info elements
+  for (const infoElement of doc.querySelectorAll(infoItemTag)) {
+    // Track whether the info element has been updated, since it may receive multiple updates
+    let updated = false;
 
-      if (updated) {
-        const elementType =
-          infoElement.getElementsByTagName('Type')[0].childNodes[0].textContent;
-        if (elementType) {
-          updatedInfoItems.push(elementType);
-          console.log(
-            `Updated ${formatInfoTag(infoTag)} ${formatElementType(
-              elementType
-            )}`
-          );
-        } else {
-          throw new Error(
-            `Element ${formatInfoTag(
-              infoTag
-            )} has no 'Type': ${infoElement.toString()}`
-          );
-        }
+    // Within those, apply the query selector to match an element inside
+    for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
+      if (valuesToMatch.includes(elementToMatch.textContent || '')) {
+        updated = true;
+
+        elementToMatch.textContent = newValue;
       }
     }
-  );
+
+    if (updated) {
+      const infoItemType =
+        infoElement.getElementsByTagName('Type')[0].textContent;
+      if (infoItemType) {
+        updatedInfoItems.push(infoItemType);
+        console.log(
+          `Updated ${formatInfoTag(infoItemTag)} ${formatElementType(
+            infoItemType
+          )}`
+        );
+      } else {
+        throw new Error(
+          `Element ${formatInfoTag(infoItemTag)} has no 'Type': ${
+            infoElement.outerHTML
+          }`
+        );
+      }
+    }
+  }
 
   await fs.writeFile(
     modFileFullPath,
