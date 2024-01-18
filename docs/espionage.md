@@ -15,3 +15,5 @@ For example, could we just remove espionage buildings, triggers, events, great p
 #### Remove espionage altogether
 
 If simplifying espionage isn't possible and disabling espionage in the game options ends up being problematic, a better approach may be to remove espionage altogether; this could potentially be done by removing espionage buildings, units, triggers, events, great people, etc.
+
+To remove it from the UI, see [ui.md](ui.md)

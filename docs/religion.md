@@ -27,7 +27,7 @@ For other people's thoughts on religion in Civ 4:
 
 #### Remove religion advisor from UI
 
-Assets/Python/Screens/CvMainInterface.py ?
+See [ui.md](ui.md)
 
 ## Later, simplify religion?
 

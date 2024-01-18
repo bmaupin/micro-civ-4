@@ -7,4 +7,4 @@
 
 #### Hide corporations advisor from UI
 
-Assets/Python/Screens/CvMainInterface.py ?
+See [ui.md](ui.md)
