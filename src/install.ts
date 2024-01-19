@@ -26,12 +26,12 @@ const modPath = path.join(btsPath, modsDirectory, modName);
 const main = async () => {
   // Start with a clean slate every time
   await uninstallMod();
-  // await modMapSizes();
-  // await modGameOptions();
+  await modMapSizes();
+  await modGameOptions();
   await modCivics();
+  // await removeCorporations();
   // await removeReligion();
   // await removeEspionage();
-  // await removeCorporations();
 };
 
 const uninstallMod = async () => {
@@ -70,11 +70,11 @@ const modMapSizes = async () => {
     newGridWidth++;
   }
 
-  // TODO: we'll need to add back the XML tag since jsdom doesn't add it
   // Replace normal newlines with Windows newlines; this probably isn't necessary but
   // makes diffing easier since the original files have Windows newlines
   await fs.writeFile(
     modFilePath,
+    // jsdom doesn't add the XML tag or comments back to the file but Civ doesn't seem to care :)
     doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
   );
 
@@ -298,7 +298,7 @@ const removeInfoItems = async (
  *                  "CivilizationInfo").
  * @param valuesToMatch Values of the element to match on
  * @param newValue New value
- * @returns List of the Type values of the removed items
+ * @returns List of the Type values of the updated items
  */
 const updateInfoItems = async (
   assetPath: string,
