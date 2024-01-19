@@ -8,3 +8,7 @@
 #### Hide corporations advisor from UI
 
 See [ui.md](ui.md)
+
+#### Research
+
+- Dune Wars, Charlemagne, Final frontier, Mesoamerica have all corporations removed from CIV4CorporationInfo.xml

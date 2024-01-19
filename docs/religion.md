@@ -77,3 +77,9 @@ This would allow leaving the religious systems in place without the annoying pro
 - Polytheism (Hinduism)
 - Theology (Christianity)
 -
+
+#### How have other mods disabled religion
+
+- American Revolution:
+  - All religions have prerequisite tech set to rocketry 😆 and all techs are set to disabled via `bDisabled` in XML config files
+  - Unfortunately this leaves the tech tree button in the UI but clicking on it doesn't do anything
