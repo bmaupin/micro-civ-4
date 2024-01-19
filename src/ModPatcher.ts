@@ -1,5 +1,4 @@
 import fs from 'node:fs/promises';
-
 import path from 'node:path';
 
 import jsdom from 'jsdom';
@@ -8,7 +7,7 @@ const dom = new JSDOM('');
 const DOMParser = dom.window.DOMParser;
 
 const btsDirectory = 'Beyond the Sword';
-const defaultGamePath = path.join(
+export const defaultGamePath = path.join(
   process.env.HOME ?? '',
   "/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword"
 );
@@ -26,14 +25,25 @@ export class ModPatcher {
     this.modPath = path.join(this.btsPath, modsDirectory, modName);
   }
 
-  uninstallMod = async () => {
+  applyModPatches = async () => {
+    // Start with a clean slate every time
+    await this.uninstallMod();
+    await this.modMapSizes();
+    await this.modGameOptions();
+    await this.modCivics();
+    // await this.removeCorporations();
+    // await this.removeReligion();
+    // await this.removeEspionage();
+  };
+
+  private uninstallMod = async () => {
     await fs.rm(this.modPath, {
       force: true,
       recursive: true,
     });
   };
 
-  modMapSizes = async () => {
+  private modMapSizes = async () => {
     console.log('Modding map sizes ...');
 
     const worldInfoFile = 'Assets/XML/GameInfo/CIV4WorldInfo.xml';
@@ -73,7 +83,7 @@ export class ModPatcher {
     console.log();
   };
 
-  modGameOptions = async () => {
+  private modGameOptions = async () => {
     console.log('Modding game options ...');
 
     const gameOptionsFile = 'Assets/XML/GameInfo/CIV4GameOptionInfos.xml';
@@ -121,7 +131,7 @@ export class ModPatcher {
     console.log();
   };
 
-  modCivics = async () => {
+  private modCivics = async () => {
     console.log('Removing non-governmental civics ...');
 
     const removedCivicOptions = await this.removeCivicOptions();
@@ -416,7 +426,7 @@ export class ModPatcher {
       return modFilePath;
     }
 
-    throw new Error(`File to mod not found in game directory:  ${assetPath}`);
+    throw new Error(`File to mod not found in game directory: ${assetPath}`);
   };
 
   private static doesFileExist = async (filePath: string) => {

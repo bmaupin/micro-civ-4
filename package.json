@@ -6,8 +6,11 @@
   "directories": {
     "doc": "docs"
   },
+  "engines": {
+    "node": ">= 20"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -20,7 +23,8 @@
   },
   "homepage": "https://github.com/bmaupin/micro-civ-4#readme",
   "devDependencies": {
-    "@types/node": "^20.10.0"
+    "@types/node": "^20.10.0",
+    "vitest": "^1.2.1"
   },
   "dependencies": {
     "@types/jsdom": "^21.1.6",
