@@ -31,7 +31,7 @@ export class ModPatcher {
     await this.modMapSizes();
     await this.modGameOptions();
     await this.modCivics();
-    // await this.removeCorporations();
+    await this.removeCorporations();
     // await this.removeReligion();
     // await this.removeEspionage();
   };
@@ -177,6 +177,29 @@ export class ModPatcher {
     console.log();
   };
 
+  private removeCorporations = async () => {
+    console.log('Removing corporations ...');
+
+    const removedCorporations = await this.removeInfoItems(
+      'Assets/XML/GameInfo/CIV4CorporationInfo.xml',
+      'CorporationInfo'
+    );
+
+    await this.removeInfoItems(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo CorporationSpreads CorporationSpread CorporationType',
+      removedCorporations
+    );
+
+    await this.removeInfoItems(
+      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      'BuildingInfo FoundsCorporation',
+      removedCorporations
+    );
+
+    console.log();
+  };
+
   /**
    * Remove non-governmental civic options
    *
@@ -220,11 +243,11 @@ export class ModPatcher {
   };
 
   /**
-   * Remove matching Info elements with the given values from a Civ 4 Info XML configuration
-   * file
+   * Remove Info elements from a Civ 4 Info XML configuration file
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
-   * @param selectors CSS selectors to the XML elements to match on. **NOTE** that the first
+   * @param selectors CSS selectors to the XML elements to match on, or just the info
+   *                  element if valuesToMatch isn't provided. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
    * @param valuesToMatch Values of the element to match on
@@ -233,7 +256,7 @@ export class ModPatcher {
   private removeInfoItems = async (
     assetPath: string,
     selectors: string,
-    valuesToMatch: string[]
+    valuesToMatch?: string[]
   ): Promise<string[]> => {
     if (!assetPath.startsWith('Assets/')) {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
@@ -257,21 +280,30 @@ export class ModPatcher {
 
     // Go through all the info elements
     for (const infoElement of doc.querySelectorAll(infoItemTag)) {
-      // Within those, apply the query selector to match an element inside
-      for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
+      let matched = false;
+
+      if (valuesToMatch) {
+        // Within those, apply the query selectors to match an element inside
+        for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
+          if (valuesToMatch.includes(elementToMatch.textContent || '')) {
+            matched = true;
+            break;
+          }
+        }
+      }
+
+      if (matched || !valuesToMatch) {
         const infoItemType =
           infoElement.getElementsByTagName('Type')[0].textContent;
         if (infoItemType) {
-          if (valuesToMatch.includes(elementToMatch.textContent || '')) {
-            removedInfoItems.push(infoItemType);
-            // Remove the matching info element
-            infoElement.parentElement?.removeChild(infoElement);
-            console.log(
-              `Removed ${ModPatcher.formatInfoTag(
-                infoItemTag
-              )} ${ModPatcher.formatElementType(infoItemType)}`
-            );
-          }
+          removedInfoItems.push(infoItemType);
+          // Remove the info element
+          infoElement.parentElement?.removeChild(infoElement);
+          console.log(
+            `Removed ${ModPatcher.formatInfoTag(
+              infoItemTag
+            )} ${ModPatcher.formatElementType(infoItemType)}`
+          );
         } else {
           throw new Error(
             `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
