@@ -191,10 +191,17 @@ export class ModPatcher {
       removedCorporations
     );
 
-    await this.removeInfoItems(
+    const removedBuildings = await this.removeInfoItems(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
       'BuildingInfo FoundsCorporation',
       removedCorporations
+    );
+
+    await this.removeInfoItemChild(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo Buildings Building',
+      'Building BuildingType',
+      removedBuildings
     );
 
     console.log();
@@ -250,13 +257,13 @@ export class ModPatcher {
    *                  element if valuesToMatch isn't provided. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
-   * @param valuesToMatch Values of the element to match on
+   * @param matchValues Values of the element to match on
    * @returns List of the Type values of the removed items
    */
   private removeInfoItems = async (
     assetPath: string,
     selectors: string,
-    valuesToMatch?: string[]
+    matchValues?: string[]
   ): Promise<string[]> => {
     if (!assetPath.startsWith('Assets/')) {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
@@ -282,17 +289,17 @@ export class ModPatcher {
     for (const infoElement of doc.querySelectorAll(infoItemTag)) {
       let matched = false;
 
-      if (valuesToMatch) {
+      if (matchValues) {
         // Within those, apply the query selectors to match an element inside
         for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
-          if (valuesToMatch.includes(elementToMatch.textContent || '')) {
+          if (matchValues.includes(elementToMatch.textContent || '')) {
             matched = true;
             break;
           }
         }
       }
 
-      if (matched || !valuesToMatch) {
+      if (matched || !matchValues) {
         const infoItemType =
           infoElement.getElementsByTagName('Type')[0].textContent;
         if (infoItemType) {
@@ -327,17 +334,113 @@ export class ModPatcher {
    * file to a new value
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
+   * @param removeSelectors CSS selectors to the XML elements to remove. **NOTE** that the
+   *                        first part of the selectors must contain the info element tag
+   *                        (e.g. "CivilizationInfo").
+   * @param matchSelectors CSS selectors to the XML elements to match on
+   * @param matchValues Values of the element to match on
+   * @returns List of the Type values of the updated items
+   */
+  private removeInfoItemChild = async (
+    assetPath: string,
+    removeSelectors: string,
+    matchSelectors?: string,
+    matchValues?: string[]
+  ): Promise<string[]> => {
+    if (!assetPath.startsWith('Assets/')) {
+      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+    }
+
+    // Get the tag of the info items to go through from the selectors
+    const infoItemTag = removeSelectors.split(' ')[0];
+    if (!infoItemTag.endsWith('Info')) {
+      throw new Error(
+        `Selectors does not start with a tag that ends with "Info": ${removeSelectors}`
+      );
+    }
+
+    const modFileFullPath = await this.prepModFile(assetPath);
+    const doc = new DOMParser().parseFromString(
+      (await fs.readFile(modFileFullPath)).toString(),
+      'text/xml'
+    );
+
+    const updatedInfoItems = [] as string[];
+
+    // Go through all the info elements
+    for (const infoElement of doc.querySelectorAll(infoItemTag)) {
+      const infoItemType =
+        infoElement.getElementsByTagName('Type')[0].textContent;
+      if (!infoItemType) {
+        throw new Error(
+          `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
+            infoElement.outerHTML
+          }`
+        );
+      }
+
+      // Track whether the info element has been updated, since it may receive multiple updates
+      let infoItemUpdated = false;
+
+      for (const elementToRemove of infoElement.querySelectorAll(
+        removeSelectors
+      )) {
+        let childElementMatched = false;
+
+        if (matchSelectors && matchValues) {
+          for (const elementToMatch of elementToRemove.querySelectorAll(
+            matchSelectors
+          )) {
+            if (
+              elementToMatch.textContent &&
+              matchValues.includes(elementToMatch.textContent)
+            ) {
+              childElementMatched = true;
+              break;
+            }
+          }
+        }
+
+        if (childElementMatched || !matchSelectors || !matchValues) {
+          infoItemUpdated = true;
+          elementToRemove.parentElement?.removeChild(elementToRemove);
+        }
+      }
+
+      if (infoItemUpdated) {
+        updatedInfoItems.push(infoItemType);
+        console.log(
+          `Updated ${ModPatcher.formatInfoTag(
+            infoItemTag
+          )} ${ModPatcher.formatElementType(infoItemType)}`
+        );
+      }
+    }
+
+    await fs.writeFile(
+      modFileFullPath,
+      doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+    );
+
+    return updatedInfoItems;
+  };
+
+  /**
+   * Update matching Info elements with the given values from a Civ 4 Info XML configuration
+   * file to a new value
+   *
+   * @param assetPath The partial path of the file to modify, starting with "Assets/"
    * @param selectors CSS selectors to the XML elements to match on. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
-   * @param valuesToMatch Values of the element to match on
+   * @param matchValues Values of the element to match on
    * @param newValue New value
    * @returns List of the Type values of the updated items
    */
   private updateInfoItems = async (
     assetPath: string,
     selectors: string,
-    valuesToMatch: string[],
+    matchValues: string[],
     newValue: string
   ): Promise<string[]> => {
     if (!assetPath.startsWith('Assets/')) {
@@ -367,7 +470,7 @@ export class ModPatcher {
 
       // Within those, apply the query selector to match an element inside
       for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
-        if (valuesToMatch.includes(elementToMatch.textContent || '')) {
+        if (matchValues.includes(elementToMatch.textContent || '')) {
           updated = true;
 
           elementToMatch.textContent = newValue;
