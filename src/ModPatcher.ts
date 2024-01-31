@@ -32,7 +32,7 @@ export class ModPatcher {
     await this.modGameOptions();
     await this.modCivics();
     await this.removeCorporations();
-    // await this.removeReligion();
+    await this.removeReligions();
     // await this.removeEspionage();
   };
 
@@ -203,6 +203,52 @@ export class ModPatcher {
       'Building BuildingType',
       removedBuildings
     );
+
+    // TODO: Remove advisor button from UI
+
+    console.log();
+  };
+
+  private removeReligions = async () => {
+    console.log('Removing religions ...');
+
+    const removedReligions = await this.removeInfoItems(
+      'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
+      'ReligionInfo'
+    );
+
+    await this.updateInfoItems(
+      'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
+      'LeaderHeadInfo FavoriteReligion',
+      removedReligions,
+      'NONE'
+    );
+
+    await this.removeInfoItems(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo PrereqReligion',
+      removedReligions
+    );
+
+    const removedBuildings = await this.removeInfoItems(
+      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      'BuildingInfo ReligionType',
+      removedReligions
+    );
+
+    await this.removeInfoItems(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo Buildings Building BuildingType',
+      removedBuildings
+    );
+
+    await this.removeInfoItems(
+      'Assets/XML/Events/CIV4EventTriggerInfos.xml',
+      'EventTriggerInfo ReligionsRequired ReligionType',
+      removedReligions
+    );
+
+    // TODO: Remove advisor button from UI
 
     console.log();
   };
