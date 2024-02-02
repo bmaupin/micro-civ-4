@@ -282,13 +282,11 @@ export class ModPatcher {
     );
 
     // Remove espionage units
-    // TODO: How to do this for mods?
     await this.removeInfoItems(
       'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo bSpy',
-      ['1']
+      'UnitInfo Flavors Flavor FlavorType',
+      ['FLAVOR_ESPIONAGE']
     );
-    // TODO: Remove espionage units where iEspionagePoints != 0
 
     console.log();
   };
