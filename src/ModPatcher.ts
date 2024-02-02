@@ -33,7 +33,7 @@ export class ModPatcher {
     await this.modCivics();
     await this.removeCorporations();
     await this.removeReligions();
-    // await this.removeEspionage();
+    await this.modEspionage();
   };
 
   private uninstallMod = async () => {
@@ -249,6 +249,46 @@ export class ModPatcher {
     );
 
     // TODO: Remove advisor button from UI
+
+    console.log();
+  };
+
+  private modEspionage = async () => {
+    console.log('Modding espionage ...');
+
+    // Remove espionage points given by buildings
+    await this.removeInfoItemChild(
+      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      'BuildingInfo CommerceChanges iCommerce:nth-child(4)'
+    );
+
+    // Remove espionage percentage given by buildings
+    await this.removeInfoItemChild(
+      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      'BuildingInfo CommerceModifiers iCommerce:nth-child(4)'
+    );
+
+    // Remove espionage-specific buildings
+    // TODO: How to do this in mods? Remove buildings where FLAVOR_ESPIONAGE == 10?
+    await this.removeInfoItems(
+      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      'BuildingInfo Type',
+      [
+        'BUILDING_INTELLIGENCE_AGENCY',
+        // Security bureau
+        'BUILDING_NATIONAL_SECURITY',
+        'BUILDING_SCOTLAND_YARD',
+      ]
+    );
+
+    // Remove espionage units
+    // TODO: How to do this for mods?
+    await this.removeInfoItems(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo bSpy',
+      ['1']
+    );
+    // TODO: Remove espionage units where iEspionagePoints != 0
 
     console.log();
   };
