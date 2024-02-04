@@ -11,16 +11,32 @@ export const defaultGamePath = path.join(
   process.env.HOME ?? '',
   "/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword"
 );
-const modName = 'Quick Civ 4';
+const modPrefix = 'Quick';
+let modName = `${modPrefix} Civ 4`;
 const modsDirectory = 'Mods';
 
 export class ModPatcher {
+  // Full path to Beyond the Sword
   btsPath: string;
+  // Full path to Civ 4
   gamePath: string;
+  // Full path to the mod
   modPath: string;
+  // Full path the the original mod, if this is a mod mod
+  originalModPath = '';
 
   constructor(installPath?: string) {
     this.gamePath = installPath || defaultGamePath;
+
+    if (installPath?.includes(modsDirectory)) {
+      this.originalModPath = installPath;
+      this.gamePath = installPath.slice(
+        0,
+        installPath.indexOf(path.join(btsDirectory, modsDirectory))
+      );
+      modName = `${modPrefix} ${path.basename(installPath)}`;
+    }
+
     this.btsPath = path.join(this.gamePath, btsDirectory);
     this.modPath = path.join(this.btsPath, modsDirectory, modName);
   }
@@ -28,6 +44,9 @@ export class ModPatcher {
   applyModPatches = async () => {
     // Start with a clean slate every time
     await this.uninstallMod();
+    if (this.originalModPath !== '') {
+      await this.prepModMod();
+    }
     await this.modMapSizes();
     await this.modGameOptions();
     await this.modCivics();
@@ -41,6 +60,10 @@ export class ModPatcher {
       force: true,
       recursive: true,
     });
+  };
+
+  private prepModMod = async () => {
+    await fs.cp(this.originalModPath, this.modPath, { recursive: true });
   };
 
   private modMapSizes = async () => {
