@@ -19,8 +19,8 @@ export class ModPatcher {
   gamePath: string;
   modPath: string;
 
-  constructor(gamePath?: string) {
-    this.gamePath = gamePath || defaultGamePath;
+  constructor(installPath?: string) {
+    this.gamePath = installPath || defaultGamePath;
     this.btsPath = path.join(this.gamePath, btsDirectory);
     this.modPath = path.join(this.btsPath, modsDirectory, modName);
   }
