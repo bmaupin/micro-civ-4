@@ -13,7 +13,7 @@
    Right-click the game in the Steam client > _Properties_ and set _Launch Options_ to
 
    ```
-   %command% "mod=\\Micro Civ 4"
+   %command% "mod=\\Quick Civ 4"
    ```
 
 #### Playing tips

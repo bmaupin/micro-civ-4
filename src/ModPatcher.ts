@@ -11,7 +11,7 @@ export const defaultGamePath = path.join(
   process.env.HOME ?? '',
   "/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword"
 );
-const modName = 'Micro Civ 4';
+const modName = 'Quick Civ 4';
 const modsDirectory = 'Mods';
 
 export class ModPatcher {
