@@ -42,11 +42,7 @@ export class ModPatcher {
   }
 
   applyModPatches = async () => {
-    // Start with a clean slate every time
-    await this.uninstallMod();
-    if (this.originalModPath !== '') {
-      await this.prepModMod();
-    }
+    await this.prepMod();
     await this.modMapSizes();
     await this.modGameOptions();
     await this.modCivics();
@@ -55,15 +51,19 @@ export class ModPatcher {
     await this.modEspionage();
   };
 
-  private uninstallMod = async () => {
+  private prepMod = async () => {
+    // Start with a clean slate every time
     await fs.rm(this.modPath, {
       force: true,
       recursive: true,
     });
-  };
 
-  private prepModMod = async () => {
-    await fs.cp(this.originalModPath, this.modPath, { recursive: true });
+    await fs.mkdir(this.modPath);
+
+    // If this is a mod mod, copy all files from the original mod
+    if (this.originalModPath !== '') {
+      await fs.cp(this.originalModPath, this.modPath, { recursive: true });
+    }
   };
 
   private modMapSizes = async () => {
@@ -641,32 +641,64 @@ export class ModPatcher {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    const modFilePath = path.join(this.modPath, assetPath);
-
-    // First, see if the file already exists
-    if (await ModPatcher.doesFileExist(modFilePath)) {
-      return modFilePath;
+    // First, try to get the file from the mod, if it exists
+    const existingModFile = await ModPatcher.getFileFromMod(
+      this.modPath,
+      assetPath
+    );
+    if (existingModFile !== '') {
+      return existingModFile;
     }
+
+    const newModFile = path.join(this.modPath, assetPath);
 
     // If not, and the file exists in BtS, copy it to the mod
     if (await ModPatcher.doesFileExist(path.join(this.btsPath, assetPath))) {
-      await ModPatcher.copyFile(
-        path.join(this.btsPath, assetPath),
-        modFilePath
-      );
-      return modFilePath;
+      await ModPatcher.copyFile(path.join(this.btsPath, assetPath), newModFile);
+      return newModFile;
     }
 
     // If not, and the file exists in the base game directory, copy it to the mod
     if (await ModPatcher.doesFileExist(path.join(this.gamePath, assetPath))) {
       await ModPatcher.copyFile(
         path.join(this.gamePath, assetPath),
-        modFilePath
+        newModFile
       );
-      return modFilePath;
+      return newModFile;
     }
 
     throw new Error(`File to mod not found in game directory: ${assetPath}`);
+  };
+
+  /**
+   * Find a file from a mod and return it if it's found. **NOTE** that this will do a
+   * case-insensitive search.
+   *
+   * @param modPath Full path to the mod
+   * @param assetPath The partial path of the file to find, starting with "Assets/"
+   * @returns The full path to the found file, or an empty string if no file found
+   */
+  private static getFileFromMod = async (
+    modPath: string,
+    assetPath: string
+  ): Promise<string> => {
+    if (!modPath.includes(modsDirectory)) {
+      throw new Error(
+        `Mod path does not contain ${modsDirectory}": ${modPath}`
+      );
+    }
+
+    if (!assetPath.startsWith('Assets/')) {
+      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+    }
+
+    for (const modFilePath of await fs.readdir(modPath, { recursive: true })) {
+      if (assetPath.toLowerCase() === modFilePath.toLowerCase()) {
+        return path.join(modPath, modFilePath);
+      }
+    }
+
+    return '';
   };
 
   private static doesFileExist = async (filePath: string) => {

@@ -1,5 +1,6 @@
 // To run: npx tsx src/install.ts INSTALL_PATH
-// - INSTALL_PATH is optional and defaults to ~/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword
+// - INSTALL_PATH can be the path to the Beyond the Sword directory or a mod.
+//   It defaults to ~/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword
 
 import { ModPatcher } from './ModPatcher';
 
