@@ -202,7 +202,7 @@ export class ModPatcher {
       removedBuildings
     );
 
-    // TODO: Remove advisor button from UI
+    await this.removeAdvisorButton('CorporationAdvisorButton');
 
     console.log();
   };
@@ -246,7 +246,7 @@ export class ModPatcher {
       removedReligions
     );
 
-    // TODO: Remove advisor button from UI
+    await this.removeAdvisorButton('ReligiousAdvisorButton');
 
     console.log();
   };
@@ -658,5 +658,30 @@ export class ModPatcher {
   private static copyFile = async (sourcePath: string, destPath: string) => {
     await fs.mkdir(path.dirname(destPath), { recursive: true });
     await fs.copyFile(sourcePath, destPath);
+  };
+
+  private removeAdvisorButton = async (buttonName: string) => {
+    const assetPath = 'Assets/Python/Screens/CvMainInterface.py';
+    const modFileFullPath = await this.prepModFile(assetPath);
+    const fileContents = await fs.readFile(modFileFullPath);
+
+    // Use a regex to match for variations in whitespace and line endings just in case 🤷‍♂️
+    const stringsToComment = new RegExp(`(iBtnX\\s?\\+=\\s?iBtnAdvance\\r?)
+\\s*screen\\.setImageButton\\(\\s?"${buttonName}".*\\r?
+\\s*screen\\.setStyle\\(\\s?"${buttonName}".*\\r?
+\\s*screen\\.hide\\(\\s?"${buttonName}".*`);
+
+    const newFileContents = String(fileContents).replace(
+      stringsToComment,
+      `# Remove ${buttonName}\r
+\t\t#$1
+\t\t#screen.setImageButton( "${buttonName}", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_ACTION, gc.getControlInfo(ControlTypes.CONTROL_CORPORATION_SCREEN).getActionInfoIndex(), -1 )\r
+\t\t#screen.setStyle( "${buttonName}", "Button_HUDAdvisorCorporation_Style" )\r
+\t\t#screen.hide( "${buttonName}" )`
+    );
+
+    await fs.writeFile(modFileFullPath, newFileContents);
+
+    console.log(`Removed ${buttonName}`);
   };
 }

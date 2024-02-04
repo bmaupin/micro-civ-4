@@ -266,15 +266,17 @@ class CvMainInterface:
 		screen.setStyle( "TechAdvisorButton", "Button_HUDAdvisorTechnology_Style" )
 		screen.hide( "TechAdvisorButton" )
 
-		iBtnX += iBtnAdvance
-		screen.setImageButton( "ReligiousAdvisorButton", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_ACTION, gc.getControlInfo(ControlTypes.CONTROL_RELIGION_SCREEN).getActionInfoIndex(), -1 )
-		screen.setStyle( "ReligiousAdvisorButton", "Button_HUDAdvisorReligious_Style" )
-		screen.hide( "ReligiousAdvisorButton" )
+		# Remove ReligiousAdvisorButton
+		#iBtnX += iBtnAdvance
+		#screen.setImageButton( "ReligiousAdvisorButton", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_ACTION, gc.getControlInfo(ControlTypes.CONTROL_CORPORATION_SCREEN).getActionInfoIndex(), -1 )
+		#screen.setStyle( "ReligiousAdvisorButton", "Button_HUDAdvisorCorporation_Style" )
+		#screen.hide( "ReligiousAdvisorButton" )
 		
-		iBtnX += iBtnAdvance
-		screen.setImageButton( "CorporationAdvisorButton", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_ACTION, gc.getControlInfo(ControlTypes.CONTROL_CORPORATION_SCREEN).getActionInfoIndex(), -1 )
-		screen.setStyle( "CorporationAdvisorButton", "Button_HUDAdvisorCorporation_Style" )
-		screen.hide( "CorporationAdvisorButton" )
+		# Remove CorporationAdvisorButton
+		#iBtnX += iBtnAdvance
+		#screen.setImageButton( "CorporationAdvisorButton", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_ACTION, gc.getControlInfo(ControlTypes.CONTROL_CORPORATION_SCREEN).getActionInfoIndex(), -1 )
+		#screen.setStyle( "CorporationAdvisorButton", "Button_HUDAdvisorCorporation_Style" )
+		#screen.hide( "CorporationAdvisorButton" )
 		
 		iBtnX += iBtnAdvance
 		screen.setImageButton( "VictoryAdvisorButton", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_ACTION, gc.getControlInfo(ControlTypes.CONTROL_VICTORY_SCREEN).getActionInfoIndex(), -1 )
