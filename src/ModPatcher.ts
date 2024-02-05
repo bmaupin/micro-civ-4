@@ -518,6 +518,12 @@ export class ModPatcher {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
+    if (matchValues && !matchSelectors) {
+      throw new Error(
+        'matchSelectors must be defined if matchValues is defined'
+      );
+    }
+
     // Get the tag of the info items to go through from the selectors
     const infoItemTag = removeSelectors.split(' ')[0];
     if (!infoItemTag.endsWith('Info')) {
