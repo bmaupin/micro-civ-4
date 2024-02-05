@@ -45,9 +45,12 @@ export class ModPatcher {
     await this.prepMod();
     await this.modMapSizes();
     await this.modGameOptions();
+    // TODO: DuneWars Revival: Game loads, but clicking the civics button does nothing ...
     await this.modCivics();
     await this.removeCorporations();
-    await this.removeReligions();
+    // TODO: DuneWars Revival causes errors at mod load time with CIV4CivilizationInfos.xml
+    // "Allocating zero or less memory in CvXMLLoadUtility::SetVariableListTagPair Current XML file is: xml\Civilizations/CIV4CivilizationInfos.xml"
+    // await this.removeReligions();
     await this.modEspionage();
   };
 
@@ -195,6 +198,14 @@ export class ModPatcher {
       removedCivics
     );
 
+    // Mods for DuneWars Revival
+    await this.updateInfoItems(
+      'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
+      'LeaderHeadInfo HatedCivic',
+      removedCivics,
+      'NONE'
+    );
+
     console.log();
   };
 
@@ -257,7 +268,7 @@ export class ModPatcher {
       removedReligions
     );
 
-    await this.removeInfoItems(
+    const removedUnits = await this.removeInfoItems(
       'Assets/XML/Units/CIV4UnitInfos.xml',
       'UnitInfo Buildings Building BuildingType',
       removedBuildings
@@ -267,6 +278,39 @@ export class ModPatcher {
       'Assets/XML/Events/CIV4EventTriggerInfos.xml',
       'EventTriggerInfo ReligionsRequired ReligionType',
       removedReligions
+    );
+
+    // Mods for DuneWars Revival
+    await this.removeInfoItemChild(
+      'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
+      'CivilizationInfo Units Unit',
+      'Unit UnitType',
+      removedUnits
+    );
+
+    const removedPromotions = await this.removeInfoItems(
+      'Assets/XML/Units/CIV4PromotionInfos.xml',
+      'PromotionInfo StateReligionPrereq',
+      removedReligions
+    );
+
+    await this.removeInfoItemChild(
+      'Assets/XML/Units/CIV4PromotionInfos.xml',
+      'PromotionInfo PromotionExcludes Promotion',
+      '',
+      removedPromotions
+    );
+
+    await this.removeInfoItemChild(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo FreePromotions FreePromotion',
+      'PromotionType',
+      removedPromotions
+    );
+
+    await this.removeInfoItemChild(
+      'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
+      'CivilizationInfo ForbiddenReligions ForbiddenReligion'
     );
 
     await this.removeAdvisorButton('ReligiousAdvisorButton');
@@ -303,10 +347,18 @@ export class ModPatcher {
     );
 
     // Remove espionage units
-    await this.removeInfoItems(
+    const removedUnits = await this.removeInfoItems(
       'Assets/XML/Units/CIV4UnitInfos.xml',
       'UnitInfo Flavors Flavor FlavorType',
       ['FLAVOR_ESPIONAGE']
+    );
+
+    // Mods for DuneWars Revival
+    await this.removeInfoItemChild(
+      'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
+      'CivilizationInfo Units Unit',
+      'Unit UnitType',
+      removedUnits
     );
 
     console.log();
