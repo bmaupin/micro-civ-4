@@ -12,7 +12,7 @@ export const defaultGamePath = path.join(
   "/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword"
 );
 const modPrefix = 'Quick';
-let modName = `${modPrefix} Civ 4`;
+const defaultModName = `${modPrefix} Civ 4`;
 const modsDirectory = 'Mods';
 
 export class ModPatcher {
@@ -20,6 +20,8 @@ export class ModPatcher {
   btsPath: string;
   // Full path to Civ 4
   gamePath: string;
+  // Name of the mod
+  modName = defaultModName;
   // Full path to the mod
   modPath: string;
   // Full path the the original mod, if this is a mod mod
@@ -34,18 +36,17 @@ export class ModPatcher {
         0,
         installPath.indexOf(path.join(btsDirectory, modsDirectory))
       );
-      modName = `${modPrefix} ${path.basename(installPath)}`;
+      this.modName = `${modPrefix} ${path.basename(installPath)}`;
     }
 
     this.btsPath = path.join(this.gamePath, btsDirectory);
-    this.modPath = path.join(this.btsPath, modsDirectory, modName);
+    this.modPath = path.join(this.btsPath, modsDirectory, this.modName);
   }
 
   applyModPatches = async () => {
     await this.prepMod();
     await this.modMapSizes();
     await this.modGameOptions();
-    // TODO: DuneWars Revival: Game loads, but clicking the civics button does nothing ...
     await this.modCivics();
     await this.removeCorporations();
     // TODO: DuneWars Revival causes errors at mod load time with CIV4CivilizationInfos.xml
@@ -205,6 +206,15 @@ export class ModPatcher {
       removedCivics,
       'NONE'
     );
+
+    if (this.modName === `${modPrefix} DuneWars Revival`) {
+      // Replace the custom civics screen from the mod with the one from the game. The
+      // modded one breaks if we remove civics.
+      await fs.rm(
+        path.join(this.modPath, 'Assets/Python/Screens/CvCivicsScreen.py')
+      );
+      await this.prepModFile('Assets/Python/Screens/CvCivicsScreen.py');
+    }
 
     console.log();
   };
