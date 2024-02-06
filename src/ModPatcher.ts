@@ -148,9 +148,11 @@ export class ModPatcher {
       const typeElement = gameOptionInfo.getElementsByTagName('Type')[0];
       if (
         typeElement.childNodes[0].textContent &&
-        ['GAMEOPTION_NO_CITY_RAZING', 'GAMEOPTION_NO_VASSAL_STATES'].includes(
-          typeElement.childNodes[0].textContent
-        )
+        [
+          'GAMEOPTION_NO_CITY_FLIPPING',
+          'GAMEOPTION_NO_CITY_RAZING',
+          'GAMEOPTION_NO_VASSAL_STATES',
+        ].includes(typeElement.childNodes[0].textContent)
       ) {
         const bDefault = gameOptionInfo.getElementsByTagName('bDefault')[0];
         bDefault.childNodes[0].textContent = '1';
