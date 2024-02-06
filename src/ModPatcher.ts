@@ -105,6 +105,28 @@ export class ModPatcher {
       doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
     );
 
+    if (this.modName === 'Quick DuneWars Revival') {
+      const arrakisFullPath = await this.prepModFile('PrivateMaps/Arrakis.py');
+      const arrakisFileContents = await fs.readFile(arrakisFullPath);
+
+      const arrakisNewContents = String(arrakisFileContents).replace(
+        `WorldSizeTypes.WORLDSIZE_DUEL:\t\t(8,8),
+\t\tWorldSizeTypes.WORLDSIZE_TINY:\t\t(10,10),
+\t\tWorldSizeTypes.WORLDSIZE_SMALL:\t\t(13,13),
+\t\tWorldSizeTypes.WORLDSIZE_STANDARD:\t(16,16),
+\t\tWorldSizeTypes.WORLDSIZE_LARGE:\t\t(18,18),
+\t\tWorldSizeTypes.WORLDSIZE_HUGE:\t\t(21,21),`,
+        `WorldSizeTypes.WORLDSIZE_DUEL:\t\t(3,3),
+\t\tWorldSizeTypes.WORLDSIZE_TINY:\t\t(4,4),
+\t\tWorldSizeTypes.WORLDSIZE_SMALL:\t\t(5,5),
+\t\tWorldSizeTypes.WORLDSIZE_STANDARD:\t(6,6),
+\t\tWorldSizeTypes.WORLDSIZE_LARGE:\t\t(7,7),
+\t\tWorldSizeTypes.WORLDSIZE_HUGE:\t\t(8,8),`
+      );
+
+      await fs.writeFile(arrakisFullPath, arrakisNewContents);
+    }
+
     console.log();
   };
 
@@ -254,9 +276,10 @@ export class ModPatcher {
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
-    const techInfosAssetPath = 'Assets/XML/Technologies/CIV4TechInfos.xml';
-    const techInfosFullPath = await this.prepModFile(techInfosAssetPath);
-    const techInfosFileContents = await fs.readFile(techInfosFullPath);
+    const techInfosPath = await this.prepModFile(
+      'Assets/XML/Technologies/CIV4TechInfos.xml'
+    );
+    const techInfosFileContents = await fs.readFile(techInfosPath);
 
     const dummyTechText = `\t<TechInfo>\r
 \t\t\t<Type>TECH_DUMMY</Type>\r
@@ -322,7 +345,7 @@ export class ModPatcher {
 \t</TechInfos>`
     );
 
-    await fs.writeFile(techInfosFullPath, techInfosNewContents);
+    await fs.writeFile(techInfosPath, techInfosNewContents);
 
     await this.updateInfoItems(
       'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
@@ -335,9 +358,8 @@ export class ModPatcher {
     // changes first (setting religion modifiers to 0, removing religious buildings, etc)
     // but it wasn't enough.
     if (this.modName === 'Quick DuneWars Revival') {
-      const duneWarsAssetPath = 'Assets/Python/DuneWars.py';
-      const duneWarsFullPath = await this.prepModFile(duneWarsAssetPath);
-      const duneWarsFileContents = await fs.readFile(duneWarsFullPath);
+      const duneWarsPath = await this.prepModFile('Assets/Python/DuneWars.py');
+      const duneWarsFileContents = await fs.readFile(duneWarsPath);
 
       // Replace any lines founding, converting, setting religion with "pass", a no-op in Python
       const duneWarsNewContents = String(duneWarsFileContents).replaceAll(
@@ -346,7 +368,7 @@ export class ModPatcher {
         '$1pass # $2'
       );
 
-      await fs.writeFile(duneWarsFullPath, duneWarsNewContents);
+      await fs.writeFile(duneWarsPath, duneWarsNewContents);
     }
 
     // TODO: Remove advisor button after testing
@@ -737,8 +759,13 @@ export class ModPatcher {
    * @returns The full path of the file in the mod
    */
   private prepModFile = async (assetPath: string): Promise<string> => {
-    if (!assetPath.startsWith('Assets/')) {
-      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+    if (
+      !assetPath.startsWith('Assets/') &&
+      !assetPath.startsWith('PrivateMaps/')
+    ) {
+      throw new Error(
+        `Asset file does not start with "Assets/" or "PrivateMaps/": ${assetPath}`
+      );
     }
 
     // First, try to get the file from the mod, if it exists
@@ -788,10 +815,6 @@ export class ModPatcher {
       );
     }
 
-    if (!assetPath.startsWith('Assets/')) {
-      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
-    }
-
     for (const modFilePath of await fs.readdir(modPath, { recursive: true })) {
       if (assetPath.toLowerCase() === modFilePath.toLowerCase()) {
         return path.join(modPath, modFilePath);
@@ -816,9 +839,10 @@ export class ModPatcher {
   };
 
   private removeAdvisorButton = async (buttonName: string) => {
-    const assetPath = 'Assets/Python/Screens/CvMainInterface.py';
-    const modFileFullPath = await this.prepModFile(assetPath);
-    const fileContents = await fs.readFile(modFileFullPath);
+    const mainInterfacePath = await this.prepModFile(
+      'Assets/Python/Screens/CvMainInterface.py'
+    );
+    const fileContents = await fs.readFile(mainInterfacePath);
 
     // Use a regex to match for variations in whitespace and line endings just in case 🤷‍♂️
     const stringsToComment = new RegExp(`(iBtnX\\s?\\+=\\s?iBtnAdvance\\r?)
@@ -835,7 +859,7 @@ export class ModPatcher {
 \t\t#screen.hide( "${buttonName}" )`
     );
 
-    await fs.writeFile(modFileFullPath, newFileContents);
+    await fs.writeFile(mainInterfacePath, newFileContents);
 
     console.log(`Removed ${buttonName}`);
   };
