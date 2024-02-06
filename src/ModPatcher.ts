@@ -207,15 +207,6 @@ export class ModPatcher {
       'NONE'
     );
 
-    if (this.modName === `${modPrefix} DuneWars Revival`) {
-      // Replace the custom civics screen from the mod with the one from the game. The
-      // modded one breaks if we remove civics.
-      await fs.rm(
-        path.join(this.modPath, 'Assets/Python/Screens/CvCivicsScreen.py')
-      );
-      await this.prepModFile('Assets/Python/Screens/CvCivicsScreen.py');
-    }
-
     console.log();
   };
 
@@ -404,6 +395,8 @@ export class ModPatcher {
         (civicOption) =>
           ![
             'CIVICOPTION_GOVERNMENT',
+            // DuneWars Revival: This is hard-coded into the code (DuneWars.py) and causes errors if removed
+            'CIVICOPTION_ARRAKIS',
             // Planetfall
             'CIVICOPTION_POLITICS',
           ].includes(civicOption)
