@@ -49,9 +49,7 @@ export class ModPatcher {
     await this.modGameOptions();
     await this.modCivics();
     await this.removeCorporations();
-    // TODO: DuneWars Revival causes errors at mod load time with CIV4CivilizationInfos.xml
-    // "Allocating zero or less memory in CvXMLLoadUtility::SetVariableListTagPair Current XML file is: xml\Civilizations/CIV4CivilizationInfos.xml"
-    // await this.removeReligions();
+    await this.disableReligions();
     await this.modEspionage();
   };
 
@@ -210,6 +208,7 @@ export class ModPatcher {
     console.log();
   };
 
+  // TODO: Use the same logic for disabling religions to disable corporations?
   private removeCorporations = async () => {
     console.log('Removing corporations ...');
 
@@ -242,79 +241,103 @@ export class ModPatcher {
     console.log();
   };
 
-  private removeReligions = async () => {
-    console.log('Removing religions ...');
+  /**
+   * Disables all religions in the game
+   *
+   * Completely removing the religions is not always possible for some mods (e.g. DuneWars
+   * Revival) because the religions are hard-coded into the game logic, and not all mods
+   * provide full source code. Instead, this method takes a cue from the American Revolution mod included in the original release of Civ 4; all the religions have
+   * their prerequisite technology set to a tech which is disabled. In this case, we've
+   * added a dummy technology that doesn't serve any purpose to avoid potential conflicts
+   * with existing technologies.
+   */
+  private disableReligions = async () => {
+    console.log('Disabling religions ...');
 
-    const removedReligions = await this.removeInfoItems(
-      'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
-      'ReligionInfo'
+    const assetPath = 'Assets/XML/Technologies/CIV4TechInfos.xml';
+    const modFileFullPath = await this.prepModFile(assetPath);
+    const fileContents = await fs.readFile(modFileFullPath);
+
+    const dummyTechText = `\t<TechInfo>\r
+\t\t\t<Type>TECH_DUMMY</Type>\r
+\t\t\t<Description>Dummy tech</Description>\r
+\t\t\t<Civilopedia></Civilopedia>\r
+\t\t\t<Help/>\r
+\t\t\t<Strategy></Strategy>\r
+\t\t\t<Advisor>ADVISOR_MILITARY</Advisor>\r
+\t\t\t<iAIWeight>0</iAIWeight>\r
+\t\t\t<iAITradeModifier>0</iAITradeModifier>\r
+\t\t\t<iCost>-1</iCost>\r
+\t\t\t<iAdvancedStartCost>-1</iAdvancedStartCost>\r
+\t\t\t<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>\r
+\t\t\t<Era>ERA_ANCIENT</Era>\r
+\t\t\t<FirstFreeUnitClass>NONE</FirstFreeUnitClass>\r
+\t\t\t<iFeatureProductionModifier>0</iFeatureProductionModifier>\r
+\t\t\t<iWorkerSpeedModifier>0</iWorkerSpeedModifier>\r
+\t\t\t<iTradeRoutes>0</iTradeRoutes>\r
+\t\t\t<iHealth>0</iHealth>\r
+\t\t\t<iHappiness>0</iHappiness>\r
+\t\t\t<iFirstFreeTechs>0</iFirstFreeTechs>\r
+\t\t\t<iAsset>0</iAsset>\r
+\t\t\t<iPower>0</iPower>\r
+\t\t\t<bRepeat>0</bRepeat>\r
+\t\t\t<bTrade>0</bTrade>\r
+\t\t\t<bDisable>1</bDisable>\r
+\t\t\t<bGoodyTech>0</bGoodyTech>\r
+\t\t\t<bExtraWaterSeeFrom>0</bExtraWaterSeeFrom>\r
+\t\t\t<bMapCentering>0</bMapCentering>\r
+\t\t\t<bMapVisible>1</bMapVisible>\r
+\t\t\t<bMapTrading>0</bMapTrading>\r
+\t\t\t<bTechTrading>0</bTechTrading>\r
+\t\t\t<bGoldTrading>0</bGoldTrading>\r
+\t\t\t<bOpenBordersTrading>0</bOpenBordersTrading>\r
+\t\t\t<bDefensivePactTrading>0</bDefensivePactTrading>\r
+\t\t\t<bPermanentAllianceTrading>0</bPermanentAllianceTrading>\r
+\t\t\t<bVassalTrading>0</bVassalTrading>\r
+\t\t\t<bBridgeBuilding>0</bBridgeBuilding>\r
+\t\t\t<bIrrigation>0</bIrrigation>\r
+\t\t\t<bIgnoreIrrigation>0</bIgnoreIrrigation>\r
+\t\t\t<bWaterWork>0</bWaterWork>\r
+\t\t\t<iGridX>-1</iGridX>\r
+\t\t\t<iGridY>-1</iGridY>\r
+\t\t\t<DomainExtraMoves/>\r
+\t\t\t<CommerceFlexible/>\r
+\t\t\t<TerrainTrades/>\r
+\t\t\t<bRiverTrade>0</bRiverTrade>\r
+\t\t\t<Flavors>\r
+\t\t\t</Flavors>\r
+\t\t\t<OrPreReqs>\r
+\t\t\t</OrPreReqs>\r
+\t\t\t<AndPreReqs>\r
+\t\t\t</AndPreReqs>\r
+\t\t\t<Quote></Quote>\r
+\t\t\t<Sound></Sound>\r
+\t\t\t<SoundMP></SoundMP>\r
+\t\t\t<Button>,Art/Interface/Buttons/TechTree/Mysticism.dds,Art/Interface/Buttons/TechTree_Atlas.dds,4,11</Button>\r
+\t\t</TechInfo>`;
+
+    const newFileContents = String(fileContents).replace(
+      '</TechInfos>',
+      `${dummyTechText}\r
+\t</TechInfos>`
     );
+
+    await fs.writeFile(modFileFullPath, newFileContents);
 
     await this.updateInfoItems(
-      'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
-      'LeaderHeadInfo FavoriteReligion',
-      removedReligions,
-      'NONE'
+      'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
+      'ReligionInfo TechPrereq',
+      [],
+      'TECH_DUMMY'
     );
 
-    await this.removeInfoItems(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo PrereqReligion',
-      removedReligions
-    );
+    // TODO: For DuneWars Revival, the Tleilaxu religion seems to be automatically founded
+    //       when the first city is built. Removing religions seemed to cause problems in
+    //       the game but we could potentially remove religious entities and attributes,
+    //       e.g. buildings and units.
 
-    const removedBuildings = await this.removeInfoItems(
-      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      'BuildingInfo ReligionType',
-      removedReligions
-    );
-
-    const removedUnits = await this.removeInfoItems(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo Buildings Building BuildingType',
-      removedBuildings
-    );
-
-    await this.removeInfoItems(
-      'Assets/XML/Events/CIV4EventTriggerInfos.xml',
-      'EventTriggerInfo ReligionsRequired ReligionType',
-      removedReligions
-    );
-
-    // Mods for DuneWars Revival
-    await this.removeInfoItemChild(
-      'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
-      'CivilizationInfo Units Unit',
-      'Unit UnitType',
-      removedUnits
-    );
-
-    const removedPromotions = await this.removeInfoItems(
-      'Assets/XML/Units/CIV4PromotionInfos.xml',
-      'PromotionInfo StateReligionPrereq',
-      removedReligions
-    );
-
-    await this.removeInfoItemChild(
-      'Assets/XML/Units/CIV4PromotionInfos.xml',
-      'PromotionInfo PromotionExcludes Promotion',
-      '',
-      removedPromotions
-    );
-
-    await this.removeInfoItemChild(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo FreePromotions FreePromotion',
-      'PromotionType',
-      removedPromotions
-    );
-
-    await this.removeInfoItemChild(
-      'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
-      'CivilizationInfo ForbiddenReligions ForbiddenReligion'
-    );
-
-    await this.removeAdvisorButton('ReligiousAdvisorButton');
+    // TODO: Remove advisor button after testing
+    // await this.removeAdvisorButton('ReligiousAdvisorButton');
 
     console.log();
   };
@@ -599,7 +622,7 @@ export class ModPatcher {
    * @param selectors CSS selectors to the XML elements to match on. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
-   * @param matchValues Values of the element to match on
+   * @param matchValues Values of the element to match on, or an empty array to match on all values
    * @param newValue New value
    * @returns List of the Type values of the updated items
    */
@@ -636,7 +659,10 @@ export class ModPatcher {
 
       // Within those, apply the query selector to match an element inside
       for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
-        if (matchValues.includes(elementToMatch.textContent || '')) {
+        if (
+          matchValues.length === 0 ||
+          matchValues.includes(elementToMatch.textContent || '')
+        ) {
           updated = true;
 
           elementToMatch.textContent = newValue;
