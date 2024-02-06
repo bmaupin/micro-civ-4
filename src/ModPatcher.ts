@@ -254,9 +254,9 @@ export class ModPatcher {
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
-    const assetPath = 'Assets/XML/Technologies/CIV4TechInfos.xml';
-    const modFileFullPath = await this.prepModFile(assetPath);
-    const fileContents = await fs.readFile(modFileFullPath);
+    const techInfosAssetPath = 'Assets/XML/Technologies/CIV4TechInfos.xml';
+    const techInfosFullPath = await this.prepModFile(techInfosAssetPath);
+    const techInfosFileContents = await fs.readFile(techInfosFullPath);
 
     const dummyTechText = `\t<TechInfo>\r
 \t\t\t<Type>TECH_DUMMY</Type>\r
@@ -316,13 +316,13 @@ export class ModPatcher {
 \t\t\t<Button>,Art/Interface/Buttons/TechTree/Mysticism.dds,Art/Interface/Buttons/TechTree_Atlas.dds,4,11</Button>\r
 \t\t</TechInfo>`;
 
-    const newFileContents = String(fileContents).replace(
+    const techInfosNewContents = String(techInfosFileContents).replace(
       '</TechInfos>',
       `${dummyTechText}\r
 \t</TechInfos>`
     );
 
-    await fs.writeFile(modFileFullPath, newFileContents);
+    await fs.writeFile(techInfosFullPath, techInfosNewContents);
 
     await this.updateInfoItems(
       'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
@@ -331,10 +331,23 @@ export class ModPatcher {
       'TECH_DUMMY'
     );
 
-    // TODO: For DuneWars Revival, the Tleilaxu religion seems to be automatically founded
-    //       when the first city is built. Removing religions seemed to cause problems in
-    //       the game but we could potentially remove religious entities and attributes,
-    //       e.g. buildings and units.
+    // Disable logic in DuneWars Revival related to hard-coded religions. I tried XML
+    // changes first (setting religion modifiers to 0, removing religious buildings, etc)
+    // but it wasn't enough.
+    if (this.modName === 'Quick DuneWars Revival') {
+      const duneWarsAssetPath = 'Assets/Python/DuneWars.py';
+      const duneWarsFullPath = await this.prepModFile(duneWarsAssetPath);
+      const duneWarsFileContents = await fs.readFile(duneWarsFullPath);
+
+      // Replace any lines founding, converting, setting religion with "pass", a no-op in Python
+      const duneWarsNewContents = String(duneWarsFileContents).replaceAll(
+        // Capture the whitespace since it's significant in Python
+        /(\s+)(.*(foundReligion|pPlay\.convert|setHasReligion).*)/g,
+        '$1pass # $2'
+      );
+
+      await fs.writeFile(duneWarsFullPath, duneWarsNewContents);
+    }
 
     // TODO: Remove advisor button after testing
     // await this.removeAdvisorButton('ReligiousAdvisorButton');
