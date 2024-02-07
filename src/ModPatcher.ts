@@ -387,17 +387,31 @@ export class ModPatcher {
     // changes first (setting religion modifiers to 0, removing religious buildings, etc)
     // but it wasn't enough.
     if (this.modName === 'Quick DuneWars Revival') {
-      const duneWarsPath = await this.prepModFile('Assets/Python/DuneWars.py');
-      const duneWarsFileContents = await fs.readFile(duneWarsPath);
+      const modFilePath = await this.prepModFile('Assets/Python/DuneWars.py');
+      const modFileContents = await fs.readFile(modFilePath);
 
       // Replace any lines founding, converting, setting religion with "pass", a no-op in Python
-      const duneWarsNewContents = String(duneWarsFileContents).replaceAll(
+      const modFileNewContents = String(modFileContents).replaceAll(
         // Capture the whitespace since it's significant in Python
         /(\s+)(.*(foundReligion|pPlay\.convert|setHasReligion).*)/g,
         '$1pass # $2'
       );
 
-      await fs.writeFile(duneWarsPath, duneWarsNewContents);
+      await fs.writeFile(modFilePath, modFileNewContents);
+    }
+
+    // "Mars, Now!" also has hard-coded religion logic
+    if (this.modName === 'Quick marsjetzt-v04') {
+      const modFilePath = await this.prepModFile(
+        'Assets/Python/CvEventManager.py'
+      );
+      const modFileContents = await fs.readFile(modFilePath);
+      const modFileNewContents = String(modFileContents).replaceAll(
+        /(\s+)(.*(foundReligion|setHasReligion).*)/g,
+        '$1pass # $2'
+      );
+
+      await fs.writeFile(modFilePath, modFileNewContents);
     }
 
     await this.removeAdvisorButton('ReligiousAdvisorButton');
