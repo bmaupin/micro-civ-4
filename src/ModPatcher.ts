@@ -152,6 +152,8 @@ export class ModPatcher {
           'GAMEOPTION_NO_CITY_FLIPPING',
           'GAMEOPTION_NO_CITY_RAZING',
           'GAMEOPTION_NO_VASSAL_STATES',
+          // Planetfall v16
+          'GAMEOPTION_NO_EXPANSION_FACTIONS',
         ].includes(typeElement.childNodes[0].textContent)
       ) {
         const bDefault = gameOptionInfo.getElementsByTagName('bDefault')[0];
@@ -163,6 +165,8 @@ export class ModPatcher {
         [
           // Hide pick religion from options since we'll be removing religion
           'GAMEOPTION_PICK_RELIGION',
+          // DuneWars Revival
+          'GAMEOPTION_NO_GPS_FROM_RELIGION_FOUNDATION',
         ].includes(typeElement.childNodes[0].textContent)
       ) {
         const bVisible = gameOptionInfo.getElementsByTagName('bVisible')[0];
@@ -183,10 +187,17 @@ export class ModPatcher {
 
     const removedCivicOptions = await this.removeCivicOptions();
 
-    await this.removeInfoItems(
+    const removedBuildings = await this.removeInfoItems(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
       'BuildingInfo CivicOption',
       removedCivicOptions
+    );
+
+    await this.removeInfoItemChild(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo Buildings Building',
+      'Building BuildingType',
+      removedBuildings
     );
 
     const removedCivics = await this.removeInfoItems(
@@ -278,6 +289,22 @@ export class ModPatcher {
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
+    let dummyTechEra = 'ERA_ANCIENT';
+    // Get an era from the mod in case the mod has modified the eras (e.g. Planetfall)
+    const erasFileFromMod = await ModPatcher.getFileFromMod(
+      this.modPath,
+      'Assets/XML/GameInfo/CIV4EraInfos.xml'
+    );
+    if (erasFileFromMod !== '') {
+      const doc = new DOMParser().parseFromString(
+        (await fs.readFile(erasFileFromMod)).toString(),
+        'text/xml'
+      );
+
+      dummyTechEra =
+        doc.querySelector('EraInfos EraInfo Type')?.textContent || dummyTechEra;
+    }
+
     const techInfosPath = await this.prepModFile(
       'Assets/XML/Technologies/CIV4TechInfos.xml'
     );
@@ -295,7 +322,7 @@ export class ModPatcher {
 \t\t\t<iCost>-1</iCost>\r
 \t\t\t<iAdvancedStartCost>-1</iAdvancedStartCost>\r
 \t\t\t<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>\r
-\t\t\t<Era>ERA_ANCIENT</Era>\r
+\t\t\t<Era>${dummyTechEra}</Era>\r
 \t\t\t<FirstFreeUnitClass>NONE</FirstFreeUnitClass>\r
 \t\t\t<iFeatureProductionModifier>0</iFeatureProductionModifier>\r
 \t\t\t<iWorkerSpeedModifier>0</iWorkerSpeedModifier>\r
@@ -373,8 +400,7 @@ export class ModPatcher {
       await fs.writeFile(duneWarsPath, duneWarsNewContents);
     }
 
-    // TODO: Remove advisor button after testing
-    // await this.removeAdvisorButton('ReligiousAdvisorButton');
+    await this.removeAdvisorButton('ReligiousAdvisorButton');
 
     console.log();
   };
