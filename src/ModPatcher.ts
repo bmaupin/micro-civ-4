@@ -312,7 +312,7 @@ export class ModPatcher {
 
     const dummyTechText = `\t<TechInfo>\r
 \t\t\t<Type>TECH_DUMMY</Type>\r
-\t\t\t<Description>Dummy tech</Description>\r
+\t\t\t<Description>(Religions have been disabled)</Description>\r
 \t\t\t<Civilopedia></Civilopedia>\r
 \t\t\t<Help/>\r
 \t\t\t<Strategy></Strategy>\r
@@ -338,7 +338,7 @@ export class ModPatcher {
 \t\t\t<bGoodyTech>0</bGoodyTech>\r
 \t\t\t<bExtraWaterSeeFrom>0</bExtraWaterSeeFrom>\r
 \t\t\t<bMapCentering>0</bMapCentering>\r
-\t\t\t<bMapVisible>1</bMapVisible>\r
+\t\t\t<bMapVisible>0</bMapVisible>\r
 \t\t\t<bMapTrading>0</bMapTrading>\r
 \t\t\t<bTechTrading>0</bTechTrading>\r
 \t\t\t<bGoldTrading>0</bGoldTrading>\r
