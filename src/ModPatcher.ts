@@ -15,6 +15,8 @@ const modPrefix = 'Quick';
 const defaultModName = `${modPrefix} Civ 4`;
 const modsDirectory = 'Mods';
 
+const TECH_DISABLED = 'TECH_DISABLED';
+
 export class ModPatcher {
   // Full path to Beyond the Sword
   btsPath: string;
@@ -66,6 +68,98 @@ export class ModPatcher {
     if (this.originalModPath !== '') {
       await fs.cp(this.originalModPath, this.modPath, { recursive: true });
     }
+
+    await this.createDisabledTech();
+  };
+
+  private createDisabledTech = async () => {
+    let disabledTechEra = 'ERA_ANCIENT';
+    // Get an era from the mod in case the mod has modified the eras (e.g. Planetfall)
+    const erasFileFromMod = await ModPatcher.getFileFromMod(
+      this.modPath,
+      'Assets/XML/GameInfo/CIV4EraInfos.xml'
+    );
+    if (erasFileFromMod !== '') {
+      const doc = new DOMParser().parseFromString(
+        (await fs.readFile(erasFileFromMod)).toString(),
+        'text/xml'
+      );
+
+      disabledTechEra =
+        doc.querySelector('EraInfos EraInfo Type')?.textContent ||
+        disabledTechEra;
+    }
+
+    const techInfosPath = await this.prepModFile(
+      'Assets/XML/Technologies/CIV4TechInfos.xml'
+    );
+    const techInfosFileContents = await fs.readFile(techInfosPath);
+
+    const disabledTechText = `\t<TechInfo>\r
+\t\t\t<Type>${TECH_DISABLED}</Type>\r
+\t\t\t<Description>(Disabled)</Description>\r
+\t\t\t<Civilopedia></Civilopedia>\r
+\t\t\t<Help/>\r
+\t\t\t<Strategy></Strategy>\r
+\t\t\t<Advisor>ADVISOR_MILITARY</Advisor>\r
+\t\t\t<iAIWeight>0</iAIWeight>\r
+\t\t\t<iAITradeModifier>0</iAITradeModifier>\r
+\t\t\t<iCost>-1</iCost>\r
+\t\t\t<iAdvancedStartCost>-1</iAdvancedStartCost>\r
+\t\t\t<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>\r
+\t\t\t<Era>${disabledTechEra}</Era>\r
+\t\t\t<FirstFreeUnitClass>NONE</FirstFreeUnitClass>\r
+\t\t\t<iFeatureProductionModifier>0</iFeatureProductionModifier>\r
+\t\t\t<iWorkerSpeedModifier>0</iWorkerSpeedModifier>\r
+\t\t\t<iTradeRoutes>0</iTradeRoutes>\r
+\t\t\t<iHealth>0</iHealth>\r
+\t\t\t<iHappiness>0</iHappiness>\r
+\t\t\t<iFirstFreeTechs>0</iFirstFreeTechs>\r
+\t\t\t<iAsset>0</iAsset>\r
+\t\t\t<iPower>0</iPower>\r
+\t\t\t<bRepeat>0</bRepeat>\r
+\t\t\t<bTrade>0</bTrade>\r
+\t\t\t<bDisable>1</bDisable>\r
+\t\t\t<bGoodyTech>0</bGoodyTech>\r
+\t\t\t<bExtraWaterSeeFrom>0</bExtraWaterSeeFrom>\r
+\t\t\t<bMapCentering>0</bMapCentering>\r
+\t\t\t<bMapVisible>0</bMapVisible>\r
+\t\t\t<bMapTrading>0</bMapTrading>\r
+\t\t\t<bTechTrading>0</bTechTrading>\r
+\t\t\t<bGoldTrading>0</bGoldTrading>\r
+\t\t\t<bOpenBordersTrading>0</bOpenBordersTrading>\r
+\t\t\t<bDefensivePactTrading>0</bDefensivePactTrading>\r
+\t\t\t<bPermanentAllianceTrading>0</bPermanentAllianceTrading>\r
+\t\t\t<bVassalTrading>0</bVassalTrading>\r
+\t\t\t<bBridgeBuilding>0</bBridgeBuilding>\r
+\t\t\t<bIrrigation>0</bIrrigation>\r
+\t\t\t<bIgnoreIrrigation>0</bIgnoreIrrigation>\r
+\t\t\t<bWaterWork>0</bWaterWork>\r
+\t\t\t<iGridX>-1</iGridX>\r
+\t\t\t<iGridY>-1</iGridY>\r
+\t\t\t<DomainExtraMoves/>\r
+\t\t\t<CommerceFlexible/>\r
+\t\t\t<TerrainTrades/>\r
+\t\t\t<bRiverTrade>0</bRiverTrade>\r
+\t\t\t<Flavors>\r
+\t\t\t</Flavors>\r
+\t\t\t<OrPreReqs>\r
+\t\t\t</OrPreReqs>\r
+\t\t\t<AndPreReqs>\r
+\t\t\t</AndPreReqs>\r
+\t\t\t<Quote></Quote>\r
+\t\t\t<Sound></Sound>\r
+\t\t\t<SoundMP></SoundMP>\r
+\t\t\t<Button>,Art/Interface/Buttons/TechTree/Mysticism.dds,Art/Interface/Buttons/TechTree_Atlas.dds,4,11</Button>\r
+\t\t</TechInfo>`;
+
+    const techInfosNewContents = String(techInfosFileContents).replace(
+      '</TechInfos>',
+      `${disabledTechText}\r
+\t</TechInfos>`
+    );
+
+    await fs.writeFile(techInfosPath, techInfosNewContents);
   };
 
   private modMapSizes = async () => {
@@ -289,98 +383,11 @@ export class ModPatcher {
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
-    let dummyTechEra = 'ERA_ANCIENT';
-    // Get an era from the mod in case the mod has modified the eras (e.g. Planetfall)
-    const erasFileFromMod = await ModPatcher.getFileFromMod(
-      this.modPath,
-      'Assets/XML/GameInfo/CIV4EraInfos.xml'
-    );
-    if (erasFileFromMod !== '') {
-      const doc = new DOMParser().parseFromString(
-        (await fs.readFile(erasFileFromMod)).toString(),
-        'text/xml'
-      );
-
-      dummyTechEra =
-        doc.querySelector('EraInfos EraInfo Type')?.textContent || dummyTechEra;
-    }
-
-    const techInfosPath = await this.prepModFile(
-      'Assets/XML/Technologies/CIV4TechInfos.xml'
-    );
-    const techInfosFileContents = await fs.readFile(techInfosPath);
-
-    const dummyTechText = `\t<TechInfo>\r
-\t\t\t<Type>TECH_DUMMY</Type>\r
-\t\t\t<Description>(Religions have been disabled)</Description>\r
-\t\t\t<Civilopedia></Civilopedia>\r
-\t\t\t<Help/>\r
-\t\t\t<Strategy></Strategy>\r
-\t\t\t<Advisor>ADVISOR_MILITARY</Advisor>\r
-\t\t\t<iAIWeight>0</iAIWeight>\r
-\t\t\t<iAITradeModifier>0</iAITradeModifier>\r
-\t\t\t<iCost>-1</iCost>\r
-\t\t\t<iAdvancedStartCost>-1</iAdvancedStartCost>\r
-\t\t\t<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>\r
-\t\t\t<Era>${dummyTechEra}</Era>\r
-\t\t\t<FirstFreeUnitClass>NONE</FirstFreeUnitClass>\r
-\t\t\t<iFeatureProductionModifier>0</iFeatureProductionModifier>\r
-\t\t\t<iWorkerSpeedModifier>0</iWorkerSpeedModifier>\r
-\t\t\t<iTradeRoutes>0</iTradeRoutes>\r
-\t\t\t<iHealth>0</iHealth>\r
-\t\t\t<iHappiness>0</iHappiness>\r
-\t\t\t<iFirstFreeTechs>0</iFirstFreeTechs>\r
-\t\t\t<iAsset>0</iAsset>\r
-\t\t\t<iPower>0</iPower>\r
-\t\t\t<bRepeat>0</bRepeat>\r
-\t\t\t<bTrade>0</bTrade>\r
-\t\t\t<bDisable>1</bDisable>\r
-\t\t\t<bGoodyTech>0</bGoodyTech>\r
-\t\t\t<bExtraWaterSeeFrom>0</bExtraWaterSeeFrom>\r
-\t\t\t<bMapCentering>0</bMapCentering>\r
-\t\t\t<bMapVisible>0</bMapVisible>\r
-\t\t\t<bMapTrading>0</bMapTrading>\r
-\t\t\t<bTechTrading>0</bTechTrading>\r
-\t\t\t<bGoldTrading>0</bGoldTrading>\r
-\t\t\t<bOpenBordersTrading>0</bOpenBordersTrading>\r
-\t\t\t<bDefensivePactTrading>0</bDefensivePactTrading>\r
-\t\t\t<bPermanentAllianceTrading>0</bPermanentAllianceTrading>\r
-\t\t\t<bVassalTrading>0</bVassalTrading>\r
-\t\t\t<bBridgeBuilding>0</bBridgeBuilding>\r
-\t\t\t<bIrrigation>0</bIrrigation>\r
-\t\t\t<bIgnoreIrrigation>0</bIgnoreIrrigation>\r
-\t\t\t<bWaterWork>0</bWaterWork>\r
-\t\t\t<iGridX>-1</iGridX>\r
-\t\t\t<iGridY>-1</iGridY>\r
-\t\t\t<DomainExtraMoves/>\r
-\t\t\t<CommerceFlexible/>\r
-\t\t\t<TerrainTrades/>\r
-\t\t\t<bRiverTrade>0</bRiverTrade>\r
-\t\t\t<Flavors>\r
-\t\t\t</Flavors>\r
-\t\t\t<OrPreReqs>\r
-\t\t\t</OrPreReqs>\r
-\t\t\t<AndPreReqs>\r
-\t\t\t</AndPreReqs>\r
-\t\t\t<Quote></Quote>\r
-\t\t\t<Sound></Sound>\r
-\t\t\t<SoundMP></SoundMP>\r
-\t\t\t<Button>,Art/Interface/Buttons/TechTree/Mysticism.dds,Art/Interface/Buttons/TechTree_Atlas.dds,4,11</Button>\r
-\t\t</TechInfo>`;
-
-    const techInfosNewContents = String(techInfosFileContents).replace(
-      '</TechInfos>',
-      `${dummyTechText}\r
-\t</TechInfos>`
-    );
-
-    await fs.writeFile(techInfosPath, techInfosNewContents);
-
     await this.updateInfoItems(
       'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
       'ReligionInfo TechPrereq',
       [],
-      'TECH_DUMMY'
+      TECH_DISABLED
     );
 
     // Disable logic in DuneWars Revival related to hard-coded religions. I tried XML

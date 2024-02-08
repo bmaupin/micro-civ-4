@@ -6726,8 +6726,8 @@
 			<Button>,Art/Interface/Buttons/TechTree/Future Tech.dds,Art/Interface/Buttons/TechTree_Atlas.dds,2,4</Button>
 		</TechInfo>
 		<TechInfo>
-			<Type>TECH_DUMMY</Type>
-			<Description>Dummy tech</Description>
+			<Type>TECH_DISABLED</Type>
+			<Description>(Disabled)</Description>
 			<Civilopedia></Civilopedia>
 			<Help/>
 			<Strategy></Strategy>
@@ -6753,7 +6753,7 @@
 			<bGoodyTech>0</bGoodyTech>
 			<bExtraWaterSeeFrom>0</bExtraWaterSeeFrom>
 			<bMapCentering>0</bMapCentering>
-			<bMapVisible>1</bMapVisible>
+			<bMapVisible>0</bMapVisible>
 			<bMapTrading>0</bMapTrading>
 			<bTechTrading>0</bTechTrading>
 			<bGoldTrading>0</bGoldTrading>
