@@ -454,19 +454,15 @@ export class ModPatcher {
       ]
     );
 
-    // Remove espionage units
-    const removedUnits = await this.removeInfoItems(
+    // Disable espionage units; removing them caused crashes with the Middle-earth mod. It
+    // also seems that there are hard-coded references to the units in Civ 4 itself (e.g.
+    // Assets/Python/CvAdvisorUtils.py, Assets/Python/EntryPoints/CvScreensInterface.py)
+    await this.updateMatchingInfoItems(
       'Assets/XML/Units/CIV4UnitInfos.xml',
+      'UnitInfo PrereqTech',
+      TECH_DISABLED,
       'UnitInfo Flavors Flavor FlavorType',
       ['FLAVOR_ESPIONAGE']
-    );
-
-    // Mods for DuneWars Revival
-    await this.removeInfoItemChild(
-      'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
-      'CivilizationInfo Units Unit',
-      'Unit UnitType',
-      removedUnits
     );
 
     console.log();
@@ -750,6 +746,113 @@ export class ModPatcher {
           updated = true;
 
           elementToMatch.textContent = newValue;
+        }
+      }
+
+      if (updated) {
+        const infoItemType =
+          infoElement.getElementsByTagName('Type')[0].textContent;
+        if (infoItemType) {
+          updatedInfoItems.push(infoItemType);
+          console.log(
+            `Updated ${ModPatcher.formatInfoTag(
+              infoItemTag
+            )} ${ModPatcher.formatElementType(infoItemType)}`
+          );
+        } else {
+          throw new Error(
+            `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
+              infoElement.outerHTML
+            }`
+          );
+        }
+      }
+    }
+
+    await fs.writeFile(
+      modFileFullPath,
+      doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+    );
+
+    return updatedInfoItems;
+  };
+
+  // Ugh, this feels super convoluted ... Maybe we should've picked a better XML library?
+  /**
+   * Update matching Info elements with the given values from a Civ 4 Info XML configuration
+   * file to a new value
+   *
+   * @param assetPath The partial path of the file to modify, starting with "Assets/"
+   * @param updateSelectors CSS selectors to the XML elements to update. **NOTE** that the first
+   *                  part of the selectors should contain the info element tag (e.g.
+   *                  "CivilizationInfo").
+   * @param newValue New value
+   * @param matchSelectors CSS selectors to the XML elements to match. If undefined, will
+   *                       update all elements matching updateSelectors.
+   * @param matchValues Values to match on. If undefined, will update all elements
+   *                    matching updateSelectors.
+   * @returns List of the Type values of the updated items
+   */
+  private updateMatchingInfoItems = async (
+    assetPath: string,
+    updateSelectors: string,
+    newValue: string,
+    matchSelectors?: string,
+    matchValues?: string[]
+  ): Promise<string[]> => {
+    if (!assetPath.startsWith('Assets/')) {
+      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+    }
+
+    if ((matchSelectors && !matchValues) || (!matchSelectors && matchValues)) {
+      throw new Error(
+        'matchSeletors and matchValues must both be defined if either is defined'
+      );
+    }
+
+    // Get the tag of the info items to go through from the selectors
+    const infoItemTag = updateSelectors.split(' ')[0];
+    if (!infoItemTag.endsWith('Info')) {
+      throw new Error(
+        `Selectors does not start with a tag that ends with "Info": ${updateSelectors}`
+      );
+    }
+
+    const modFileFullPath = await this.prepModFile(assetPath);
+    const doc = new DOMParser().parseFromString(
+      (await fs.readFile(modFileFullPath)).toString(),
+      'text/xml'
+    );
+
+    const updatedInfoItems = [] as string[];
+
+    // Go through all the info elements
+    for (const infoElement of doc.querySelectorAll(infoItemTag)) {
+      //
+      let matched = false;
+      // Track whether the info element has been updated, since it may receive multiple updates
+      let updated = false;
+
+      // If we have a value to match, see if the item has matching elements
+      if (matchSelectors && matchValues) {
+        for (const elementToMatch of infoElement.querySelectorAll(
+          matchSelectors
+        )) {
+          if (matchValues.includes(elementToMatch.textContent || '')) {
+            matched = true;
+            break;
+          }
+        }
+      }
+
+      // If the Info Item matches (or there's nothing to match on), go through all
+      // elements in updateSelectors and update them to the new value
+      if (matched || !matchValues) {
+        for (const elementToUpdate of infoElement.querySelectorAll(
+          updateSelectors
+        )) {
+          updated = true;
+          elementToUpdate.textContent = newValue;
         }
       }
 
