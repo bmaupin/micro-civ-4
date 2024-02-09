@@ -307,15 +307,17 @@ export class ModPatcher {
     await this.updateInfoItems(
       'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
       'CivilizationInfo InitialCivics CivicType',
-      removedCivics,
-      'NONE'
+      'NONE',
+      'CivilizationInfo InitialCivics CivicType',
+      removedCivics
     );
 
     await this.updateInfoItems(
       'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
       'LeaderHeadInfo FavoriteCivic',
-      removedCivics,
-      'NONE'
+      'NONE',
+      'LeaderHeadInfo FavoriteCivic',
+      removedCivics
     );
 
     await this.removeInfoItems(
@@ -334,8 +336,9 @@ export class ModPatcher {
     await this.updateInfoItems(
       'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
       'LeaderHeadInfo HatedCivic',
-      removedCivics,
-      'NONE'
+      'NONE',
+      'LeaderHeadInfo HatedCivic',
+      removedCivics
     );
 
     console.log();
@@ -390,7 +393,6 @@ export class ModPatcher {
     await this.updateInfoItems(
       'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
       'ReligionInfo TechPrereq',
-      [],
       TECH_DISABLED
     );
 
@@ -461,7 +463,7 @@ export class ModPatcher {
     // Disable espionage units; removing them caused crashes with the Middle-earth mod. It
     // also seems that there are hard-coded references to the units in Civ 4 itself (e.g.
     // Assets/Python/CvAdvisorUtils.py, Assets/Python/EntryPoints/CvScreensInterface.py)
-    await this.updateMatchingInfoItems(
+    await this.updateInfoItems(
       'Assets/XML/Units/CIV4UnitInfos.xml',
       'UnitInfo PrereqTech',
       TECH_DISABLED,
@@ -698,89 +700,6 @@ export class ModPatcher {
     return updatedInfoItems;
   };
 
-  /**
-   * Update matching Info elements with the given values from a Civ 4 Info XML configuration
-   * file to a new value
-   *
-   * @param assetPath The partial path of the file to modify, starting with "Assets/"
-   * @param selectors CSS selectors to the XML elements to match on. **NOTE** that the first
-   *                  part of the selectors should contain the info element tag (e.g.
-   *                  "CivilizationInfo").
-   * @param matchValues Values of the element to match on, or an empty array to match on all values
-   * @param newValue New value
-   * @returns List of the Type values of the updated items
-   */
-  private updateInfoItems = async (
-    assetPath: string,
-    selectors: string,
-    matchValues: string[],
-    newValue: string
-  ): Promise<string[]> => {
-    if (!assetPath.startsWith('Assets/')) {
-      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
-    }
-
-    // Get the tag of the info items to go through from the selectors
-    const infoItemTag = selectors.split(' ')[0];
-    if (!infoItemTag.endsWith('Info')) {
-      throw new Error(
-        `Selectors does not start with a tag that ends with "Info": ${selectors}`
-      );
-    }
-
-    const modFileFullPath = await this.prepModFile(assetPath);
-    const doc = new DOMParser().parseFromString(
-      (await fs.readFile(modFileFullPath)).toString(),
-      'text/xml'
-    );
-
-    const updatedInfoItems = [] as string[];
-
-    // Go through all the info elements
-    for (const infoElement of doc.querySelectorAll(infoItemTag)) {
-      // Track whether the info element has been updated, since it may receive multiple updates
-      let updated = false;
-
-      // Within those, apply the query selector to match an element inside
-      for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
-        if (
-          matchValues.length === 0 ||
-          matchValues.includes(elementToMatch.textContent || '')
-        ) {
-          updated = true;
-
-          elementToMatch.textContent = newValue;
-        }
-      }
-
-      if (updated) {
-        const infoItemType =
-          infoElement.getElementsByTagName('Type')[0].textContent;
-        if (infoItemType) {
-          updatedInfoItems.push(infoItemType);
-          console.log(
-            `Updated ${ModPatcher.formatInfoTag(
-              infoItemTag
-            )} ${ModPatcher.formatElementType(infoItemType)}`
-          );
-        } else {
-          throw new Error(
-            `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
-              infoElement.outerHTML
-            }`
-          );
-        }
-      }
-    }
-
-    await fs.writeFile(
-      modFileFullPath,
-      doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
-    );
-
-    return updatedInfoItems;
-  };
-
   // Ugh, this feels super convoluted ... Maybe we should've picked a better XML library?
   /**
    * Update matching Info elements with the given values from a Civ 4 Info XML configuration
@@ -792,12 +711,14 @@ export class ModPatcher {
    *                  "CivilizationInfo").
    * @param newValue New value
    * @param matchSelectors CSS selectors to the XML elements to match. If undefined, will
-   *                       update all elements matching updateSelectors.
+   *                       update all Info items with elements matching updateSelectors.
+   *                       NOTE: If this is the same as updateSelectors, only elements
+   *                       that match matchValues will be updated.
    * @param matchValues Values to match on. If undefined, will update all elements
    *                    matching updateSelectors.
    * @returns List of the Type values of the updated items
    */
-  private updateMatchingInfoItems = async (
+  private updateInfoItems = async (
     assetPath: string,
     updateSelectors: string,
     newValue: string,
@@ -843,8 +764,17 @@ export class ModPatcher {
           matchSelectors
         )) {
           if (matchValues.includes(elementToMatch.textContent || '')) {
-            matched = true;
-            break;
+            // If we're updating the same element we're matching on, then go ahead and
+            // update the element as well, but only if there's a match
+            if (matchSelectors === updateSelectors) {
+              updated = true;
+              elementToMatch.textContent = newValue;
+            }
+            // Otherwise, we'll iterate over the element to update and update it later
+            else {
+              matched = true;
+              break;
+            }
           }
         }
       }
