@@ -221,6 +221,10 @@ export class ModPatcher {
       await fs.writeFile(arrakisFullPath, arrakisNewContents);
     }
 
+    // TODO: Mod other maps as desired, e.g. DuneWars Archipelago map, Planetfall, Middle
+    //       Earth, Mars Now. See ../docs/install-mods.md and ../docs/notes/map-sizes.md
+    //       for more information.
+
     console.log();
   };
 
