@@ -1,14 +1,5 @@
 The following files are from or contain content from external sources:
 
-src/Assets/XML/Buildings/CIV4BuildingInfos.xml
-src/Assets/XML/Civilizations/CIV4CivilizationInfos.xml
-src/Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml
-src/Assets/XML/Events/CIV4EventTriggerInfos.xml
-src/Assets/XML/GameInfo/CIV4CivicInfos.xml
-src/Assets/XML/GameInfo/CIV4CivicOptionInfos.xml
-src/Assets/XML/GameInfo/CIV4CorporationInfo.xml
-src/Assets/XML/GameInfo/CIV4GameOptionInfos.xml
-src/Assets/XML/GameInfo/CIV4ReligionInfo.xml
-src/Assets/XML/GameInfo/CIV4VoteInfo.xml
-src/Assets/XML/GameInfo/CIV4WorldInfo.xml
-src/Assets/XML/Units/CIV4UnitInfos.xml
+src/Assets/
+Source: All files in this directory are originally from Sid Meier's Civilization IV Beyond the Sword
+Licence: Copyright Firaxis Games, used in a way that qualifies as fair use under United States copyright law
