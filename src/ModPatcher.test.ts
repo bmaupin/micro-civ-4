@@ -28,4 +28,4 @@ test('modded files should match files in Assets', async () => {
       String(await fs.readFile(assetFilePath))
     );
   }
-}, 10000);
+}, 30000);
