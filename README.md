@@ -9,9 +9,9 @@ A mod to make Civilization IV games drastically shorter, as well as a patcher to
 - [Middle Earth](https://forums.civfanatics.com/resources/middle-earth-mod.22813/)
 - [Planetfall](https://forums.civfanatics.com/threads/download-thread.253775/)
 
-#### Installation
+#### Instructions
 
-TODO
+See [docs/instructions.md](docs/instructions.md)
 
 #### Changes
 

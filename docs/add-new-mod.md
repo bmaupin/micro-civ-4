@@ -31,3 +31,5 @@ To add a new mod to this patcher:
    1. Within the method causing the issues, comment individual instructions to further narrow down the issue
 
    1. Once you've narrowed down the instructions causing the issue, check the mod's source code for references to the item in question. Quite often it's caused by an item which has been deleted; see above for more information on some ways to handle this.
+
+1. As desired, play and World Builder map files located in `PrivateMaps/` in the mod (by choosing _Play a Scenario_). You may need to remove any lines in those files (they're text files) containing references to any removed items (e.g. civic options or civics)
