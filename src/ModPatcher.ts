@@ -459,8 +459,10 @@ export class ModPatcher {
 
     // Remove espionage-specific buildings
     // TODO: How to do this in mods? Remove buildings where FLAVOR_ESPIONAGE == 10?
-    await this.removeInfoItems(
+    await this.updateInfoItems(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      'BuildingInfo PrereqTech',
+      TECH_DISABLED,
       'BuildingInfo Type',
       [
         'BUILDING_INTELLIGENCE_AGENCY',
