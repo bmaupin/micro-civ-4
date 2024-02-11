@@ -8,12 +8,12 @@ Civilization IV Beyond the Sword. See [below](#installing-beyond-the-sword-in-pr
 
 #### Install the mod from the zip file
 
-1. Go to [Releases](https://github.com/bmaupin/quick-civ-4/releases) and download _Quick Civ 4.zip_
+1. Go to [Releases](https://github.com/bmaupin/quick-civ-4/releases) and download _QuickCiv4.zip_
 
 1. Extract the zip file and move it to your Beyond the Sword folder, e.g. for Proton:
 
    ```
-   unzip Quick\ Civ\ 4.zip
+   unzip QuickCiv4.zip
    mv Quick\ Civ\ 4 ~/.steam/steam/steamapps/common/Sid\ Meier\'s\ Civilization\ IV\ Beyond\ the\ Sword/Beyond\ the\ Sword/Mods/
    ```
 
