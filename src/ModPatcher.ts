@@ -294,7 +294,7 @@ export class ModPatcher {
     await this.removeInfoItemChild(
       'Assets/XML/Units/CIV4UnitInfos.xml',
       'UnitInfo Buildings Building',
-      'Building BuildingType',
+      'UnitInfo Buildings Building BuildingType',
       removedBuildings
     );
 
@@ -304,10 +304,9 @@ export class ModPatcher {
       removedCivicOptions
     );
 
-    await this.updateInfoItems(
+    await this.removeInfoItemChild(
       'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
       'CivilizationInfo InitialCivics CivicType',
-      'NONE',
       'CivilizationInfo InitialCivics CivicType',
       removedCivics
     );
@@ -332,14 +331,25 @@ export class ModPatcher {
       removedCivics
     );
 
-    // Mods for DuneWars Revival
-    await this.updateInfoItems(
-      'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
-      'LeaderHeadInfo HatedCivic',
-      'NONE',
-      'LeaderHeadInfo HatedCivic',
-      removedCivics
-    );
+    if (this.modName === 'Quick DuneWars Revival') {
+      await this.updateInfoItems(
+        'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
+        'LeaderHeadInfo HatedCivic',
+        'NONE',
+        'LeaderHeadInfo HatedCivic',
+        removedCivics
+      );
+
+      await this.removeInfoItems(
+        'Assets/XML/Units/CIV4PromotionInfos.xml',
+        'PromotionInfo PrereqCivics PrereqCivicX',
+        removedCivics
+      );
+    }
+
+    // TODO: For any *.CivBeyondSwordWBSave files in PrivateMaps/ in the mod, remove any
+    //       lines containing removed civic options and removed civics? This is low
+    //       priority since those map files will need to be manually shrunk anyway
 
     console.log();
   };
@@ -368,7 +378,7 @@ export class ModPatcher {
     await this.removeInfoItemChild(
       'Assets/XML/Units/CIV4UnitInfos.xml',
       'UnitInfo Buildings Building',
-      'Building BuildingType',
+      'UnitInfo Buildings Building BuildingType',
       removedBuildings
     );
 
@@ -644,51 +654,90 @@ export class ModPatcher {
 
     // Go through all the info elements
     for (const infoElement of doc.querySelectorAll(infoItemTag)) {
-      const infoItemType =
-        infoElement.getElementsByTagName('Type')[0].textContent;
-      if (!infoItemType) {
-        throw new Error(
-          `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
-            infoElement.outerHTML
-          }`
-        );
-      }
-
+      //
+      let matched = false;
       // Track whether the info element has been updated, since it may receive multiple updates
-      let infoItemUpdated = false;
+      let updated = false;
 
-      for (const elementToRemove of infoElement.querySelectorAll(
-        removeSelectors
-      )) {
-        let childElementMatched = false;
-
-        if (matchSelectors && matchValues) {
-          for (const elementToMatch of elementToRemove.querySelectorAll(
+      if (matchSelectors && matchValues) {
+        // If what we're matching on is within what we're removing, only remove elements
+        // containing a match
+        if (matchSelectors.startsWith(removeSelectors)) {
+          for (const elementToRemove of infoElement.querySelectorAll(
+            removeSelectors
+          )) {
+            // If we're updating the same element we're matching on, then go ahead and
+            // remove the element as well, but only if there's a match
+            if (matchSelectors === removeSelectors) {
+              if (
+                elementToRemove.textContent &&
+                matchValues.includes(elementToRemove.textContent)
+              ) {
+                updated = true;
+                elementToRemove.parentElement?.removeChild(elementToRemove);
+              }
+            } else {
+              for (const elementToMatch of elementToRemove.querySelectorAll(
+                // Strip out the part of matchSelectors containing removeSelectors so we
+                // can iterate over elements within removeSelectors
+                matchSelectors.replace(removeSelectors, '')
+              )) {
+                if (
+                  elementToMatch.textContent &&
+                  matchValues.includes(elementToMatch.textContent)
+                ) {
+                  updated = true;
+                  elementToRemove.parentElement?.removeChild(elementToRemove);
+                }
+              }
+            }
+          }
+        }
+        // Otherwise, iterate over just the element to match and remove it later if it
+        // matches
+        else {
+          for (const elementToMatch of infoElement.querySelectorAll(
             matchSelectors
           )) {
             if (
               elementToMatch.textContent &&
               matchValues.includes(elementToMatch.textContent)
             ) {
-              childElementMatched = true;
+              matched = true;
               break;
             }
           }
         }
+      }
 
-        if (childElementMatched || !matchSelectors || !matchValues) {
-          infoItemUpdated = true;
+      // If the Info Item matches (or there's nothing to match on), go through all
+      // elements in updateSelectors and update them to the new value
+      if (matched || !matchValues) {
+        for (const elementToRemove of infoElement.querySelectorAll(
+          removeSelectors
+        )) {
+          updated = true;
           elementToRemove.parentElement?.removeChild(elementToRemove);
         }
       }
 
-      if (infoItemUpdated) {
-        updatedInfoItems.push(infoItemType);
-        console.log(
-          `Updated ${ModPatcher.formatInfoTag(
-            infoItemTag
-          )} ${ModPatcher.formatElementType(infoItemType)}`
-        );
+      if (updated) {
+        const infoItemType =
+          infoElement.getElementsByTagName('Type')[0].textContent;
+        if (infoItemType) {
+          updatedInfoItems.push(infoItemType);
+          console.log(
+            `Updated ${ModPatcher.formatInfoTag(
+              infoItemTag
+            )} ${ModPatcher.formatElementType(infoItemType)}`
+          );
+        } else {
+          throw new Error(
+            `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
+              infoElement.outerHTML
+            }`
+          );
+        }
       }
     }
 
