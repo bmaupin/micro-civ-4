@@ -287,64 +287,70 @@ export class ModPatcher {
 
     const removedBuildings = await this.removeInfoItems(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      'BuildingInfo CivicOption',
-      removedCivicOptions
+      {
+        where: 'BuildingInfo CivicOption',
+        in: removedCivicOptions,
+      }
     );
 
-    await this.removeInfoItemChild(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo Buildings Building',
-      'UnitInfo Buildings Building BuildingType',
-      removedBuildings
-    );
+    await this.removeInfoItemChild('Assets/XML/Units/CIV4UnitInfos.xml', {
+      delete: 'UnitInfo Buildings Building',
+      where: 'UnitInfo Buildings Building BuildingType',
+      in: removedBuildings,
+    });
 
     const removedCivics = await this.removeInfoItems(
       'Assets/XML/GameInfo/CIV4CivicInfos.xml',
-      'CivicInfo CivicOptionType',
-      removedCivicOptions
+      {
+        where: 'CivicInfo CivicOptionType',
+        in: removedCivicOptions,
+      }
     );
 
     await this.removeInfoItemChild(
       'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
-      'CivilizationInfo InitialCivics CivicType',
-      'CivilizationInfo InitialCivics CivicType',
-      removedCivics
+      {
+        delete: 'CivilizationInfo InitialCivics CivicType',
+        where: 'CivilizationInfo InitialCivics CivicType',
+        in: removedCivics,
+      }
     );
 
     await this.updateInfoItems(
       'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
-      'LeaderHeadInfo FavoriteCivic',
-      'NONE',
-      'LeaderHeadInfo FavoriteCivic',
-      removedCivics
+      {
+        set: 'LeaderHeadInfo FavoriteCivic',
+        to: 'NONE',
+        where: 'LeaderHeadInfo FavoriteCivic',
+        in: removedCivics,
+      }
     );
 
-    await this.removeInfoItems(
-      'Assets/XML/Events/CIV4EventTriggerInfos.xml',
-      'EventTriggerInfo Civic',
-      removedCivics
-    );
+    await this.removeInfoItems('Assets/XML/Events/CIV4EventTriggerInfos.xml', {
+      where: 'EventTriggerInfo Civic',
+      in: removedCivics,
+    });
 
-    await this.removeInfoItems(
-      'Assets/XML/GameInfo/CIV4VoteInfo.xml',
-      'VoteInfo ForceCivics ForceCivic CivicType',
-      removedCivics
-    );
+    await this.removeInfoItems('Assets/XML/GameInfo/CIV4VoteInfo.xml', {
+      where: 'VoteInfo ForceCivics ForceCivic CivicType',
+      in: removedCivics,
+    });
 
     if (this.modName === 'Quick DuneWars Revival') {
       await this.updateInfoItems(
         'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
-        'LeaderHeadInfo HatedCivic',
-        'NONE',
-        'LeaderHeadInfo HatedCivic',
-        removedCivics
+        {
+          set: 'LeaderHeadInfo HatedCivic',
+          to: 'NONE',
+          where: 'LeaderHeadInfo HatedCivic',
+          in: removedCivics,
+        }
       );
 
-      await this.removeInfoItems(
-        'Assets/XML/Units/CIV4PromotionInfos.xml',
-        'PromotionInfo PrereqCivics PrereqCivicX',
-        removedCivics
-      );
+      await this.removeInfoItems('Assets/XML/Units/CIV4PromotionInfos.xml', {
+        where: 'PromotionInfo PrereqCivics PrereqCivicX',
+        in: removedCivics,
+      });
     }
 
     // TODO: For any *.CivBeyondSwordWBSave files in PrivateMaps/ in the mod, remove any
@@ -354,33 +360,37 @@ export class ModPatcher {
     console.log();
   };
 
-  // TODO: Use the same logic for disabling religions to disable corporations?
   private removeCorporations = async () => {
     console.log('Removing corporations ...');
 
+    // NOTE: We've run into issues removing other items (e.g. religions) and have instead
+    //       resorted to disabling them by setting prereq tech to TECH_DISABLED. If we
+    //       run into any issues with this we should probably do the same.
     const removedCorporations = await this.removeInfoItems(
       'Assets/XML/GameInfo/CIV4CorporationInfo.xml',
-      'CorporationInfo'
+      {
+        where: 'CorporationInfo',
+      }
     );
 
-    await this.removeInfoItems(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo CorporationSpreads CorporationSpread CorporationType',
-      removedCorporations
-    );
+    await this.removeInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
+      where: 'UnitInfo CorporationSpreads CorporationSpread CorporationType',
+      in: removedCorporations,
+    });
 
     const removedBuildings = await this.removeInfoItems(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      'BuildingInfo FoundsCorporation',
-      removedCorporations
+      {
+        where: 'BuildingInfo FoundsCorporation',
+        in: removedCorporations,
+      }
     );
 
-    await this.removeInfoItemChild(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo Buildings Building',
-      'UnitInfo Buildings Building BuildingType',
-      removedBuildings
-    );
+    await this.removeInfoItemChild('Assets/XML/Units/CIV4UnitInfos.xml', {
+      delete: 'UnitInfo Buildings Building',
+      where: 'UnitInfo Buildings Building BuildingType',
+      in: removedBuildings,
+    });
 
     await this.removeAdvisorButton('CorporationAdvisorButton');
 
@@ -400,11 +410,10 @@ export class ModPatcher {
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
-    await this.updateInfoItems(
-      'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
-      'ReligionInfo TechPrereq',
-      TECH_DISABLED
-    );
+    await this.updateInfoItems('Assets/XML/GameInfo/CIV4ReligionInfo.xml', {
+      set: 'ReligionInfo TechPrereq',
+      to: TECH_DISABLED,
+    });
 
     // Disable logic in DuneWars Revival related to hard-coded religions. I tried XML
     // changes first (setting religion modifiers to 0, removing religious buildings, etc)
@@ -448,40 +457,42 @@ export class ModPatcher {
     // Remove espionage points given by buildings
     await this.removeInfoItemChild(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      'BuildingInfo CommerceChanges iCommerce:nth-child(4)'
+      {
+        delete: 'BuildingInfo CommerceChanges iCommerce:nth-child(4)',
+      }
     );
 
     // Remove espionage percentage given by buildings
     await this.removeInfoItemChild(
       'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      'BuildingInfo CommerceModifiers iCommerce:nth-child(4)'
+      {
+        delete: 'BuildingInfo CommerceModifiers iCommerce:nth-child(4)',
+      }
     );
 
-    // Remove espionage-specific buildings
-    // TODO: How to do this in mods? Remove buildings where FLAVOR_ESPIONAGE == 10?
-    await this.updateInfoItems(
-      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      'BuildingInfo PrereqTech',
-      TECH_DISABLED,
-      'BuildingInfo Type',
-      [
+    // Disable espionage-specific buildings
+    // TODO: Add espionage buildings from mods, either hard-coded or maybe where FLAVOR_ESPIONAGE == 10?
+    await this.updateInfoItems('Assets/XML/Buildings/CIV4BuildingInfos.xml', {
+      set: 'BuildingInfo PrereqTech',
+      to: TECH_DISABLED,
+      where: 'BuildingInfo Type',
+      in: [
         'BUILDING_INTELLIGENCE_AGENCY',
         // Security bureau
         'BUILDING_NATIONAL_SECURITY',
         'BUILDING_SCOTLAND_YARD',
-      ]
-    );
+      ],
+    });
 
     // Disable espionage units; removing them caused crashes with the Middle-earth mod. It
     // also seems that there are hard-coded references to the units in Civ 4 itself (e.g.
     // Assets/Python/CvAdvisorUtils.py, Assets/Python/EntryPoints/CvScreensInterface.py)
-    await this.updateInfoItems(
-      'Assets/XML/Units/CIV4UnitInfos.xml',
-      'UnitInfo PrereqTech',
-      TECH_DISABLED,
-      'UnitInfo Flavors Flavor FlavorType',
-      ['FLAVOR_ESPIONAGE']
-    );
+    await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
+      set: 'UnitInfo PrereqTech',
+      to: TECH_DISABLED,
+      where: 'UnitInfo Flavors Flavor FlavorType',
+      in: ['FLAVOR_ESPIONAGE'],
+    });
 
     console.log();
   };
@@ -523,38 +534,39 @@ export class ModPatcher {
           ].includes(civicOption)
       );
 
-    return await this.removeInfoItems(
-      configurationFile,
-      'CivicOptionInfo Type',
-      civicOptionsToRemove
-    );
+    return await this.removeInfoItems(configurationFile, {
+      where: 'CivicOptionInfo Type',
+      in: civicOptionsToRemove,
+    });
   };
 
   /**
    * Remove Info elements from a Civ 4 Info XML configuration file
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
-   * @param selectors CSS selectors to the XML elements to match on, or just the info
+   * @param query.where CSS selectors to the XML elements to match on, or just the info
    *                  element if valuesToMatch isn't provided. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
-   * @param matchValues Values of the element to match on
+   * @param query.in Values of the element to match on
    * @returns List of the Type values of the removed items
    */
   private removeInfoItems = async (
     assetPath: string,
-    selectors: string,
-    matchValues?: string[]
+    query: {
+      where: string;
+      in?: string[];
+    }
   ): Promise<string[]> => {
     if (!assetPath.startsWith('Assets/')) {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    // Get the tag of the info items to go through from the selectors
-    const infoItemTag = selectors.split(' ')[0];
+    // Get the tag of the info items to go through from the query.where
+    const infoItemTag = query.where.split(' ')[0];
     if (!infoItemTag.endsWith('Info')) {
       throw new Error(
-        `Selectors does not start with a tag that ends with "Info": ${selectors}`
+        `query.where does not start with a tag that ends with "Info": ${query.where}`
       );
     }
 
@@ -570,17 +582,19 @@ export class ModPatcher {
     for (const infoElement of doc.querySelectorAll(infoItemTag)) {
       let matched = false;
 
-      if (matchValues) {
-        // Within those, apply the query selectors to match an element inside
-        for (const elementToMatch of infoElement.querySelectorAll(selectors)) {
-          if (matchValues.includes(elementToMatch.textContent || '')) {
+      if (query.in) {
+        // Within those, apply the query query.where to match an element inside
+        for (const elementToMatch of infoElement.querySelectorAll(
+          query.where
+        )) {
+          if (query.in.includes(elementToMatch.textContent || '')) {
             matched = true;
             break;
           }
         }
       }
 
-      if (matched || !matchValues) {
+      if (matched || !query.in) {
         const infoItemType =
           infoElement.getElementsByTagName('Type')[0].textContent;
         if (infoItemType) {
@@ -615,34 +629,40 @@ export class ModPatcher {
    * file to a new value
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
-   * @param removeSelectors CSS selectors to the XML elements to remove. **NOTE** that the
+   * @param query.delete CSS selectors to the XML elements to remove. **NOTE** that the
    *                        first part of the selectors must contain the info element tag
    *                        (e.g. "CivilizationInfo").
-   * @param matchSelectors CSS selectors to the XML elements to match on
-   * @param matchValues Values of the element to match on
+   * @param query.where CSS selectors to the XML elements to match on
+   * @param query.in Values of the element to match on
    * @returns List of the Type values of the updated items
    */
+  // I thought about rolling updateInfoItems into this (add "set" and "to" properties to
+  // query, make them all optional, conditionally update depending on whether set or
+  // delete were used) but this method is already more convoluted than updateInfoItems
+  // which itself already feels too convoluted. Once again, I feel like this could've
+  // benefitted from a simpler XML library that allowed for more powerful queries and
+  // updates
   private removeInfoItemChild = async (
     assetPath: string,
-    removeSelectors: string,
-    matchSelectors?: string,
-    matchValues?: string[]
+    query: {
+      delete: string;
+      where?: string;
+      in?: string[];
+    }
   ): Promise<string[]> => {
     if (!assetPath.startsWith('Assets/')) {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    if (matchValues && !matchSelectors) {
-      throw new Error(
-        'matchSelectors must be defined if matchValues is defined'
-      );
+    if (query.in && !query.where) {
+      throw new Error('query.where must be defined if query.in is defined');
     }
 
-    // Get the tag of the info items to go through from the selectors
-    const infoItemTag = removeSelectors.split(' ')[0];
+    // Get the tag of the info items to go through from query.delete
+    const infoItemTag = query.delete.split(' ')[0];
     if (!infoItemTag.endsWith('Info')) {
       throw new Error(
-        `Selectors does not start with a tag that ends with "Info": ${removeSelectors}`
+        `query.delete does not start with a tag that ends with "Info": ${query.delete}`
       );
     }
 
@@ -661,32 +681,32 @@ export class ModPatcher {
       // Track whether the info element has been updated, since it may receive multiple updates
       let updated = false;
 
-      if (matchSelectors && matchValues) {
+      if (query.where && query.in) {
         // If what we're matching on is within what we're removing, only remove elements
         // containing a match
-        if (matchSelectors.startsWith(removeSelectors)) {
+        if (query.where.startsWith(query.delete)) {
           for (const elementToRemove of infoElement.querySelectorAll(
-            removeSelectors
+            query.delete
           )) {
             // If we're updating the same element we're matching on, then go ahead and
             // remove the element as well, but only if there's a match
-            if (matchSelectors === removeSelectors) {
+            if (query.where === query.delete) {
               if (
                 elementToRemove.textContent &&
-                matchValues.includes(elementToRemove.textContent)
+                query.in.includes(elementToRemove.textContent)
               ) {
                 updated = true;
                 elementToRemove.parentElement?.removeChild(elementToRemove);
               }
             } else {
               for (const elementToMatch of elementToRemove.querySelectorAll(
-                // Strip out the part of matchSelectors containing removeSelectors so we
-                // can iterate over elements within removeSelectors
-                matchSelectors.replace(removeSelectors, '')
+                // Strip out the part of query.where containing query.delete so we
+                // can iterate over elements within query.delete
+                query.where.replace(query.delete, '')
               )) {
                 if (
                   elementToMatch.textContent &&
-                  matchValues.includes(elementToMatch.textContent)
+                  query.in.includes(elementToMatch.textContent)
                 ) {
                   updated = true;
                   elementToRemove.parentElement?.removeChild(elementToRemove);
@@ -699,11 +719,11 @@ export class ModPatcher {
         // matches
         else {
           for (const elementToMatch of infoElement.querySelectorAll(
-            matchSelectors
+            query.where
           )) {
             if (
               elementToMatch.textContent &&
-              matchValues.includes(elementToMatch.textContent)
+              query.in.includes(elementToMatch.textContent)
             ) {
               matched = true;
               break;
@@ -713,10 +733,10 @@ export class ModPatcher {
       }
 
       // If the Info Item matches (or there's nothing to match on), go through all
-      // elements in updateSelectors and update them to the new value
-      if (matched || !matchValues) {
+      // elements in query.delete and remove them
+      if (matched || !query.in) {
         for (const elementToRemove of infoElement.querySelectorAll(
-          removeSelectors
+          query.delete
         )) {
           updated = true;
           elementToRemove.parentElement?.removeChild(elementToRemove);
@@ -751,46 +771,48 @@ export class ModPatcher {
     return updatedInfoItems;
   };
 
-  // Ugh, this feels super convoluted ... Maybe we should've picked a better XML library?
   /**
    * Update matching Info elements with the given values from a Civ 4 Info XML configuration
    * file to a new value
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
-   * @param updateSelectors CSS selectors to the XML elements to update. **NOTE** that the first
+   * @param query.set CSS selectors to the XML elements to update. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
-   * @param newValue New value
-   * @param matchSelectors CSS selectors to the XML elements to match. If undefined, will
-   *                       update all Info items with elements matching updateSelectors.
-   *                       NOTE: If this is the same as updateSelectors, only elements
-   *                       that match matchValues will be updated.
-   * @param matchValues Values to match on. If undefined, will update all elements
-   *                    matching updateSelectors.
+   * @param query.to New value
+   * @param query.where CSS selectors to the XML elements to match. If undefined, will
+   *                       update all Info items with elements matching query.set.
+   *                       NOTE: If this is the same as query.set, only elements
+   *                       that match query.in will be updated.
+   * @param query.in Values to match on. If undefined, will update all elements
+   *                    matching query.set.
    * @returns List of the Type values of the updated items
    */
+  // Ugh, this feels super convoluted ... Maybe we should've picked a better XML library?
   private updateInfoItems = async (
     assetPath: string,
-    updateSelectors: string,
-    newValue: string,
-    matchSelectors?: string,
-    matchValues?: string[]
+    query: {
+      set: string;
+      to: string;
+      where?: string;
+      in?: string[];
+    }
   ): Promise<string[]> => {
     if (!assetPath.startsWith('Assets/')) {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    if ((matchSelectors && !matchValues) || (!matchSelectors && matchValues)) {
+    if ((query.where && !query.in) || (!query.where && query.in)) {
       throw new Error(
-        'matchSeletors and matchValues must both be defined if either is defined'
+        'query.where and query.in must both be defined if either is defined'
       );
     }
 
-    // Get the tag of the info items to go through from the selectors
-    const infoItemTag = updateSelectors.split(' ')[0];
+    // Get the tag of the info items to go through from query.set
+    const infoItemTag = query.set.split(' ')[0];
     if (!infoItemTag.endsWith('Info')) {
       throw new Error(
-        `Selectors does not start with a tag that ends with "Info": ${updateSelectors}`
+        `query.set does not start with a tag that ends with "Info": ${query.set}`
       );
     }
 
@@ -810,16 +832,16 @@ export class ModPatcher {
       let updated = false;
 
       // If we have a value to match, see if the item has matching elements
-      if (matchSelectors && matchValues) {
+      if (query.where && query.in) {
         for (const elementToMatch of infoElement.querySelectorAll(
-          matchSelectors
+          query.where
         )) {
-          if (matchValues.includes(elementToMatch.textContent || '')) {
+          if (query.in.includes(elementToMatch.textContent || '')) {
             // If we're updating the same element we're matching on, then go ahead and
             // update the element as well, but only if there's a match
-            if (matchSelectors === updateSelectors) {
+            if (query.where === query.set) {
               updated = true;
-              elementToMatch.textContent = newValue;
+              elementToMatch.textContent = query.to;
             }
             // Otherwise, we'll iterate over the element to update and update it later
             else {
@@ -831,13 +853,11 @@ export class ModPatcher {
       }
 
       // If the Info Item matches (or there's nothing to match on), go through all
-      // elements in updateSelectors and update them to the new value
-      if (matched || !matchValues) {
-        for (const elementToUpdate of infoElement.querySelectorAll(
-          updateSelectors
-        )) {
+      // elements in query.set and update them to the new value
+      if (matched || !query.in) {
+        for (const elementToUpdate of infoElement.querySelectorAll(query.set)) {
           updated = true;
-          elementToUpdate.textContent = newValue;
+          elementToUpdate.textContent = query.to;
         }
       }
 
