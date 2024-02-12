@@ -293,7 +293,7 @@ export class ModPatcher {
       }
     );
 
-    await this.removeInfoItemChild('Assets/XML/Units/CIV4UnitInfos.xml', {
+    await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
       delete: 'UnitInfo Buildings Building',
       where: 'UnitInfo Buildings Building BuildingType',
       in: removedBuildings,
@@ -307,7 +307,7 @@ export class ModPatcher {
       }
     );
 
-    await this.removeInfoItemChild(
+    await this.updateInfoItems(
       'Assets/XML/Civilizations/CIV4CivilizationInfos.xml',
       {
         delete: 'CivilizationInfo InitialCivics CivicType',
@@ -386,7 +386,7 @@ export class ModPatcher {
       }
     );
 
-    await this.removeInfoItemChild('Assets/XML/Units/CIV4UnitInfos.xml', {
+    await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
       delete: 'UnitInfo Buildings Building',
       where: 'UnitInfo Buildings Building BuildingType',
       in: removedBuildings,
@@ -455,20 +455,14 @@ export class ModPatcher {
     console.log('Modding espionage ...');
 
     // Remove espionage points given by buildings
-    await this.removeInfoItemChild(
-      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      {
-        delete: 'BuildingInfo CommerceChanges iCommerce:nth-child(4)',
-      }
-    );
+    await this.updateInfoItems('Assets/XML/Buildings/CIV4BuildingInfos.xml', {
+      delete: 'BuildingInfo CommerceChanges iCommerce:nth-child(4)',
+    });
 
     // Remove espionage percentage given by buildings
-    await this.removeInfoItemChild(
-      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
-      {
-        delete: 'BuildingInfo CommerceModifiers iCommerce:nth-child(4)',
-      }
-    );
+    await this.updateInfoItems('Assets/XML/Buildings/CIV4BuildingInfos.xml', {
+      delete: 'BuildingInfo CommerceModifiers iCommerce:nth-child(4)',
+    });
 
     // Disable espionage-specific buildings
     // TODO: Add espionage buildings from mods, either hard-coded or maybe where FLAVOR_ESPIONAGE == 10?
@@ -625,27 +619,29 @@ export class ModPatcher {
   };
 
   /**
-   * Update matching Info elements with the given values from a Civ 4 Info XML configuration
-   * file to a new value
+   * Update Info elements, either deleting subelements or setting them to a new text
+   * value, optionally checking first to see if they match certain criteria
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
    * @param query.delete CSS selectors to the XML elements to remove. **NOTE** that the
    *                        first part of the selectors must contain the info element tag
    *                        (e.g. "CivilizationInfo").
+   * @param query.set CSS selectors to the XML elements to update. **NOTE** that the first
+   *                  part of the selectors should contain the info element tag (e.g.
+   *                  "CivilizationInfo").
+   * @param query.to New value
    * @param query.where CSS selectors to the XML elements to match on
    * @param query.in Values of the element to match on
-   * @returns List of the Type values of the updated items
+   * @returns List of the Type values of the updated Info items
    */
-  // I thought about rolling updateInfoItems into this (add "set" and "to" properties to
-  // query, make them all optional, conditionally update depending on whether set or
-  // delete were used) but this method is already more convoluted than updateInfoItems
-  // which itself already feels too convoluted. Once again, I feel like this could've
-  // benefitted from a simpler XML library that allowed for more powerful queries and
-  // updates
-  private removeInfoItemChild = async (
+  // NOTE: while this does what we want, it does feel super convoluted. Would it have been
+  //       better to use a different XML library, for instance cheerio?
+  private updateInfoItems = async (
     assetPath: string,
     query: {
-      delete: string;
+      delete?: string;
+      set?: string;
+      to?: string;
       where?: string;
       in?: string[];
     }
@@ -654,17 +650,35 @@ export class ModPatcher {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    if ((query.where && !query.in) || (!query.where && query.in)) {
-      throw new Error(
-        'query.where and query.in must both be defined if either is defined'
-      );
+    if ((query.delete && query.set) || (!query.delete && !query.set)) {
+      throw new Error('query.delete and query.set are mutually exclusive');
     }
 
-    // Get the tag of the info items to go through from query.delete
-    const infoItemTag = query.delete.split(' ')[0];
+    if ((query.set && !query.to) || (!query.set && query.to)) {
+      throw new Error('query.set and query.to must be used together');
+    }
+
+    if ((query.where && !query.in) || (!query.where && query.in)) {
+      throw new Error('query.where and query.in must be used together');
+    }
+
+    const deleteOrSetElement = (element: Element) => {
+      if (query.delete) {
+        element.parentElement?.removeChild(element);
+      } else if (query.set && query.to) {
+        element.textContent = query.to;
+      }
+    };
+
+    // This is just a convenience variable so we don't have to do something like
+    // query.delete || query.set everywhere
+    const deleteOrSetQuery = query.delete ?? query.set ?? '';
+
+    // Get the tag of the info items to go through from query.delete/query.set
+    const infoItemTag = deleteOrSetQuery.split(' ')[0];
     if (!infoItemTag.endsWith('Info')) {
       throw new Error(
-        `query.delete does not start with a tag that ends with "Info": ${query.delete}`
+        `query.delete/query.set does not start with a tag that ends with "Info": ${deleteOrSetQuery}`
       );
     }
 
@@ -681,63 +695,66 @@ export class ModPatcher {
       // Track whether the info element has been updated, since it may receive multiple updates
       let updated = false;
 
-      // Case 1: nothing to match on, so just delete every element in query.delete
+      // Case 1: nothing to match on, so just delete/update every element in query.delete/
+      //         query.set
       if (!query.where || !query.in) {
         for (const elementToRemove of infoElement.querySelectorAll(
-          query.delete
+          deleteOrSetQuery
         )) {
           updated = true;
-          elementToRemove.parentElement?.removeChild(elementToRemove);
+          deleteOrSetElement(elementToRemove);
         }
       }
 
-      // Case 2: if we're updating the same element we're matching on, then go ahead and
-      //         remove the element as well, but only if there's a match
-      else if (query.where && query.in && query.where === query.delete) {
+      // Case 2: if we're deleting/updating the same element we're matching on, then as
+      //         soon as we find a match we can delete/update it
+      else if (query.where && query.in && query.where === deleteOrSetQuery) {
         for (const elementToRemove of infoElement.querySelectorAll(
-          query.delete
+          deleteOrSetQuery
         )) {
           if (
             elementToRemove.textContent &&
             query.in.includes(elementToRemove.textContent)
           ) {
             updated = true;
-            elementToRemove.parentElement?.removeChild(elementToRemove);
+            deleteOrSetElement(elementToRemove);
           }
         }
       }
 
-      // Case 3: if what we're matching on is within what we're removing, only remove
-      //         elements containing a match
+      // Case 3: if what we're matching on is within what we're removing, only
+      //         delete/update elements containing a match
       else if (
         query.where &&
         query.in &&
-        query.where.startsWith(query.delete)
+        query.where.startsWith(deleteOrSetQuery)
       ) {
         for (const elementToRemove of infoElement.querySelectorAll(
-          query.delete
+          deleteOrSetQuery
         )) {
           for (const elementToMatch of elementToRemove.querySelectorAll(
-            // Strip out the part of query.where containing query.delete so we
-            // can iterate over elements within query.delete
-            query.where.replace(query.delete, '')
+            // Strip out the part of query.where containing query.delete/query.set so we
+            // can iterate over elements within query.delete/query.set
+            query.where.replace(deleteOrSetQuery, '')
           )) {
             if (
               elementToMatch.textContent &&
               query.in.includes(elementToMatch.textContent)
             ) {
               updated = true;
-              elementToRemove.parentElement?.removeChild(elementToRemove);
+              deleteOrSetElement(elementToRemove);
             }
           }
         }
       }
 
-      // Case 4: we want to delete an element that is not a subelement of query.where
+      // Case 4: if the element we want to delete/update is not a subelement of
+      //         query.where, then first see if there's a match inside the Info element,
+      //         then delete **all** elements in the Info element matching query.delete/
+      //         query.set
       else {
         let matched = false;
 
-        // First, see if there's a match inside the Info element
         for (const elementToMatch of infoElement.querySelectorAll(
           query.where
         )) {
@@ -750,132 +767,13 @@ export class ModPatcher {
           }
         }
 
-        // If there's a match, delete elements matching query.delete
-        if (matched || !query.in) {
+        if (matched) {
           for (const elementToRemove of infoElement.querySelectorAll(
-            query.delete
+            deleteOrSetQuery
           )) {
             updated = true;
-            elementToRemove.parentElement?.removeChild(elementToRemove);
+            deleteOrSetElement(elementToRemove);
           }
-        }
-      }
-
-      if (updated) {
-        const infoItemType =
-          infoElement.getElementsByTagName('Type')[0].textContent;
-        if (infoItemType) {
-          updatedInfoItems.push(infoItemType);
-          console.log(
-            `Updated ${ModPatcher.formatInfoTag(
-              infoItemTag
-            )} ${ModPatcher.formatElementType(infoItemType)}`
-          );
-        } else {
-          throw new Error(
-            `Element ${ModPatcher.formatInfoTag(infoItemTag)} has no 'Type': ${
-              infoElement.outerHTML
-            }`
-          );
-        }
-      }
-    }
-
-    await fs.writeFile(
-      modFileFullPath,
-      doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
-    );
-
-    return updatedInfoItems;
-  };
-
-  /**
-   * Update matching Info elements with the given values from a Civ 4 Info XML configuration
-   * file to a new value
-   *
-   * @param assetPath The partial path of the file to modify, starting with "Assets/"
-   * @param query.set CSS selectors to the XML elements to update. **NOTE** that the first
-   *                  part of the selectors should contain the info element tag (e.g.
-   *                  "CivilizationInfo").
-   * @param query.to New value
-   * @param query.where CSS selectors to the XML elements to match. If undefined, will
-   *                       update all Info items with elements matching query.set.
-   *                       NOTE: If this is the same as query.set, only elements
-   *                       that match query.in will be updated.
-   * @param query.in Values to match on. If undefined, will update all elements
-   *                    matching query.set.
-   * @returns List of the Type values of the updated items
-   */
-  // Ugh, this feels super convoluted ... Maybe we should've picked a better XML library?
-  private updateInfoItems = async (
-    assetPath: string,
-    query: {
-      set: string;
-      to: string;
-      where?: string;
-      in?: string[];
-    }
-  ): Promise<string[]> => {
-    if (!assetPath.startsWith('Assets/')) {
-      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
-    }
-
-    if ((query.where && !query.in) || (!query.where && query.in)) {
-      throw new Error(
-        'query.where and query.in must both be defined if either is defined'
-      );
-    }
-
-    // Get the tag of the info items to go through from query.set
-    const infoItemTag = query.set.split(' ')[0];
-    if (!infoItemTag.endsWith('Info')) {
-      throw new Error(
-        `query.set does not start with a tag that ends with "Info": ${query.set}`
-      );
-    }
-
-    const modFileFullPath = await this.prepModFile(assetPath);
-    const doc = new DOMParser().parseFromString(
-      (await fs.readFile(modFileFullPath)).toString(),
-      'text/xml'
-    );
-
-    const updatedInfoItems = [] as string[];
-
-    // Go through all the info elements
-    for (const infoElement of doc.querySelectorAll(infoItemTag)) {
-      //
-      let matched = false;
-      // Track whether the info element has been updated, since it may receive multiple updates
-      let updated = false;
-
-      // If we have a value to match, see if the item has matching elements
-      if (query.where && query.in) {
-        for (const elementToMatch of infoElement.querySelectorAll(
-          query.where
-        )) {
-          if (query.in.includes(elementToMatch.textContent || '')) {
-            // If we're updating the same element we're matching on, then go ahead and
-            // update the element as well, but only if there's a match
-            if (query.where === query.set) {
-              updated = true;
-              elementToMatch.textContent = query.to;
-            }
-            // Otherwise, we'll iterate over the element to update and update it later
-            else {
-              matched = true;
-              break;
-            }
-          }
-        }
-      }
-
-      // If the Info Item matches (or there's nothing to match on), go through all
-      // elements in query.set and update them to the new value
-      if (matched || !query.in) {
-        for (const elementToUpdate of infoElement.querySelectorAll(query.set)) {
-          updated = true;
-          elementToUpdate.textContent = query.to;
         }
       }
 
