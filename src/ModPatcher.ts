@@ -654,8 +654,10 @@ export class ModPatcher {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    if (query.in && !query.where) {
-      throw new Error('query.where must be defined if query.in is defined');
+    if ((query.where && !query.in) || (!query.where && query.in)) {
+      throw new Error(
+        'query.where and query.in must both be defined if either is defined'
+      );
     }
 
     // Get the tag of the info items to go through from query.delete
@@ -676,70 +678,86 @@ export class ModPatcher {
 
     // Go through all the info elements
     for (const infoElement of doc.querySelectorAll(infoItemTag)) {
-      //
-      let matched = false;
       // Track whether the info element has been updated, since it may receive multiple updates
       let updated = false;
 
-      if (query.where && query.in) {
-        // If what we're matching on is within what we're removing, only remove elements
-        // containing a match
-        if (query.where.startsWith(query.delete)) {
-          for (const elementToRemove of infoElement.querySelectorAll(
-            query.delete
-          )) {
-            // If we're updating the same element we're matching on, then go ahead and
-            // remove the element as well, but only if there's a match
-            if (query.where === query.delete) {
-              if (
-                elementToRemove.textContent &&
-                query.in.includes(elementToRemove.textContent)
-              ) {
-                updated = true;
-                elementToRemove.parentElement?.removeChild(elementToRemove);
-              }
-            } else {
-              for (const elementToMatch of elementToRemove.querySelectorAll(
-                // Strip out the part of query.where containing query.delete so we
-                // can iterate over elements within query.delete
-                query.where.replace(query.delete, '')
-              )) {
-                if (
-                  elementToMatch.textContent &&
-                  query.in.includes(elementToMatch.textContent)
-                ) {
-                  updated = true;
-                  elementToRemove.parentElement?.removeChild(elementToRemove);
-                }
-              }
-            }
-          }
-        }
-        // Otherwise, iterate over just the element to match and remove it later if it
-        // matches
-        else {
-          for (const elementToMatch of infoElement.querySelectorAll(
-            query.where
-          )) {
-            if (
-              elementToMatch.textContent &&
-              query.in.includes(elementToMatch.textContent)
-            ) {
-              matched = true;
-              break;
-            }
-          }
-        }
-      }
-
-      // If the Info Item matches (or there's nothing to match on), go through all
-      // elements in query.delete and remove them
-      if (matched || !query.in) {
+      // Case 1: nothing to match on, so just delete every element in query.delete
+      if (!query.where || !query.in) {
         for (const elementToRemove of infoElement.querySelectorAll(
           query.delete
         )) {
           updated = true;
           elementToRemove.parentElement?.removeChild(elementToRemove);
+        }
+      }
+
+      // Case 2: if we're updating the same element we're matching on, then go ahead and
+      //         remove the element as well, but only if there's a match
+      else if (query.where && query.in && query.where === query.delete) {
+        for (const elementToRemove of infoElement.querySelectorAll(
+          query.delete
+        )) {
+          if (
+            elementToRemove.textContent &&
+            query.in.includes(elementToRemove.textContent)
+          ) {
+            updated = true;
+            elementToRemove.parentElement?.removeChild(elementToRemove);
+          }
+        }
+      }
+
+      // Case 3: if what we're matching on is within what we're removing, only remove
+      //         elements containing a match
+      else if (
+        query.where &&
+        query.in &&
+        query.where.startsWith(query.delete)
+      ) {
+        for (const elementToRemove of infoElement.querySelectorAll(
+          query.delete
+        )) {
+          for (const elementToMatch of elementToRemove.querySelectorAll(
+            // Strip out the part of query.where containing query.delete so we
+            // can iterate over elements within query.delete
+            query.where.replace(query.delete, '')
+          )) {
+            if (
+              elementToMatch.textContent &&
+              query.in.includes(elementToMatch.textContent)
+            ) {
+              updated = true;
+              elementToRemove.parentElement?.removeChild(elementToRemove);
+            }
+          }
+        }
+      }
+
+      // Case 4: we want to delete an element that is not a subelement of query.where
+      else {
+        let matched = false;
+
+        // First, see if there's a match inside the Info element
+        for (const elementToMatch of infoElement.querySelectorAll(
+          query.where
+        )) {
+          if (
+            elementToMatch.textContent &&
+            query.in.includes(elementToMatch.textContent)
+          ) {
+            matched = true;
+            break;
+          }
+        }
+
+        // If there's a match, delete elements matching query.delete
+        if (matched || !query.in) {
+          for (const elementToRemove of infoElement.querySelectorAll(
+            query.delete
+          )) {
+            updated = true;
+            elementToRemove.parentElement?.removeChild(elementToRemove);
+          }
         }
       }
 
