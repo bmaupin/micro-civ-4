@@ -410,10 +410,56 @@ export class ModPatcher {
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
+    // Disable religions
+    const disabledReligions = await this.updateInfoItems(
+      'Assets/XML/GameInfo/CIV4ReligionInfo.xml',
+      {
+        set: 'ReligionInfo TechPrereq',
+        to: TECH_DISABLED,
+      }
+    );
+
+    // NOTE: While disabling the religion should be enough, sometimes (particularly in
+    //       mods, e.g. DuneWars Revival) there may be hard-coded logic that founds a
+    //       particular religion anyway. So below we try to account for that as well
+
+    // Remove free units provided when a religion is founded
     await this.updateInfoItems('Assets/XML/GameInfo/CIV4ReligionInfo.xml', {
-      set: 'ReligionInfo TechPrereq',
-      to: TECH_DISABLED,
+      set: 'ReligionInfo iFreeUnits',
+      to: '0',
     });
+
+    // Remove favourite religions of Civs so they won't be angry if you have a different
+    // religion
+    await this.updateInfoItems(
+      'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
+      {
+        set: 'LeaderHeadInfo FavoriteReligion',
+        to: 'NONE',
+        where: 'LeaderHeadInfo FavoriteReligion',
+        in: disabledReligions,
+      }
+    );
+
+    // Disable religious units
+    await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
+      set: 'UnitInfo PrereqTech',
+      to: TECH_DISABLED,
+      where: 'UnitInfo PrereqReligion',
+      in: disabledReligions,
+    });
+
+    // Disable religious buildings
+    await this.updateInfoItems('Assets/XML/Buildings/CIV4BuildingInfos.xml', {
+      set: 'BuildingInfo PrereqTech',
+      to: TECH_DISABLED,
+      where: 'BuildingInfo ReligionType',
+      in: disabledReligions,
+    });
+
+    // TODO: disable religious units
+    // TODO: disable religious buildings
+    // TODO: disable free religious units from religious buildings
 
     // Disable logic in DuneWars Revival related to hard-coded religions. I tried XML
     // changes first (setting religion modifiers to 0, removing religious buildings, etc)
@@ -446,7 +492,11 @@ export class ModPatcher {
       await fs.writeFile(modFilePath, modFileNewContents);
     }
 
-    await this.removeAdvisorButton('ReligiousAdvisorButton');
+    // DuneWars Revival has complex hard-coded religion logic, so leave the religious
+    // advisor button just in case
+    if (this.modName !== 'Quick DuneWars Revival') {
+      await this.removeAdvisorButton('ReligiousAdvisorButton');
+    }
 
     console.log();
   };
