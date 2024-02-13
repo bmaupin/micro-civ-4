@@ -32,4 +32,6 @@ To add a new mod to this patcher:
 
    1. Once you've narrowed down the instructions causing the issue, check the mod's source code for references to the item in question. Quite often it's caused by an item which has been deleted; see above for more information on some ways to handle this.
 
-1. As desired, play and World Builder map files located in `PrivateMaps/` in the mod (by choosing _Play a Scenario_). You may need to remove any lines in those files (they're text files) containing references to any removed items (e.g. civic options or civics)
+1. As desired, play any custom map scripts located in `PrivateMaps/` in the mod; look for files ending in `.py` and choose one of those when selecting a map. Some map scripts may need to be modified to have smaller map sizes.
+
+1. As desired, play any World Builder map files located in `PrivateMaps/` in the mod (by choosing _Play a Scenario_). You may need to remove any lines in those files (they're text files) containing references to any removed items (e.g. civic options or civics). If you wish for these maps to be made smaller, this will need to be done manually using a tool such as [Civ4 Map Maker](https://forums.civfanatics.com/threads/civ4-map-maker.271351/)
