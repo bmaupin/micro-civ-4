@@ -22,6 +22,13 @@ To add a new mod to this patcher:
 
    1. In some occasions, some of the hard-coded instances may themselves need to be commented out. For example, DuneWars Revival has some code in Assets/Python that founds religions. This code will still found the religion even if it has been set to a disabled tech. See ModPatcher.ts for examples.
 
+      Some things to look for in `.py`, `.cpp`, or `.dll` files:
+
+      - `initUnit` creates a unit
+      - `convert`
+      - `foundReligion`
+      - `setHasReligion`
+
 1. Open Civ 4 again, load the mod, and start another game. All of the errors should be gone.
 
 1. Play through a game, as this may turn up other issues such as errors in the event logs or even game crashes. If this happens:
