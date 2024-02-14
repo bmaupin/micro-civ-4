@@ -72,6 +72,16 @@ export class ModPatcher {
     await this.createDisabledTech();
   };
 
+  /**
+   * Create a disabled technology, used for disabling other items
+   *
+   * While items can be removed from the XML files in the games, references to these items
+   * may be hard-coded in the game logic; this seems to be particularly true for mods. In
+   * these cases, removing the items can cause the game to crash or other errors. Instead,
+   * this tech is used to disable items by taking a cue from the American Revolution mod
+   * included in the original release of Civ 4 in which religions were disabled by setting
+   * their prerequisite technology to a tech which is disabled.
+   */
   private createDisabledTech = async () => {
     let disabledTechEra = 'ERA_ANCIENT';
     // Get an era from the mod in case the mod has modified the eras (e.g. Planetfall)
@@ -397,16 +407,6 @@ export class ModPatcher {
     console.log();
   };
 
-  /**
-   * Disables all religions in the game
-   *
-   * Completely removing the religions is not always possible for some mods (e.g. DuneWars
-   * Revival) because the religions are hard-coded into the game logic, and not all mods
-   * provide full source code. Instead, this method takes a cue from the American Revolution mod included in the original release of Civ 4; all the religions have
-   * their prerequisite technology set to a tech which is disabled. In this case, we've
-   * added a dummy technology that doesn't serve any purpose to avoid potential conflicts
-   * with existing technologies.
-   */
   private disableReligions = async () => {
     console.log('Disabling religions ...');
 
@@ -421,7 +421,8 @@ export class ModPatcher {
 
     // NOTE: While disabling the religion should be enough, sometimes (particularly in
     //       mods, e.g. DuneWars Revival) there may be hard-coded logic that founds a
-    //       particular religion anyway. So below we try to account for that as well
+    //       particular religion or creates a religious unit. The below is a best-effort
+    //       attempt to mitigate this as much as possible, but won't
 
     // Remove free units provided when a religion is founded
     await this.updateInfoItems('Assets/XML/GameInfo/CIV4ReligionInfo.xml', {
@@ -547,41 +548,105 @@ export class ModPatcher {
    * @returns The list of removed civic options
    */
   private removeCivicOptions = async (): Promise<string[]> => {
-    const configurationFile = 'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml';
-    const modFilePath = await this.prepModFile(configurationFile);
+    // Get all civic options and then remove the ones we want to keep
+    const civicOptionsToRemove = (
+      await this.getInfoItemsValues(
+        'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml',
+        {
+          select: 'CivicOptionInfo Type',
+        }
+      )
+    ).filter(
+      (civicOption) =>
+        ![
+          'CIVICOPTION_GOVERNMENT',
+          // DuneWars Revival: This is hard-coded into the code (DuneWars.py) and causes errors if removed
+          'CIVICOPTION_ARRAKIS',
+          // Planetfall
+          'CIVICOPTION_POLITICS',
+        ].includes(civicOption)
+    );
 
+    return await this.removeInfoItems(
+      'Assets/XML/GameInfo/CIV4CivicOptionInfos.xml',
+      {
+        where: 'CivicOptionInfo Type',
+        in: civicOptionsToRemove,
+      }
+    );
+  };
+
+  /**
+   * Get values from Info items
+   *
+   * @param assetPath The partial path of the file to get values from, starting with "Assets/"
+   * @param query.select CSS selectors to the XML elements to get values from
+   * @param query.where CSS selectors to the XML elements to match on. **NOTE** that the
+   *                    first part of the selectors should contain the info element tag
+   *                    (e.g. "CivilizationInfo").
+   * @param query.in Values of the element to match on
+   * @returns List of values
+   */
+  private getInfoItemsValues = async (
+    assetPath: string,
+    query: {
+      select: string;
+      where?: string;
+      in?: string[];
+    }
+  ): Promise<string[]> => {
+    if (!assetPath.startsWith('Assets/')) {
+      throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
+    }
+
+    if ((query.where && !query.in) || (!query.where && query.in)) {
+      throw new Error('query.where and query.in must be used together');
+    }
+
+    // Get the tag of the info items to go through from query.select
+    const infoItemTag = query.select.split(' ')[0];
+    if (!infoItemTag.endsWith('Info')) {
+      throw new Error(
+        `query.select does not start with a tag that ends with "Info": ${query.select}`
+      );
+    }
+
+    const modFileFullPath = await this.prepModFile(assetPath);
     const doc = new DOMParser().parseFromString(
-      (await fs.readFile(modFilePath)).toString(),
+      (await fs.readFile(modFileFullPath)).toString(),
       'text/xml'
     );
 
-    // TODO: In order to use this.removeInfoItems, we're getting all civic options and removing
-    //       the ones we want to keep. If we end up needing to reuse this pattern elsewhere,
-    //       it might be better to modify this.removeInfoItems so that instead of a list of
-    //       values to match it takes a matcher function. This would allow us to remove this
-    //       extra step and do everything in this.removeInfoItems.
-    const civicOptionsToRemove = Array.from(
-      doc.querySelectorAll('CivicOptionInfo')
-    )
-      .map(
-        (civicOption) =>
-          civicOption.getElementsByTagName('Type')[0].textContent ?? ''
-      )
-      .filter(
-        (civicOption) =>
-          ![
-            'CIVICOPTION_GOVERNMENT',
-            // DuneWars Revival: This is hard-coded into the code (DuneWars.py) and causes errors if removed
-            'CIVICOPTION_ARRAKIS',
-            // Planetfall
-            'CIVICOPTION_POLITICS',
-          ].includes(civicOption)
-      );
+    const valuesToReturn = [];
 
-    return await this.removeInfoItems(configurationFile, {
-      where: 'CivicOptionInfo Type',
-      in: civicOptionsToRemove,
-    });
+    // Go through all the info elements
+    for (const infoElement of doc.querySelectorAll(infoItemTag)) {
+      let matched = false;
+
+      if (query.where && query.in) {
+        for (const elementToMatch of infoElement.querySelectorAll(
+          query.where
+        )) {
+          if (
+            elementToMatch.textContent &&
+            query.in.includes(elementToMatch.textContent)
+          ) {
+            matched = true;
+            break;
+          }
+        }
+      }
+
+      if (matched || !query.where) {
+        for (const elementToGet of infoElement.querySelectorAll(query.select)) {
+          if (elementToGet.textContent) {
+            valuesToReturn.push(elementToGet.textContent);
+          }
+        }
+      }
+    }
+
+    return valuesToReturn;
   };
 
   /**
@@ -589,7 +654,7 @@ export class ModPatcher {
    *
    * @param assetPath The partial path of the file to modify, starting with "Assets/"
    * @param query.where CSS selectors to the XML elements to match on, or just the info
-   *                  element if valuesToMatch isn't provided. **NOTE** that the first
+   *                  element if query.in isn't provided. **NOTE** that the first
    *                  part of the selectors should contain the info element tag (e.g.
    *                  "CivilizationInfo").
    * @param query.in Values of the element to match on
@@ -606,7 +671,7 @@ export class ModPatcher {
       throw new Error(`Asset file does not start with "Assets/": ${assetPath}`);
     }
 
-    // Get the tag of the info items to go through from the query.where
+    // Get the tag of the info items to go through from query.where
     const infoItemTag = query.where.split(' ')[0];
     if (!infoItemTag.endsWith('Info')) {
       throw new Error(
