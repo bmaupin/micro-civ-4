@@ -21,14 +21,9 @@ To remove great people (needs to be tested):
 
 #### How to disable a class of great people
 
-This should be safer than removing great people altogether, but trickier. Each city generates a certain number of great person points, and when it reaches a certain threshold a great person is randomly generated (see [here](<https://civilization.fandom.com/wiki/Great_Person_(Civ4)#Great_People_Points>) for more information).
+Each city generates a certain number of great person points, and when it reaches a certain threshold a great person is randomly generated (see [here](<https://civilization.fandom.com/wiki/Great_Person_(Civ4)#Great_People_Points>) for more information).
 
-So I'm not sure if it's possible to disable a specific great person without removing them altogether. However, I think it _should_ be possible to disable a class of great person:
+However, I'm not sure great people can be entirely disabled:
 
-1. Look at `GreatPeopleUnitClass` in `Assets/XML/Units/CIV4SpecialUnitInfos.xml` and identify the class of great person you wish to disable
-1. Edit `Assets/XML/Buildings/CIV4BuildingInfos.xml`
-   1. Where `GreatPeopleUnitClass` is equal to the class of great person you wish to disable (e.g. `UNITCLASS_PROPHET`), set it to `NONE`
-1. Edit `Assets/XML/Technologies/CIV4TechInfos.xml`
-   1. Where `FirstFreeUnitClass` is equal to the class of great person you wish to disable (e.g. `UNITCLASS_PROPHET`), set it to `NONE`
-1. Search `Assets` for any other reference to the great person class
-1. ???
+- It is possible to set `iMaxPlayerInstances` in `CIV4UnitClassInfos.xml` to `0` but this doesn't seem to have any impact on great person generation
+- Setting `GreatPeopleUnitClass` in `CIV4BuildingInfos.xml` to `NONE` should disable generating great person points for that class, **but** generic great person points are also generated, so it's still possible that the great person is still generated.

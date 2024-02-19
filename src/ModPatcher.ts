@@ -443,28 +443,85 @@ export class ModPatcher {
     );
 
     // Disable religious units
+    const disabledUnits = await this.updateInfoItems(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      {
+        set: 'UnitInfo PrereqTech',
+        to: TECH_DISABLED,
+        where: 'UnitInfo PrereqReligion',
+        in: disabledReligions,
+      }
+    );
+
+    // Disable religious buildings
+    const disabledBuildings = await this.updateInfoItems(
+      'Assets/XML/Buildings/CIV4BuildingInfos.xml',
+      {
+        set: 'BuildingInfo PrereqTech',
+        to: TECH_DISABLED,
+        where: 'BuildingInfo ReligionType',
+        in: disabledReligions,
+      }
+    );
+
+    // Disable units able to build buildings we've disabled
     await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
       set: 'UnitInfo PrereqTech',
       to: TECH_DISABLED,
-      where: 'UnitInfo PrereqReligion',
-      in: disabledReligions,
+      where: 'UnitInfo Buildings Building BuildingType',
+      in: disabledBuildings,
     });
 
-    // Disable religious buildings
+    // Don't allow units to build buildings we've disabled
+    await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
+      delete: 'UnitInfo Buildings Building',
+      where: 'UnitInfo Buildings Building BuildingType',
+      in: disabledBuildings,
+    });
+
+    // Get classes from units we've disabled
+    const unitClassesToDisable = await this.getInfoItemsValues(
+      'Assets/XML/Units/CIV4UnitInfos.xml',
+      {
+        select: 'UnitInfo Class',
+        where: 'UnitInfo Type',
+        in: disabledUnits,
+      }
+    );
+
+    // Don't generate great person points for the unit classes we've disabled
+    // NOTE: Great prophets will still be generated from generic great person points.
+    //       They're mostly harmless since their buildings have been disabled. But this
+    //       should at least reduce their occurrence in the game.
     await this.updateInfoItems('Assets/XML/Buildings/CIV4BuildingInfos.xml', {
-      set: 'BuildingInfo PrereqTech',
-      to: TECH_DISABLED,
-      where: 'BuildingInfo ReligionType',
-      in: disabledReligions,
+      set: 'BuildingInfo GreatPeopleUnitClass',
+      to: 'NONE',
+      where: 'BuildingInfo GreatPeopleUnitClass',
+      in: ['UNITCLASS_PROPHET', ...unitClassesToDisable],
     });
 
-    // TODO: disable religious units
-    // TODO: disable religious buildings
-    // TODO: disable free religious units from religious buildings
+    // Don't give free unit from techs for the unit classes we've disabled
+    await this.updateInfoItems('Assets/XML/Technologies/CIV4TechInfos.xml', {
+      set: 'TechInfo FirstFreeUnitClass',
+      to: 'NONE',
+      where: 'TechInfo FirstFreeUnitClass',
+      in: ['UNITCLASS_PROPHET', ...unitClassesToDisable],
+    });
 
-    // Disable logic in DuneWars Revival related to hard-coded religions. I tried XML
-    // changes first (setting religion modifiers to 0, removing religious buildings, etc)
-    // but it wasn't enough.
+    // Don't allow players to create units of the classes we've disabled; it's not
+    // certain whether this has any effect given the units have already been disabled and
+    // great people generation seems to ignore this (and again, hard-coded unit creation
+    // in game logic)
+    await this.updateInfoItems('Assets/XML/Units/CIV4UnitClassInfos.xml', {
+      set: 'UnitClassInfo iMaxPlayerInstances',
+      to: '0',
+      where: 'UnitClassInfo Type',
+      in: ['UNITCLASS_PROPHET', ...unitClassesToDisable],
+    });
+
+    // Disable logic in DuneWars Revival related to hard-coded religions
+    // NOTE: There is still some hard-coded logic in the DLL, for example,
+    //       "Give Fremen free Sayyadina at Fanaticism"
     if (this.modName === 'Quick DuneWars Revival') {
       const modFilePath = await this.prepModFile('Assets/Python/DuneWars.py');
       const modFileContents = await fs.readFile(modFilePath);

@@ -1,10 +1,3 @@
-<?xml version="1.0"?>
-<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Soren Johnson (Firaxis Games) -->
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Jon Shafer (Firaxis Games) -->
-<!-- Sid Meier's Civilization 4 -->
-<!-- Copyright Firaxis Games 2005 -->
-<!-- -->
-<!-- Tech Infos -->
 <Civ4TechInfos xmlns="x-schema:CIV4TechnologiesSchema.xml">
 	<TechInfos>
 		<TechInfo>
@@ -6728,9 +6721,9 @@
 		<TechInfo>
 			<Type>TECH_DISABLED</Type>
 			<Description>(Disabled)</Description>
-			<Civilopedia></Civilopedia>
+			<Civilopedia/>
 			<Help/>
-			<Strategy></Strategy>
+			<Strategy/>
 			<Advisor>ADVISOR_MILITARY</Advisor>
 			<iAIWeight>0</iAIWeight>
 			<iAITradeModifier>0</iAITradeModifier>
@@ -6777,9 +6770,9 @@
 			</OrPreReqs>
 			<AndPreReqs>
 			</AndPreReqs>
-			<Quote></Quote>
-			<Sound></Sound>
-			<SoundMP></SoundMP>
+			<Quote/>
+			<Sound/>
+			<SoundMP/>
 			<Button>,Art/Interface/Buttons/TechTree/Mysticism.dds,Art/Interface/Buttons/TechTree_Atlas.dds,4,11</Button>
 		</TechInfo>
 	</TechInfos>

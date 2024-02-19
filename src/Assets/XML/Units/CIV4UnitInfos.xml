@@ -20606,34 +20606,13 @@
 				</GreatPeople>
 			</GreatPeoples>
 			<Buildings>
-				<Building>
-					<BuildingType>BUILDING_JEWISH_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
-				<Building>
-					<BuildingType>BUILDING_CHRISTIAN_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
-				<Building>
-					<BuildingType>BUILDING_ISLAMIC_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
-				<Building>
-					<BuildingType>BUILDING_HINDU_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
-				<Building>
-					<BuildingType>BUILDING_BUDDHIST_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
-				<Building>
-					<BuildingType>BUILDING_CONFUCIAN_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
-				<Building>
-					<BuildingType>BUILDING_TAOIST_SHRINE</BuildingType>
-					<bBuilding>1</bBuilding>
-				</Building>
+				
+				
+				
+				
+				
+				
+				
 			</Buildings>
 			<ForceBuildings/>
 			<HolyCity>NONE</HolyCity>
@@ -20642,7 +20621,7 @@
 			<PrereqReligion>NONE</PrereqReligion>
 			<PrereqCorporation>NONE</PrereqCorporation>
 			<PrereqBuilding>NONE</PrereqBuilding>
-			<PrereqTech>NONE</PrereqTech>
+			<PrereqTech>TECH_DISABLED</PrereqTech>
 			<TechTypes/>
 			<BonusType>NONE</BonusType>
 			<PrereqBonuses/>
