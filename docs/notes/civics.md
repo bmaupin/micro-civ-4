@@ -1,8 +1,18 @@
 # Civics
 
-#### Simplify civics?
+## Motivation
 
-In previous versions of Civilization, including Civ Rev, civics were limited to government types. Would it be possible to remove other civic types in Civ 4?
+Previous versions of Civilization, including Civ Rev, were limited to government types. Civ 4 added five categories of civics with five civics each.
+
+This adds friction when trying to play quickly; there's a popup every time a new civic is discovered with a suggestion to change to that civic.
+
+Beyond that, it can be annoying because other civilisations may not like the civics of your civilisation and may pester you to change your civics or even go to war over them.
+
+Even Soren Johnson, the creator of Civ 4, expresses some frustration about this: [Three Moves Ahead Episode 134: The Alpha Centauri Show](https://www.idlethumbs.net/3ma/episodes/the-alpha-centauri-show) (starts around 42:00)
+
+## Simplify civics?
+
+Would it be possible to remove non-governmental civics from Civ 4 to make it more like previous versions of Civilization, that only had government types?
 
 #### ~~Alternate idea: remove favourite civics of each civ~~
 
