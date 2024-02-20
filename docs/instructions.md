@@ -8,9 +8,11 @@ Civilization IV Beyond the Sword. See [below](#installing-beyond-the-sword-in-pr
 
 #### Install the mod from the zip file
 
+ⓘ This installs a mod allowing Beyond the Sword (without other mods) to be played more quickly.
+
 1. Go to [Releases](https://github.com/bmaupin/quick-civ-4/releases) and download _QuickCiv4.zip_
 
-1. Extract the zip file and move it to your Beyond the Sword folder, e.g. for Proton:
+1. Extract the zip file and move it to your `Beyond the Sword/Mods` directory, e.g. for Proton:
 
    ```
    unzip QuickCiv4.zip
@@ -28,6 +30,8 @@ Civilization IV Beyond the Sword. See [below](#installing-beyond-the-sword-in-pr
 1. Launch Beyond the Sword and go to _Advanced_ > _Load a Mod_ and load _Quick Civ 4_
 
 #### Run the mod patcher
+
+ⓘ This will apply the changes in this mod to another mod, allowing it to be played more quickly.
 
 Requirements: Node.js 20+
 
@@ -47,7 +51,17 @@ Requirements: Node.js 20+
 
    - For tips on installing specific mods, see [install-mods.md](install-mods.md)
 
+1. Launch Beyond the Sword and go to _Advanced_ > _Load a Mod_
+
+1. A new mod will be created from the name of the old mod with the prefix "Quick," for example, _Quick DuneWars Revival_
+
 1. If you encounter errors with a particular mod, see [add-new-mod.md](add-new-mod.md)
+
+#### Uninstall this mod
+
+1. Navigate to the `Beyond the Sword/Mods` directory (e.g. `~/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword/Beyond the Sword/Mods/`)
+
+1. Delete the directory of the mod you wish to uninstall, e.g. `Quick Civ 4` or `Quick DuneWars Revival`
 
 #### Installing Beyond the Sword in Proton
 
@@ -74,6 +88,7 @@ Requirements: Node.js 20+
 - Read this guide first: [Useful shortcuts and features to improve gameplay speed](https://steamcommunity.com/sharedfiles/filedetails/?id=2313060416)
 - While in game, in many places in the UI you can right-click on text to go directly to the Civilopedia entry for that item (e.g. units, technologies, buildings, etc)
   - This is especially helpful since some screens can't be dismissed without making a choice, like when it's time to choose a new technology to research or a new unit or building for a city's building queue
+- When you see an event, you can expand the event log on the left and click on the event to go right to the location related to that event (the unit, city, etc.)
 
 #### General options
 
@@ -101,7 +116,16 @@ These options only apply to one specific game and can only be set before the gam
 
 1. At the main screen, instead of clicking _Play Now!_, click _Custom Game_ and set these options as desired
 
+   1. Set the map _Size_
+      - This has the biggest impact on game length; a smaller map will mean a much quicker game
    1. Set _Speed_ to _Quick_
+   1. Under _Options_, check these (these should all be set by default by this mod, but may get overwritten):
+      - _No City Razing_
+        - This speeds up the game because without it, razed cities would need to be rebuilt
+      - _No City Flipping From Culture_
+        - This gives you one less thing to worry about
+      - _No Vassal States_
+        - Vassal states can be annoying because they can lock you into a war with multiple civilizations
    1. Under _Victories_, turn off any victory conditions you don't want to worry about
    1. Don't forget to set the difficulty
 

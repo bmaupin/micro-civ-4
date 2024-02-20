@@ -45,3 +45,11 @@ First, where possible, the game options are relied upon; for example, instead of
 One of the biggest factors in game speed is map size, and so this was the first major change as part of this mod.
 
 Beyond that, I considered other systems that break the flow of the game when trying to play quickly and tried first to simplify them, and then if that wasn't possible I removed them.
+
+#### Wishlist
+
+- [ ] Shrink and update mod World Builder maps (e.g. Middle Earth map, ...)
+- [ ] Disable buildings and units added in Warlords and Beyond the Sword
+- [ ] Mod victory conditions to adjust for smaller map sizes and removed/disabled systems
+- [ ] Test and update other mod map scripts
+- [ ] Remove disabled items from Civilopedia
