@@ -1,5 +1,7 @@
 # Quick Civ 4
 
+💡 [See my other Civ projects here](https://github.com/search?q=user%3Abmaupin+topic%3Acivilization&type=Repositories)
+
 #### What is this?
 
 A mod to make Civilization IV Beyond the Sword games drastically shorter, as well as a patcher tool to apply these same changes to other Civ 4 mods.
@@ -14,6 +16,7 @@ This whole thing is one big experiment, and modding and removing major systems i
 
 Beyond that, there are some known issues that haven't yet been dealt with:
 
+- [The maps are all currently square](https://github.com/bmaupin/quick-civ-4/issues/1). They seem to play fine but this was an oversight.
 - Only some custom maps will be smaller, others will need to be adjusted
 - Victory conditions haven't been adjusted and so they may yield unexpected results
 - Some mods have systems hard-coded and so despite their removal they may still show up in certain circumstances (e.g. religion in DuneWars Revival)
