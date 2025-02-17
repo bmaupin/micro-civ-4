@@ -10,13 +10,13 @@ Civilization IV Beyond the Sword. See [below](#installing-beyond-the-sword-in-pr
 
 ⓘ This installs a mod allowing Beyond the Sword (without other mods) to be played more quickly.
 
-1. Go to [Releases](https://github.com/bmaupin/quick-civ-4/releases) and download _QuickCiv4.zip_
+1. Go to [Releases](https://github.com/bmaupin/micro-civ-4/releases) and download _MicroCiv4.zip_
 
 1. Extract the zip file and move it to your `Beyond the Sword/Mods` directory, e.g. for Proton:
 
    ```
-   unzip QuickCiv4.zip
-   mv Quick\ Civ\ 4 ~/.steam/steam/steamapps/common/Sid\ Meier\'s\ Civilization\ IV\ Beyond\ the\ Sword/Beyond\ the\ Sword/Mods/
+   unzip MicroCiv4.zip
+   mv Micro\ Civ\ 4 ~/.steam/steam/steamapps/common/Sid\ Meier\'s\ Civilization\ IV\ Beyond\ the\ Sword/Beyond\ the\ Sword/Mods/
    ```
 
 1. (Optional) Change the Steam launch options to automatically load the mod
@@ -24,10 +24,10 @@ Civilization IV Beyond the Sword. See [below](#installing-beyond-the-sword-in-pr
    e.g. for Proton, right-click the game in the Steam client > _Properties_ and set _Launch Options_ to
 
    ```
-   %command% "mod=\\Quick Civ 4"
+   %command% "mod=\\Micro Civ 4"
    ```
 
-1. Launch Beyond the Sword and go to _Advanced_ > _Load a Mod_ and load _Quick Civ 4_
+1. Launch Beyond the Sword and go to _Advanced_ > _Load a Mod_ and load _Micro Civ 4_
 
 #### Run the mod patcher
 
@@ -53,7 +53,7 @@ Requirements: Node.js 20+
 
 1. Launch Beyond the Sword and go to _Advanced_ > _Load a Mod_
 
-1. A new mod will be created from the name of the old mod with the prefix "Quick," for example, _Quick DuneWars Revival_
+1. A new mod will be created from the name of the old mod with the prefix "Micro," for example, _Micro DuneWars Revival_
 
 1. If you encounter errors with a particular mod, see [add-new-mod.md](add-new-mod.md)
 
@@ -61,7 +61,7 @@ Requirements: Node.js 20+
 
 1. Navigate to the `Beyond the Sword/Mods` directory (e.g. `~/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword/Beyond the Sword/Mods/`)
 
-1. Delete the directory of the mod you wish to uninstall, e.g. `Quick Civ 4` or `Quick DuneWars Revival`
+1. Delete the directory of the mod you wish to uninstall, e.g. `Micro Civ 4` or `Micro DuneWars Revival`
 
 #### Installing Beyond the Sword in Proton
 

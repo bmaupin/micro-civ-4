@@ -1,6 +1,6 @@
-# Quick Civ 4
+# Micro Civ 4
 
-💡 [See my other Civ projects here](https://github.com/search?q=user%3Abmaupin+topic%3Acivilization&type=Repositories)
+📌 [See my other Civ projects here](https://github.com/search?q=user%3Abmaupin+topic%3Acivilization&type=Repositories)
 
 #### What is this?
 

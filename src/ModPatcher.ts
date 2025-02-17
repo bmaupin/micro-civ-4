@@ -11,7 +11,7 @@ export const defaultGamePath = path.join(
   process.env.HOME ?? '',
   "/.steam/steam/steamapps/common/Sid Meier's Civilization IV Beyond the Sword"
 );
-const modPrefix = 'Quick';
+const modPrefix = 'Micro';
 const defaultModName = `${modPrefix} Civ 4`;
 const modsDirectory = 'Mods';
 
@@ -209,7 +209,7 @@ export class ModPatcher {
       doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
     );
 
-    if (this.modName === 'Quick DuneWars Revival') {
+    if (this.modName === `${modPrefix} DuneWars Revival`) {
       const arrakisFullPath = await this.prepModFile('PrivateMaps/Arrakis.py');
       const arrakisFileContents = await fs.readFile(arrakisFullPath);
 
@@ -346,7 +346,7 @@ export class ModPatcher {
       in: removedCivics,
     });
 
-    if (this.modName === 'Quick DuneWars Revival') {
+    if (this.modName === `${modPrefix} DuneWars Revival`) {
       await this.updateInfoItems(
         'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
         {
@@ -522,7 +522,7 @@ export class ModPatcher {
     // Disable logic in DuneWars Revival related to hard-coded religions
     // NOTE: There is still some hard-coded logic in the DLL, for example,
     //       "Give Fremen free Sayyadina at Fanaticism"
-    if (this.modName === 'Quick DuneWars Revival') {
+    if (this.modName === `${modPrefix} DuneWars Revival`) {
       const modFilePath = await this.prepModFile('Assets/Python/DuneWars.py');
       const modFileContents = await fs.readFile(modFilePath);
 
@@ -537,7 +537,7 @@ export class ModPatcher {
     }
 
     // "Mars, Now!" also has hard-coded religion logic
-    if (this.modName === 'Quick marsjetzt-v04') {
+    if (this.modName === `${modPrefix} marsjetzt-v04`) {
       const modFilePath = await this.prepModFile(
         'Assets/Python/CvEventManager.py'
       );
@@ -552,7 +552,7 @@ export class ModPatcher {
 
     // DuneWars Revival has complex hard-coded religion logic, so leave the religious
     // advisor button just in case
-    if (this.modName !== 'Quick DuneWars Revival') {
+    if (this.modName !== `${modPrefix} DuneWars Revival`) {
       await this.removeAdvisorButton('ReligiousAdvisorButton');
     }
 

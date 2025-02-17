@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mod_name="Quick Civ 4"
+mod_name="Micro Civ 4"
 
 mkdir "${mod_name}"
 cp -av src/Assets "${mod_name}"
