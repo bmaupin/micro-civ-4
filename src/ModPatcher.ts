@@ -346,22 +346,22 @@ export class ModPatcher {
       in: removedCivics,
     });
 
-    if (this.modName === `${modPrefix} DuneWars Revival`) {
-      await this.updateInfoItems(
-        'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
-        {
-          set: 'LeaderHeadInfo HatedCivic',
-          to: 'NONE',
-          where: 'LeaderHeadInfo HatedCivic',
-          in: removedCivics,
-        }
-      );
-
-      await this.removeInfoItems('Assets/XML/Units/CIV4PromotionInfos.xml', {
-        where: 'PromotionInfo PrereqCivics PrereqCivicX',
+    // DuneWars Revival, Planetfall
+    await this.updateInfoItems(
+      'Assets/XML/Civilizations/CIV4LeaderHeadInfos.xml',
+      {
+        set: 'LeaderHeadInfo HatedCivic',
+        to: 'NONE',
+        where: 'LeaderHeadInfo HatedCivic',
         in: removedCivics,
-      });
-    }
+      }
+    );
+
+    // DuneWars Revival
+    await this.removeInfoItems('Assets/XML/Units/CIV4PromotionInfos.xml', {
+      where: 'PromotionInfo PrereqCivics PrereqCivicX',
+      in: removedCivics,
+    });
 
     // TODO: For any *.CivBeyondSwordWBSave files in PrivateMaps/ in the mod, remove any
     //       lines containing removed civic options and removed civics? This is low
