@@ -47,7 +47,7 @@
    1. Download the main file
    1. Download the latest patch
    1. (Optional) download the audio files
-   1. (Optional) download the movies **from the link in the last comment in the thread**
+   1. (Optional) download the movies
 1. In Proton, enable showing dotfiles
    1. `protontricks 8800 winecfg`
    2. _Drives_ > check _Show dot files_ > _OK_
@@ -75,6 +75,35 @@
    ```
    STEAM_COMPAT_DATA_PATH="/home/$USER/.local/share/Steam/steamapps/compatdata/8800" STEAM_COMPAT_CLIENT_INSTALL_PATH="/home/$USER/.local/share/Steam" "$HOME/.local/share/Steam/steamapps/common/Proton 9.0 (Beta)"/proton waitforexitandrun Planetfall_v16f_Patch.exe
    ```
+
+1. (Optional) Install audio files
+
+   1. Extract the package, e.g.
+
+      ```
+      unzip SMAC_sounds.zip
+      ```
+
+   1. Copy or move the files into place, e.g.
+
+      ```
+      mv fx/* ~/.steam/steam/steamapps/common/Sid\ Meier\'s\ Civilization\ IV\ Beyond\ the\ Sword/Beyond\ the\ Sword/Mods/Planetfall\ v16/Assets/Sounds/fx/
+      mv voices/* ~/.steam/steam/steamapps/common/Sid\ Meier\'s\ Civilization\ IV\ Beyond\ the\ Sword/Beyond\ the\ Sword/Mods/Planetfall\ v16/Assets/Sounds/voices/
+      ```
+
+1. (Optional) Install movies
+
+   1. Extract the package, e.g.
+
+      ```
+      unrar x SMACX_BIK.rar
+      ```
+
+   1. Copy or move the files into place, e.g.
+
+      ```
+      mv SMACX_BIK/* ~/.steam/steam/steamapps/common/Sid\ Meier\'s\ Civilization\ IV\ Beyond\ the\ Sword/Beyond\ the\ Sword/Mods/Planetfall\ v16/Assets/Art/Movies/
+      ```
 
 1. (Optional) To launch Planetfall directly when starting Civ IV, right-click the game in the Steam client > _Properties_ and set _Launch Options_ to
 
