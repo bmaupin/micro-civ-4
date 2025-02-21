@@ -16,7 +16,6 @@ This whole thing is one big experiment, and modding and removing major systems i
 
 Beyond that, there are some known issues that haven't yet been dealt with:
 
-- [The maps are all currently square](https://github.com/bmaupin/quick-civ-4/issues/1). They seem to play fine but this was an oversight.
 - Only some custom maps will be smaller, others will need to be adjusted
 - Victory conditions haven't been adjusted and so they may yield unexpected results
 - Some mods have systems hard-coded and so despite their removal they may still show up in certain circumstances (e.g. religion in DuneWars Revival)
@@ -30,7 +29,7 @@ The following mods have been tested to various degrees:
 
 #### Changes
 
-- Smaller maps: this change alone drastically reduces the length of the game
+- Very small maps (hence the name): this change alone has the biggest impact on the length of the game
 - Religions disabled: one less system to worry about, not to mention religions in Civ 4 are all nearly identical
 - Corporations removed: one less system to worry about, one that doesn't seem particularly engaging
 - Non-governmental civics removed: this brings Civ 4 more in line with earlier Civ games which had different types of government but not multiple categories of civics to worry about

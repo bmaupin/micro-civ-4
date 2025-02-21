@@ -183,6 +183,11 @@ export class ModPatcher {
       'text/xml'
     );
 
+    // NOTE: This creates square maps. At first this was unintentional as I was testing
+    //       with the Dune Wars Arrakis map, which is square. But it seems to play fine,
+    //       and I think now I prefer it since I like to play with the camera view at a 45
+    //       degree angle which gives it an isometric feel. The default angle makes
+    //       everything look too square.
     let newGridHeight = 3;
     let newGridWidth = 3;
 
