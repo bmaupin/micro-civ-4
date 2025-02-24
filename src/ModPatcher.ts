@@ -54,6 +54,7 @@ export class ModPatcher {
     await this.removeCorporations();
     await this.disableReligions();
     await this.modEspionage();
+    await this.modUnits();
   };
 
   private prepMod = async () => {
@@ -665,6 +666,28 @@ export class ModPatcher {
       where: 'UnitInfo Flavors Flavor FlavorType',
       in: ['FLAVOR_ESPIONAGE'],
     });
+
+    console.log();
+  };
+
+  private modUnits = async () => {
+    console.log('Disabling units ...');
+
+    if (this.modName === `${modPrefix} Planetfall v16`) {
+      // Disable sea colony pod
+      await this.updateInfoItems('Assets/XML/Units/CIV4UnitInfos.xml', {
+        set: 'UnitInfo PrereqTech',
+        to: TECH_DISABLED,
+        where: 'UnitInfo Type',
+        in: ['UNIT_SEA_COLONY_POD'],
+      });
+      await this.updateInfoItems('Assets/XML/Technologies/CIV4TechInfos.xml', {
+        set: 'TechInfo FirstFreeUnitClass',
+        to: 'NONE',
+        where: 'TechInfo FirstFreeUnitClass',
+        in: ['UNITCLASS_SEA_COLONY_POD'],
+      });
+    }
 
     console.log();
   };
