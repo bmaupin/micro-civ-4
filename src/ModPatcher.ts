@@ -47,6 +47,7 @@ export class ModPatcher {
 
   applyModPatches = async () => {
     await this.prepMod();
+    await this.modGlobalDefines();
     await this.modMapSizes();
     await this.modGameOptions();
     await this.modCivics();
@@ -170,6 +171,68 @@ export class ModPatcher {
     );
 
     await fs.writeFile(techInfosPath, techInfosNewContents);
+  };
+
+  private modGlobalDefines = async () => {
+    console.log('Modding global defines ...');
+
+    const globalDefinesAltFile = 'Assets/XML/GlobalDefinesAlt.xml';
+    const modFilePath = await this.prepModFile(globalDefinesAltFile);
+
+    const doc = new DOMParser().parseFromString(
+      (await fs.readFile(modFilePath)).toString(),
+      'text/xml'
+    );
+
+    // Set CAMERA_MAX_YAW to 135, which, when added with the default CAMERA_MIN_YAW
+    // (-45.0) will set the default camera to 45 degrees for an isometric-like view
+    const defines = doc.getElementsByTagName('Define');
+    let foundCameraMaxYaw = false;
+
+    for (let i = 0; i < defines.length; i++) {
+      const define = defines[i];
+      const defineName = define.getElementsByTagName('DefineName')[0];
+
+      if (defineName && defineName.textContent === 'CAMERA_MAX_YAW') {
+        const defineValue = define.getElementsByTagName('fDefineFloatVal')[0];
+        if (defineValue) {
+          defineValue.textContent = '135.0';
+        }
+        foundCameraMaxYaw = true;
+        break;
+      }
+    }
+
+    if (!foundCameraMaxYaw) {
+      // Defining the namespace prevents 'xmlns=""' from being added to the elements
+      const newDefine = doc.createElementNS(
+        'x-schema:CIV4GlobalDefinesSchema.xml',
+        'Define'
+      );
+      // const newDefineName = doc.createElement('DefineName');
+      const newDefineName = doc.createElementNS(
+        'x-schema:CIV4GlobalDefinesSchema.xml',
+        'DefineName'
+      );
+      newDefineName.textContent = 'CAMERA_MAX_YAW';
+      // const newDefineValue = doc.createElement('fDefineFloatVal');
+      const newDefineValue = doc.createElementNS(
+        'x-schema:CIV4GlobalDefinesSchema.xml',
+        'fDefineFloatVal'
+      );
+      newDefineValue.textContent = '135.0';
+      newDefine.appendChild(newDefineName);
+      newDefine.appendChild(newDefineValue);
+
+      doc.documentElement.appendChild(newDefine);
+    }
+
+    await fs.writeFile(
+      modFilePath,
+      doc.documentElement.outerHTML.replaceAll('\n', '\r\n')
+    );
+
+    console.log();
   };
 
   private modMapSizes = async () => {
