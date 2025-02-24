@@ -251,6 +251,8 @@ export class ModPatcher {
     //       and I think now I prefer it since I like to play with the camera view at a 45
     //       degree angle which gives it an isometric feel. The default angle makes
     //       everything look too square.
+    //       I also tested smaller maps but initial testing seemed to show that this was
+    //       the smallest possible while allowing enough room for all players.
     let newGridHeight = 3;
     let newGridWidth = 3;
 
